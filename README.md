@@ -30,6 +30,6 @@ Items of interest
 
   constructor  internal TypeInfoWrapper(ComTypes.ITypeInfo rawTypeInfo)
 
-- 
+- [A dumb container of ITypeInfos.](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.VBEEditor/ComManagement/TypeLibs/Utility/SimpleCustomTypeLibrary.cs)
 
 
