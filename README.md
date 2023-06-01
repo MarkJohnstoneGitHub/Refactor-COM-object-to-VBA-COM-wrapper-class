@@ -13,10 +13,23 @@ From the type library info for the required class obtain the class template to e
 - Preferrable utilize [RubberDuck](https://github.com/rubberduck-vba/Rubberduck) COM typelib wrappers
 - Alternative using [twinBasic](https://github.com/twinbasic/twinbasic) addin for VBA could parse a reference pseudocode (From my understanding is based on the RD COM typelib wrappers and handlers). See [latest twinBasic IDE and you can see pseudocode](https://github.com/rubberduck-vba/Rubberduck/discussions/6111#discussioncomment-6041980)
 
-Issues
+**Issues:**
 If issues with the TLI reference in [COM Refactoring.accdb](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/COM%20Refactoring.accdb) see [tlbinf32.dll in a 64bits .Net application](https://stackoverflow.com/questions/42569377/tlbinf32-dll-in-a-64bits-net-application/42581513#42581513).
 
 
-Development
+**Development:**
 
 Currrently investigation stage brainstorming ideas.
+
+**Utilize [RubberDuck ComManagement](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement))**
+Items of interest
+
+- [TypeLibs](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement/TypeLibs)
+
+- [TypeLibWrapper.cs](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.VBEEditor/ComManagement/TypeLibs/TypeLibWrapper.cs)
+
+  constructor  internal TypeInfoWrapper(ComTypes.ITypeInfo rawTypeInfo)
+
+- 
+
+
