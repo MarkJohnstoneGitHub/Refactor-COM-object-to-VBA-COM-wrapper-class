@@ -21,7 +21,7 @@ If issues with the TLI reference in [COM Refactoring.accdb](https://github.com/M
 
 Currrently investigation stage brainstorming ideas.
 
-**Utilize [RubberDuck ComManagement](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement))**
+**Utilize [RubberDuck Com Management](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement))**
 Items of interest
 
 - [TypeLibs](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement/TypeLibs)
