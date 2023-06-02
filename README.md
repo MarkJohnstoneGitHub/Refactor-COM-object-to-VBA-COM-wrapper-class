@@ -24,6 +24,11 @@ Currrently investigation stage brainstorming ideas.
 **Utilize [RubberDuck Com Management](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement))**
 Items of interest
 
+- [ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection)
+    - [ComLibraryProvider](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs)
+    - public ITypeLib LoadTypeLibrary(string libraryPath)
+    - [is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net](https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net) 
+
 - [TypeLibs](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement/TypeLibs)
 
 - [TypeLibWrapper.cs](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.VBEEditor/ComManagement/TypeLibs/TypeLibWrapper.cs)
@@ -32,11 +37,7 @@ Items of interest
 
 - [A dumb container of ITypeInfos.](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.VBEEditor/ComManagement/TypeLibs/Utility/SimpleCustomTypeLibrary.cs)
 
-- [ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection)
-
 - [LibraryReferencedDeclarationsCollector](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/LibraryReferencedDeclarationsCollector.cs)
   - IReadOnlyCollection<Declaration> CollectedDeclarations(ReferenceInfo reference)
     
-- [ComLibraryProvider](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs)
-    - public ITypeLib LoadTypeLibrary(string libraryPath)
-    - [is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net](https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net)
+
