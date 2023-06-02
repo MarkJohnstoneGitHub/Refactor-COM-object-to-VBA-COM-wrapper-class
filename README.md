@@ -36,4 +36,6 @@ Items of interest
 
 - [LibraryReferencedDeclarationsCollector](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/LibraryReferencedDeclarationsCollector.cs)
   - IReadOnlyCollection<Declaration> CollectedDeclarations(ReferenceInfo reference)
-  
+    
+- [ComLibraryProvider](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs)
+    - public ITypeLib LoadTypeLibrary(string libraryPath)
