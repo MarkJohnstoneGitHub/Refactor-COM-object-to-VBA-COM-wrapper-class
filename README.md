@@ -38,8 +38,10 @@ Items of interest
 
 - [LibraryReferencedDeclarationsCollector](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/LibraryReferencedDeclarationsCollector.cs)
   - IReadOnlyCollection<Declaration> CollectedDeclarations(ReferenceInfo reference)
-    
- 
+
+
+Things to do
+
 1) Load a type library .tlb into a TypeInfo
     - [ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection)
     - [ComLibraryProvider](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs)
