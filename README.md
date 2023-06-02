@@ -59,8 +59,11 @@ Things to do
     - Description?
  5) Obtain Class Methods
     -Method Name
+    
     -Method Description
+    
     -Method parameters
+    
     -return type
     
     
