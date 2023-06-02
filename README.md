@@ -32,8 +32,7 @@ Items of interest
 - [TypeLibs](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement/TypeLibs)
 
 - [TypeLibWrapper.cs](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.VBEEditor/ComManagement/TypeLibs/TypeLibWrapper.cs)
-
-    constructor  internal TypeInfoWrapper(ComTypes.ITypeInfo rawTypeInfo)
+    - constructor  internal TypeInfoWrapper(ComTypes.ITypeInfo rawTypeInfo)
 
 - [A dumb container of ITypeInfos.](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.VBEEditor/ComManagement/TypeLibs/Utility/SimpleCustomTypeLibrary.cs)
 
