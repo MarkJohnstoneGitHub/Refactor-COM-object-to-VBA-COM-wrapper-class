@@ -42,12 +42,14 @@ namespace ComRefactorConsole.ComReflection
         private static extern int LoadTypeLibEx(string strTypeLibName, REGKIND regKind, out ITypeLib TypeLib);
         #endregion
 
+        // TODO  : Changed to static
         public static ITypeLib LoadTypeLibrary(string libraryPath)
         {
             LoadTypeLibEx(libraryPath, REGKIND.REGKIND_NONE, out var typeLibrary);
             return typeLibrary;
         }
 
+        // TODO  : Changed to static
         public static IComDocumentation GetComDocumentation(ITypeLib typelib)
         {
             try
@@ -60,6 +62,7 @@ namespace ComRefactorConsole.ComReflection
             }
         }
 
+        // TODO  : Commented out reminder to  uncomment 
         //public ReferenceInfo GetReferenceInfo(ITypeLib typelib, string name, string path)
         //{
         //    try
