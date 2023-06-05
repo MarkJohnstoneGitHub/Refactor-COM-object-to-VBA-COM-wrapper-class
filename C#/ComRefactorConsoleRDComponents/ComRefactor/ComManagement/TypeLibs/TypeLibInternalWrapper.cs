@@ -8,15 +8,19 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using Rubberduck.VBEditor.ComManagement.TypeLibs.Abstract;
+using System.Collections.ObjectModel;
 
 namespace ComRefactorConsole.ComRefactorr.ComManagement.TypeLibs
 {
-    internal class TypeLibInternalWrapper
+    internal class TypeLibInternalWrapper :  TypeLibInternalSelfMarshalForwarderBase
     {
-        //TODO : ITypeInternal??
-        //private DisposableList<ITypeInfoWrapper> _cachedTypeInfos;
+      
+       private readonly ReadOnlyCollection<ITypeInfoInternal> _cachedTypeInfos;
 
         private ComPointer<ITypeLibInternal> _typeLibPointer;
+
+        private ITypeLib _typeLib;
 
         private ITypeLibInternal _target_ITypeLib => _typeLibPointer.Interface;
 
@@ -90,5 +94,132 @@ namespace ComRefactorConsole.ComRefactorr.ComManagement.TypeLibs
         {
             InitFromRawPointer(rawObjectPtr, addRef);
         }
+
+
+        private bool _isDisposed;
+        public override void Dispose()
+        {
+            if (_isDisposed) return;
+            _isDisposed = true;
+
+
+            // TODO : _cachedTypeInfos?.Dispose();
+            //_cachedTypeInfos?.Dispose();
+            _typeLibPointer.Dispose();
+        }
+
+        public int GetSafeTypeInfoByIndex(int index, out ITypeInfoInternal outTI)
+        {
+            outTI = null;
+
+            using (var typeInfoPtr = AddressableVariables.Create<IntPtr>())
+            {
+                var hr = _target_ITypeLib.GetTypeInfo(index, typeInfoPtr.Address);
+                if (ComHelper.HRESULT_FAILED(hr))
+                {
+                    return HandleBadHRESULT(hr);
+                }
+
+                // TODO : 
+                //var outVal = TypeApiFactory.GetTypeInfoWrapper(typeInfoPtr.Value);
+                //_cachedTypeInfos = _cachedTypeInfos ?? new DisposableList<ITypeInfoWrapper>();
+                //_cachedTypeInfos.Add(outVal);
+                //outTI = outVal;
+
+                return hr;
+            }
+        }
+
+
+        //public void GetTypeInfo(int index, out ITypeInfo typeInfo)
+        //{
+        //   _typeLib.GetTypeInfo(index, out typeInfo);
+        //}
+
+        public IntPtr GetCOMReferencePtr()
+            => RdMarshal.GetComInterfaceForObject(this, typeof(ITypeLibInternal));
+
+        int HandleBadHRESULT(int hr)
+        {
+            return hr;
+        }
+
+        public override int GetTypeInfoCount()
+        {
+            var retVal = _target_ITypeLib.GetTypeInfoCount();
+            return retVal;
+        }
+
+        public override int GetTypeInfo(int index, IntPtr ppTI)
+        {
+            // We have to wrap the ITypeInfo returned by GetTypeInfo
+            var hr = GetSafeTypeInfoByIndex(index, out var ti);
+            if (ComHelper.HRESULT_FAILED(hr)) return HandleBadHRESULT(hr);
+
+
+            // TODO : RdMarshal.WriteIntPtr(ppTI, ti.GetCOMReferencePtr());
+            //RdMarshal.WriteIntPtr(ppTI, ti.GetCOMReferencePtr());
+            return hr;
+        }
+        public override int GetTypeInfoType(int index, IntPtr pTKind)
+        {
+            var hr = _target_ITypeLib.GetTypeInfoType(index, pTKind);
+            if (ComHelper.HRESULT_FAILED(hr)) return HandleBadHRESULT(hr);
+
+            var tKind = RdMarshal.ReadInt32(pTKind);
+            RdMarshal.WriteInt32(pTKind, tKind);
+
+            return hr;
+        }
+        public override int GetTypeInfoOfGuid(ref Guid guid, IntPtr ppTInfo)
+        {
+            var hr = _target_ITypeLib.GetTypeInfoOfGuid(guid, ppTInfo);
+            if (ComHelper.HRESULT_FAILED(hr)) return HandleBadHRESULT(hr);
+
+            var pTInfo = RdMarshal.ReadIntPtr(ppTInfo);
+
+            // TODO : 
+            //using (var outVal = TypeApiFactory.GetTypeInfoWrapper(pTInfo)) // takes ownership of the COM reference [pTInfo]
+            //{
+            //    RdMarshal.WriteIntPtr(ppTInfo, outVal.GetCOMReferencePtr());
+
+            //    _cachedTypeInfos = _cachedTypeInfos ?? new DisposableList<ITypeInfoWrapper>();
+            //    _cachedTypeInfos.Add(outVal);
+            //}
+
+            return hr;
+        }
+
+        public override int GetLibAttr(IntPtr ppTLibAttr)
+        {
+            var hr = _target_ITypeLib.GetLibAttr(ppTLibAttr);
+            return ComHelper.HRESULT_FAILED(hr) ? HandleBadHRESULT(hr) : hr;
+        }
+        public override int GetTypeComp(IntPtr ppTComp)
+        {
+            var hr = _target_ITypeLib.GetTypeComp(ppTComp);
+            return ComHelper.HRESULT_FAILED(hr) ? HandleBadHRESULT(hr) : hr;
+        }
+        public override int GetDocumentation(int index, IntPtr strName, IntPtr strDocString, IntPtr dwHelpContext, IntPtr strHelpFile)
+        {
+            var hr = _target_ITypeLib.GetDocumentation(index, strName, strDocString, dwHelpContext, strHelpFile);
+            return ComHelper.HRESULT_FAILED(hr) ? HandleBadHRESULT(hr) : hr;
+        }
+        public override int IsName(string szNameBuf, int lHashVal, IntPtr pfName)
+        {
+            var hr = _target_ITypeLib.IsName(szNameBuf, lHashVal, pfName);
+            return ComHelper.HRESULT_FAILED(hr) ? HandleBadHRESULT(hr) : hr;
+        }
+        public override int FindName(string szNameBuf, int lHashVal, IntPtr ppTInfo, IntPtr rgMemId, IntPtr pcFound)
+        {
+            var hr = _target_ITypeLib.FindName(szNameBuf, lHashVal, ppTInfo, rgMemId, pcFound);
+            return ComHelper.HRESULT_FAILED(hr) ? HandleBadHRESULT(hr) : hr;
+        }
+        public override void ReleaseTLibAttr(IntPtr pTLibAttr)
+        {
+            _target_ITypeLib.ReleaseTLibAttr(pTLibAttr);
+        }
+
+
     }
 }
