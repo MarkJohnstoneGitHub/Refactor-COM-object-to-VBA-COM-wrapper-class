@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xuUGhX416JJfjMqnVm6geqtyh7qysJfbwPvAzr5T2Jiyk8UluDHs54fc23qsFIIFnRb1RzMgdgSVH8y63fMPWw==",
+  "dgSpecHash": "m4myXylA0igkaVBrT++/6tQPWavClwVzdTolPGQ4FurLnSFHwgcvO/rCkxNTn6HS4jDK3ud03MdjdIBjhAclKg==",
   "success": true,
-  "projectFilePath": "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\ComRefactorConsole\\ComRefactorConsole V2\\ComRefactorConsole.csproj",
+  "projectFilePath": "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\Refactor-COM-object-to-VBA-COM-wrapper-class\\C#\\ComRefactorConsoleRDComponents\\ComRefactorConsole.csproj",
   "expectedPackageFiles": [
     "D:\\Users\\Me\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "D:\\Users\\Me\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",

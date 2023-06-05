@@ -13,10 +13,14 @@ namespace ComRefactorConsole.ComRefactorr.ComManagement.TypeLibs
 {
     internal class TypeLibInternalWrapper
     {
+        //TODO : ITypeInternal??
+        //private DisposableList<ITypeInfoWrapper> _cachedTypeInfos;
+
         private ComPointer<ITypeLibInternal> _typeLibPointer;
 
         private ITypeLibInternal _target_ITypeLib => _typeLibPointer.Interface;
 
+        ////TODO : Collection of  ITypeInfo
         //public ITypeInfoWrapperCollection TypeInfos { get; private set; }
 
         // helpers

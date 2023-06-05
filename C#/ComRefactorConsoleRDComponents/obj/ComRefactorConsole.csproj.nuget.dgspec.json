@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\ComRefactorConsole\\ComRefactorConsole V2\\ComRefactorConsole.csproj": {}
+    "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\Refactor-COM-object-to-VBA-COM-wrapper-class\\C#\\ComRefactorConsoleRDComponents\\ComRefactorConsole.csproj": {}
   },
   "projects": {
-    "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\ComRefactorConsole\\ComRefactorConsole V2\\ComRefactorConsole.csproj": {
+    "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\Refactor-COM-object-to-VBA-COM-wrapper-class\\C#\\ComRefactorConsoleRDComponents\\ComRefactorConsole.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\ComRefactorConsole\\ComRefactorConsole V2\\ComRefactorConsole.csproj",
+        "projectUniqueName": "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\Refactor-COM-object-to-VBA-COM-wrapper-class\\C#\\ComRefactorConsoleRDComponents\\ComRefactorConsole.csproj",
         "projectName": "ComRefactorConsole",
-        "projectPath": "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\ComRefactorConsole\\ComRefactorConsole V2\\ComRefactorConsole.csproj",
+        "projectPath": "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\Refactor-COM-object-to-VBA-COM-wrapper-class\\C#\\ComRefactorConsoleRDComponents\\ComRefactorConsole.csproj",
         "packagesPath": "D:\\Users\\Me\\.nuget\\packages\\",
-        "outputPath": "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\ComRefactorConsole\\ComRefactorConsole V2\\obj\\",
+        "outputPath": "H:\\Users\\Me\\source\\repos\\Refactor-COM-object\\Refactor-COM-object-to-VBA-COM-wrapper-class\\C#\\ComRefactorConsoleRDComponents\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
