@@ -1,0 +1,21 @@
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole\bin\Debug\ComRefactorConsole.exe.config
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole\bin\Debug\ComRefactorConsole.exe
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole\bin\Debug\ComRefactorConsole.pdb
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole\obj\Debug\ComRefactorConsole.csproj.AssemblyReference.cache
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole\obj\Debug\ComRefactorConsole.csproj.SuggestedBindingRedirects.cache
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole\obj\Debug\ComRefactorConsole.csproj.CoreCompileInputs.cache
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole\obj\Debug\ComRefactorConsole.exe
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole\obj\Debug\ComRefactorConsole.pdb
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\bin\Debug\ComRefactorConsole.exe.config
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\bin\Debug\ComRefactorConsole.exe
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\bin\Debug\ComRefactorConsole.pdb
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\obj\Debug\ComRefactorConsole.csproj.AssemblyReference.cache
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\obj\Debug\ComRefactorConsole.csproj.SuggestedBindingRedirects.cache
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\obj\Debug\ComRefactorConsole.csproj.CoreCompileInputs.cache
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\obj\Debug\ComRefactorConsole.exe
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\obj\Debug\ComRefactorConsole.pdb
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\bin\Debug\System.Buffers.dll
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\bin\Debug\System.Memory.dll
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\bin\Debug\System.Numerics.Vectors.dll
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+H:\Users\Me\source\repos\Refactor-COM-object\ComRefactorConsole\ComRefactorConsole V2\obj\Debug\ComRefactorConsole.csproj.CopyComplete
