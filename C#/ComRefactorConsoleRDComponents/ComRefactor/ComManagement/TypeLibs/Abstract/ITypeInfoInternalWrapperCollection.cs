@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ComRefactor.ComManagement.TypeLibs.Abstract
 {
-    internal interface ITypeInfoInternalWrapperCollection
+    public interface ITypeInfoInternalWrapperCollection
     {
         int Count { get; }
 

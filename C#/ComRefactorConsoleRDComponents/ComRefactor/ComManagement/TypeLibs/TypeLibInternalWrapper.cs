@@ -16,7 +16,8 @@ namespace ComRefactorr.ComManagement.TypeLibs
 
         private ITypeLibInternal _target_ITypeLib => _typeLibPointer.Interface;
 
-        ////TODO : Collection of  ITypeInfo
+        private bool _isDisposed;
+
         public ITypeInfoInternalWrapperCollection TypeInfos { get; set; }
 
         // helpers
@@ -86,17 +87,6 @@ namespace ComRefactorr.ComManagement.TypeLibs
         {
             InitFromRawPointer(rawObjectPtr, addRef);
         }
-
-
-        private bool _isDisposed;
-        public override void Dispose()
-        {
-            if (_isDisposed) return;
-            _isDisposed = true;
-            _cachedTypeInfos?.Dispose();
-            _typeLibPointer.Dispose();
-        }
-
 
         public int GetSafeTypeInfoByIndex(int index, out ITypeInfoInternalWrapper outTI)
         {
@@ -248,6 +238,13 @@ namespace ComRefactorr.ComManagement.TypeLibs
             _target_ITypeLib.ReleaseTLibAttr(pTLibAttr);
         }
 
+        public override void Dispose()
+        {
+            if (_isDisposed) return;
+            _isDisposed = true;
+            _cachedTypeInfos?.Dispose();
+            _typeLibPointer.Dispose();
+        }
 
     }
 }

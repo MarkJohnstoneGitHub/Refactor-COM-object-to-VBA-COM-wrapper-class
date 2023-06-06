@@ -14,7 +14,7 @@ namespace ComRefactor.ComManagement.TypeLibs.Abstract
         int TypesCount { get; }
 
         //TODO : 
-        //ITypeInfoInternalWrapperCollection TypeInfos { get; }
+        ITypeInfoInternalWrapperCollection TypeInfos { get; }
 
 
         System.Runtime.InteropServices.ComTypes.TYPELIBATTR Attributes { get; }
