@@ -23,7 +23,7 @@ namespace ComRefactorConsole
             {
 
                 //  https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs
-                ITypeLib typeLib = new ComLibrary().LoadTypeLibrary(path);
+                ITypeLib typeLib = ComLibrary.LoadTypeLibrary(path);
 
                 
                 // https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net

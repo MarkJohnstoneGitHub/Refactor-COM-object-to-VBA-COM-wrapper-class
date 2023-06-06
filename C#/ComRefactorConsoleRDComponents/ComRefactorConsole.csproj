@@ -46,6 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Abstract\ITypeInfoInternalWrapperCollection.cs" />
+    <Compile Include="ComRefactor\ComManagement\TypeLibs\Abstract\ITypeInfoInternalWrapper.cs" />
+    <Compile Include="ComRefactor\ComManagement\TypeLibs\Abstract\ITypeLibInternalWrapper.cs" />
+    <Compile Include="ComRefactor\ComManagement\TypeLibs\InternalTypeApiFactory.cs" />
+    <Compile Include="ComRefactor\ComManagement\TypeLibs\TypeInfoInternalWrapper.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\TypeLibInternalWrapper.cs" />
     <Compile Include="Rubberduck\ComReflection\ComAlias.cs" />
     <Compile Include="Rubberduck\ComReflection\ComBase.cs" />
