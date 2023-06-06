@@ -74,6 +74,8 @@
     <Compile Include="Rubberduck\Grammer\Tokens.cs" />
     <Compile Include="Rubberduck\Parsing\Symbols\DeclarationType.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Abstract\IDispatch.cs" />
+    <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Abstract\ITypeInfoFunction.cs" />
+    <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Abstract\ITypeInfoFunctionCollection.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Abstract\ITypeInfoInternal.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Unmanged\AddressableVariables.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Unmanged\ComHelper.cs" />

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ComRefactor.ComReflection.TypeLibs.Abstract;
+using System;
 using System.Runtime.InteropServices.ComTypes;
 
-namespace Rubberduck.VBEditor.ComManagement.TypeLibs.Abstract
+namespace ComRefactor.ComManagement.TypeLibs.Abstract
 {
     public interface ITypeLibInternalWrapper : ITypeLib, IDisposable
     {
@@ -12,10 +13,11 @@ namespace Rubberduck.VBEditor.ComManagement.TypeLibs.Abstract
         //bool HasVBEExtensions { get; }
         int TypesCount { get; }
 
-        //ITypeInfoWrapperCollection TypeInfos { get; }
-        //ITypeLibVBEExtensions VBEExtensions { get; }
+        //TODO : 
+        //ITypeInfoInternalWrapperCollection TypeInfos { get; }
 
-        //System.Runtime.InteropServices.ComTypes.TYPELIBATTR Attributes { get; }
+
+        System.Runtime.InteropServices.ComTypes.TYPELIBATTR Attributes { get; }
 
         int GetSafeTypeInfoByIndex(int index, out ITypeInfoInternalWrapper outTI);
     }

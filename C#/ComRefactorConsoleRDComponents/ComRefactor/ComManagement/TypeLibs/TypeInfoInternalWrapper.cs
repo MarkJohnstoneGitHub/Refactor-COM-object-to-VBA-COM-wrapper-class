@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using ComRefactor.ComReflection.TypeLibs.Abstract;
 using Rubberduck.VBEditor.ComManagement.TypeLibs.Abstract;
 using Rubberduck.VBEditor.ComManagement.TypeLibs.Unmanaged;
 using Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
 using ComTypes = System.Runtime.InteropServices.ComTypes;
 
-namespace Rubberduck.VBEditor.ComManagement.TypeLibs
+namespace ComRefactor.ComManagement.TypeLibs
 {
     /// <summary>
     /// A wrapper for <see cref="ComTypes.ITypeInfo"/> objects

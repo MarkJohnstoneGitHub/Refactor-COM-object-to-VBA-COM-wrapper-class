@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices.ComTypes;
-using Rubberduck.VBEditor;
+using Rubberduck.Parsing.ComReflection;
 
-namespace Rubberduck.Parsing.ComReflection
+namespace ComRefactorConsole.ComReflection
 {
     public interface IComLibrary
     {

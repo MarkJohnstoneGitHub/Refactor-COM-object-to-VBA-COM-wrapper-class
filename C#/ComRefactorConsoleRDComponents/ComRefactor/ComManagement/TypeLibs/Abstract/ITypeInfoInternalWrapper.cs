@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices.ComTypes;
 
-namespace Rubberduck.VBEditor.ComManagement.TypeLibs.Abstract
+namespace ComRefactor.ComReflection.TypeLibs.Abstract
 {
     public interface ITypeInfoInternalWrapper : ITypeInfo, IDisposable
     {

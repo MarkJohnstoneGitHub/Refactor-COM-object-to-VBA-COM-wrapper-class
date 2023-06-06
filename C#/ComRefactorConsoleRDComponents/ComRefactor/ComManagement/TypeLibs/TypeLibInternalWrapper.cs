@@ -2,17 +2,11 @@
 using ComTypes = System.Runtime.InteropServices.ComTypes;
 using Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
-using Rubberduck.VBEditor.ComManagement.TypeLibs.Abstract;
-using System.Collections.ObjectModel;
-using Rubberduck.VBEditor.ComManagement.TypeLibs;
+using ComRefactor.ComManagement.TypeLibs.Abstract;
+using ComRefactor.ComReflection.TypeLibs.Abstract;
+using ComRefactor.ComManagement.TypeLibs;
 
-namespace ComRefactorConsole.ComRefactorr.ComManagement.TypeLibs
+namespace ComRefactorr.ComManagement.TypeLibs
 {
     internal class TypeLibInternalWrapper :  TypeLibInternalSelfMarshalForwarderBase, ITypeLibInternalWrapper
     {
@@ -23,7 +17,7 @@ namespace ComRefactorConsole.ComRefactorr.ComManagement.TypeLibs
         private ITypeLibInternal _target_ITypeLib => _typeLibPointer.Interface;
 
         ////TODO : Collection of  ITypeInfo
-        //public ITypeInfoWrapperCollection TypeInfos { get; private set; }
+        public ITypeInfoInternalWrapperCollection TypeInfos { get; set; }
 
         // helpers
         public string Name => CachedTextFields._name;

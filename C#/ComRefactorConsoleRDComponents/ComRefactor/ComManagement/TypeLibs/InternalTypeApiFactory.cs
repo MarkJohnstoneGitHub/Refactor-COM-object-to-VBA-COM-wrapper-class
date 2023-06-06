@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices.ComTypes;
-using ComRefactorConsole.ComRefactorr.ComManagement.TypeLibs;
-using Rubberduck.VBEditor.ComManagement.TypeLibs.Abstract;
+using ComRefactor.ComManagement.TypeLibs.Abstract;
+using ComRefactor.ComReflection.TypeLibs.Abstract;
+using ComRefactorr.ComManagement.TypeLibs;
 //using Rubberduck.VBEditor.ComManagement.TypeLibs.DebugInternal;
-using Rubberduck.VBEditor.ComManagement.TypeLibs.Unmanaged;
 
 // TODO The tracers are broken - using them will cause a NRE inside the 
 // unmanaged boundary. If we need to enable them for diagnostics, this needs
 // to be fixed first. 
 
-namespace Rubberduck.VBEditor.ComManagement.TypeLibs
+namespace ComRefactor.ComManagement.TypeLibs
 {
     /// <summary>
     /// Abstracts out the creation of the custom implementations of
