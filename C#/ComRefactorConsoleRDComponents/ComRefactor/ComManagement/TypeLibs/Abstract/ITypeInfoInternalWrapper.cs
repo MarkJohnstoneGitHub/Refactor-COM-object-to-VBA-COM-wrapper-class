@@ -7,11 +7,11 @@ namespace ComRefactor.ComReflection.TypeLibs.Abstract
     {
         ITypeLib Container { get; }
         int ContainerIndex { get; }
-        bool HasModuleScopeCompilationErrors { get; }
-        bool HasVBEExtensions { get; }
+        //bool HasModuleScopeCompilationErrors { get; }
+        //bool HasVBEExtensions { get; }
         System.Runtime.InteropServices.ComTypes.TYPEATTR CachedAttributes { get; }
-        bool HasSimulatedContainer { get; }
-        bool IsUserFormBaseClass { get; }
+        //bool HasSimulatedContainer { get; }
+        //bool IsUserFormBaseClass { get; }
         string Name { get; }
         string DocString { get; }
         int HelpContext { get; }
@@ -19,7 +19,7 @@ namespace ComRefactor.ComReflection.TypeLibs.Abstract
         string ProgID { get; }
         Guid GUID { get; }
         TYPEKIND TypeKind { get; }
-        bool HasPredeclaredId { get; }
+        //bool HasPredeclaredId { get; }
         System.Runtime.InteropServices.ComTypes.TYPEFLAGS Flags { get; }
         string ContainerName { get; }
         //ITypeInfoVBEExtensions VBEExtensions { get; }

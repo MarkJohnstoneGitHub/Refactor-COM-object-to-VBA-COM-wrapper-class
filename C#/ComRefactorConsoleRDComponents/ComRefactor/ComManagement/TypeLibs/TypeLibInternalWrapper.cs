@@ -5,6 +5,8 @@ using System;
 using ComRefactor.ComManagement.TypeLibs.Abstract;
 using ComRefactor.ComReflection.TypeLibs.Abstract;
 using ComRefactor.ComManagement.TypeLibs;
+using System.Runtime.InteropServices.ComTypes;
+using ComRefactor.ComManagement.TypeLibs.Unmanaged;
 
 namespace ComRefactorr.ComManagement.TypeLibs
 {
@@ -86,6 +88,19 @@ namespace ComRefactorr.ComManagement.TypeLibs
         internal TypeLibInternalWrapper(IntPtr rawObjectPtr, bool addRef)
         {
             InitFromRawPointer(rawObjectPtr, addRef);
+        }
+
+        // https://stackoverflow.com/questions/17339928/c-sharp-how-to-convert-object-to-intptr-and-back/52103996#52103996
+        // TODO : Check implementation of converting ITypeLib to ComPointer<ITypeLibInternal> 
+        // TODO : Is there a RD component to accomplish this?
+        // TODO : Unsure  if addRef should be true or false
+        public TypeLibInternalWrapper(ITypeLib typeLib)
+        {
+            using (var typeLibHandleProvider = new GCHandleProvider(typeLib))
+            {
+                _typeLibPointer = ComPointer<ITypeLibInternal>.GetObject(typeLibHandleProvider.Pointer, addRef: true);
+            }
+            InitCommon();
         }
 
         public int GetSafeTypeInfoByIndex(int index, out ITypeInfoInternalWrapper outTI)

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using ComRefactorConsole.ComReflection;
+using ComRefactorr.ComManagement.TypeLibs;
 
 namespace ComRefactorConsole
 {
@@ -24,6 +25,8 @@ namespace ComRefactorConsole
 
                 //  https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs
                 ITypeLib typeLib = ComLibrary.LoadTypeLibrary(path);
+
+                TypeLibInternalWrapper typeLibWrapper = new TypeLibInternalWrapper(typeLib);
 
                 
                 // https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net
