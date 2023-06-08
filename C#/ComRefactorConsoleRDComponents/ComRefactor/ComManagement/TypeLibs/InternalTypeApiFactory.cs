@@ -19,12 +19,12 @@ namespace ComRefactor.ComManagement.TypeLibs
     /// </summary>
     internal static class InternalTypeApiFactory
     {
-        internal static ITypeLibInternalWrapper GetTypeLibWrapper(IntPtr rawObjectPtr, bool addRef)
-        {
-            ITypeLibInternalWrapper wrapper = new TypeLibInternalWrapper(rawObjectPtr, addRef);
-            //TraceWrapper(ref wrapper);
-            return wrapper;
-        }
+        //internal static ITypeLibInternalWrapper GetTypeLibWrapper(IntPtr rawObjectPtr, bool addRef)
+        //{
+        //    ITypeLibInternalWrapper wrapper = new TypeLibInternalWrapper(rawObjectPtr, addRef);
+        //    //TraceWrapper(ref wrapper);
+        //    return wrapper;
+        //}
 
         //[Conditional("TRACE_TYPEAPI")]
         //private static void TraceWrapper(ref ITypeLibInternalWrapper wrapper)
@@ -47,14 +47,14 @@ namespace ComRefactor.ComManagement.TypeLibs
         //    return wrapper;
         //}
 
-        internal static ITypeInfoInternalWrapper GetTypeInfoWrapper(ITypeInfo rawTypeInfo)
+        internal static ITypeInfoInternalWrapper GetTypeInfoInternalWrapper(ITypeInfo rawTypeInfo)
         {
             ITypeInfoInternalWrapper wrapper = new TypeInfoInternalWrapper(rawTypeInfo);
             //TraceWrapper(ref wrapper);
             return wrapper;
         }
 
-        internal static ITypeInfoInternalWrapper GetTypeInfoWrapper(IntPtr value)
+        internal static ITypeInfoInternalWrapper GetTypeInfoInternalWrapper(IntPtr value)
         {
             ITypeInfoInternalWrapper wrapper = new TypeInfoInternalWrapper(value);
             //TraceWrapper(ref wrapper);

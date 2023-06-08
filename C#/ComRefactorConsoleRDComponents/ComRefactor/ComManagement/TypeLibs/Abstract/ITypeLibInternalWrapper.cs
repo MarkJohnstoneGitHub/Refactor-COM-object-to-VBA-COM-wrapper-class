@@ -16,7 +16,6 @@ namespace ComRefactor.ComManagement.TypeLibs.Abstract
         //TODO : 
         ITypeInfoInternalWrapperCollection TypeInfos { get; }
 
-
         System.Runtime.InteropServices.ComTypes.TYPELIBATTR Attributes { get; }
 
         int GetSafeTypeInfoByIndex(int index, out ITypeInfoInternalWrapper outTI);

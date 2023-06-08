@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rubberduck.VBEditor.ComManagement.TypeLibs.Abstract;
+using System;
 using System.Runtime.InteropServices.ComTypes;
 
 namespace ComRefactor.ComReflection.TypeLibs.Abstract
@@ -7,10 +8,10 @@ namespace ComRefactor.ComReflection.TypeLibs.Abstract
     {
         ITypeLib Container { get; }
         int ContainerIndex { get; }
-        //bool HasModuleScopeCompilationErrors { get; }
+        bool HasModuleScopeCompilationErrors { get; }
         //bool HasVBEExtensions { get; }
         System.Runtime.InteropServices.ComTypes.TYPEATTR CachedAttributes { get; }
-        //bool HasSimulatedContainer { get; }
+        bool HasSimulatedContainer { get; }
         //bool IsUserFormBaseClass { get; }
         string Name { get; }
         string DocString { get; }
@@ -19,7 +20,7 @@ namespace ComRefactor.ComReflection.TypeLibs.Abstract
         string ProgID { get; }
         Guid GUID { get; }
         TYPEKIND TypeKind { get; }
-        //bool HasPredeclaredId { get; }
+        bool HasPredeclaredId { get; }
         System.Runtime.InteropServices.ComTypes.TYPEFLAGS Flags { get; }
         string ContainerName { get; }
         //ITypeInfoVBEExtensions VBEExtensions { get; }
@@ -45,7 +46,7 @@ namespace ComRefactor.ComReflection.TypeLibs.Abstract
         new void ReleaseTypeAttr(IntPtr pTypeAttr);
         new void ReleaseFuncDesc(IntPtr pFuncDesc);
         new void ReleaseVarDesc(IntPtr pVarDesc);
-        //ITypeInfoFunctionCollection Funcs { get; }
+        ITypeInfoFunctionCollection Funcs { get; }
         //ITypeInfoVariablesCollection Vars { get; }
         //ITypeInfoImplementedInterfacesCollection ImplementedInterfaces { get; }
     }

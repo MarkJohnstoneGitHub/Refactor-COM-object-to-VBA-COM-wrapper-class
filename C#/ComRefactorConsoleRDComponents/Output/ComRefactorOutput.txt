@@ -1,0 +1,14 @@
+
+================================================================================
+
+ITypeLib: DotNetLib
+- Documentation: COM wrapper of the .Net Framework 4.8.1
+- HelpContext: 0
+- HelpFile: 
+- Guid: 65e9265f-0806-492d-8e05-72dbff7d85c6
+- Lcid: 0
+- SysKind: SYS_WIN64
+- LibFlags: LIBFLAG_FHASDISKIMAGE
+- MajorVer: 1
+- MinorVer: 0
+- TypeCount: 18

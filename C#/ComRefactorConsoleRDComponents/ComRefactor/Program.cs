@@ -1,38 +1,56 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using ComRefactor.ComManagement.TypeLibs.Abstract;
+using ComRefactor.ComManagement.TypeLibs.Utility;
 using ComRefactorConsole.ComReflection;
 using ComRefactorr.ComManagement.TypeLibs;
+using Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
 
 namespace ComRefactorConsole
 {
-
     internal class Program
     {
         static void Main(string[] args)
         {
-            string path = args[0];
-            //string path = @"H:\Users\Me\source\repos\DotNetLib\bin\release\DotNetLib.tlb";
-            if (File.Exists(path))
+            string typeLibraryPath = args[0];
+            string outputPath = args[1];
+
+            if (File.Exists(typeLibraryPath))
             {
-
                 //  https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs
-                ITypeLib typeLib = ComLibrary.LoadTypeLibrary(path);
+                ITypeLib typeLib = ComLibrary.LoadTypeLibrary(typeLibraryPath);
 
-                TypeLibInternalWrapper typeLibWrapper = new TypeLibInternalWrapper(typeLib);
+                ITypeLibInternalWrapper typeLibWrapper = new TypeLibInternalWrapper(typeLib);
+                string output = DocumentAll(typeLibWrapper);
+                System.IO.File.WriteAllText(outputPath, output);
 
-                
                 // https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net
-                ParseTypeLib(path,typeLib);
+                //ParseTypeLib(typeLibraryPath,typeLib);
             }
         }
+
+        /// <summary>
+        /// Documents the type library 
+        /// </summary>
+        /// <param name="projectTypeLib">Low-level ITypeLib wrapper</param>
+        /// <returns>text document, in a non-standard format, useful for debugging purposes</returns>
+        public static string DocumentAll(ITypeLibInternalWrapper projectTypeLib)
+        {
+            var output = new StringLineBuilder();
+            projectTypeLib.Document(output);
+            return output.ToString();
+        }
+
 
         // https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net
         public static void ParseTypeLib(string path,ITypeLib typeLib)

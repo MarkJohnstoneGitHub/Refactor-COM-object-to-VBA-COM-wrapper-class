@@ -33,7 +33,7 @@ namespace ComRefactor.ComManagement.TypeLibs
         public bool IsUserFormBaseClass { get; private set; }
 
         //TODO : 
-        //public ITypeInfoFunctionCollection Funcs { get; private set; }
+        public ITypeInfoFunctionCollection Funcs { get; private set; }
 
         /// <summary>
         /// A VBA module's <see cref="ComTypes.ITypeInfo"/> violates the type API conventions
@@ -242,7 +242,7 @@ namespace ComRefactor.ComManagement.TypeLibs
 
             //TODO :
             //_vbeExtensions?.Dispose();
-            //_cachedReferencedTypeInfos?.Dispose();
+            _cachedReferencedTypeInfos?.Dispose();
             (_container as IDisposable)?.Dispose();
 
             _typeInfoPointer.Dispose();
@@ -284,9 +284,9 @@ namespace ComRefactor.ComManagement.TypeLibs
                 var hr = _target_ITypeInfo.GetRefTypeInfo(hRef, typeInfoPtr.Address);
                 if (ComHelper.HRESULT_FAILED(hr)) return HandleBadHRESULT(hr);
 
-                //var outVal = InternalTypeApiFactory.GetTypeInfoWrapper(typeInfoPtr.Value, IsUserFormBaseClass ? (int?)hRef : null); // takes ownership of the COM reference
-                //_cachedReferencedTypeInfos = _cachedReferencedTypeInfos ?? new DisposableList<ITypeInfoWrapper>();
-                //_cachedReferencedTypeInfos.Add(outVal);
+                var outVal = InternalTypeApiFactory.GetTypeInfoInternalWrapper(typeInfoPtr.Value); // takes ownership of the COM reference
+                _cachedReferencedTypeInfos = _cachedReferencedTypeInfos ?? new DisposableList<ITypeInfoInternalWrapper>();
+                _cachedReferencedTypeInfos.Add(outVal);
                 outTI = null;
 
                 return hr;

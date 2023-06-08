@@ -14,9 +14,11 @@ namespace ComRefactorr.ComManagement.TypeLibs
     {
         private DisposableList<ITypeInfoInternalWrapper> _cachedTypeInfos;
 
-        private ComPointer<ITypeLibInternal> _typeLibPointer;
+        private ITypeLib _ITypeLib;
+        private ITypeLibInternal _target_ITypeLib => (ITypeLibInternal)_ITypeLib;
 
-        private ITypeLibInternal _target_ITypeLib => _typeLibPointer.Interface;
+        //private ComPointer<ITypeLibInternal> _typeLibPointer;
+        //private ITypeLibInternal _target_ITypeLib => _typeLibPointer.Interface;
 
         private bool _isDisposed;
 
@@ -58,48 +60,16 @@ namespace ComRefactorr.ComManagement.TypeLibs
         private void InitCommon()
         {
             //TODO : InitCommon
-            //TypeInfos = new TypeInfoWrapperCollection(this);
+            TypeInfos = new TypeInfoInternalWrapperCollection(this);
             //// ReSharper disable once SuspiciousTypeConversion.Global 
             //// there is no direct implementation but it can be reached via
             //// IUnknown::QueryInterface which is implicitly done as part of casting
             //HasVBEExtensions = _target_ITypeLib is IVBEProject;
         }
 
-        private void InitFromRawPointer(IntPtr rawObjectPtr, bool addRef)
-        {
-            if (!UnmanagedMemoryHelper.ValidateComObject(rawObjectPtr))
-            {
-                throw new ArgumentException("Expected COM object, but validation failed.");
-            }
-
-            _typeLibPointer = ComPointer<ITypeLibInternal>.GetObject(rawObjectPtr, addRef);
-            InitCommon();
-        }
-
-        /// <summary>
-        ///// Constructor -- should be called via <see cref="TypeApiFactory"/> only.
-        /// </summary>
-        /// <param name="rawObjectPtr">The raw unmanaged ITypeLib pointer</param>
-        /// <param name="addRef">
-        /// Indicates that the pointer was obtained via unorthodox methods, such as
-        /// direct memory read. Setting the parameter will effect an IUnknown::AddRef
-        /// on the pointer. 
-        /// </param>
-        internal TypeLibInternalWrapper(IntPtr rawObjectPtr, bool addRef)
-        {
-            InitFromRawPointer(rawObjectPtr, addRef);
-        }
-
-        // https://stackoverflow.com/questions/17339928/c-sharp-how-to-convert-object-to-intptr-and-back/52103996#52103996
-        // TODO : Check implementation of converting ITypeLib to ComPointer<ITypeLibInternal> 
-        // TODO : Is there a RD component to accomplish this?
-        // TODO : Unsure  if addRef should be true or false
         public TypeLibInternalWrapper(ITypeLib typeLib)
         {
-            using (var typeLibHandleProvider = new GCHandleProvider(typeLib))
-            {
-                _typeLibPointer = ComPointer<ITypeLibInternal>.GetObject(typeLibHandleProvider.Pointer, addRef: true);
-            }
+            this._ITypeLib = typeLib;
             InitCommon();
         }
 
@@ -115,7 +85,7 @@ namespace ComRefactorr.ComManagement.TypeLibs
                     return HandleBadHRESULT(hr);
                 }
 
-                var outVal = InternalTypeApiFactory.GetTypeInfoWrapper(typeInfoPtr.Value);
+                var outVal = InternalTypeApiFactory.GetTypeInfoInternalWrapper(typeInfoPtr.Value);
                 _cachedTypeInfos = _cachedTypeInfos ?? new DisposableList<ITypeInfoInternalWrapper>();
                 _cachedTypeInfos.Add(outVal);
                 outTI = outVal;
@@ -165,19 +135,7 @@ namespace ComRefactorr.ComManagement.TypeLibs
             return hr;
         }
 
-        // now for the ITypeLibInternal virtuals to be implemented by the derived class.
-        //public abstract int GetTypeInfoCount();
-        //public abstract int GetTypeInfo(int index, IntPtr ppTI);
-        //public abstract int GetTypeInfoType(int index, IntPtr pTKind);
-        //public abstract int GetTypeInfoOfGuid(ref Guid guid, IntPtr ppTInfo);
-        //public abstract int GetLibAttr(IntPtr ppTLibAttr);
-        //public abstract int GetTypeComp(IntPtr ppTComp);
-        //public abstract int GetDocumentation(int index, IntPtr strName, IntPtr strDocString, IntPtr dwHelpContext, IntPtr strHelpFile);
-        //public abstract int IsName(string szNameBuf, int lHashVal, IntPtr pfName);
-        //public abstract int FindName(string szNameBuf, int lHashVal, IntPtr ppTInfo, IntPtr rgMemId, IntPtr pcFound);
-        //public abstract void ReleaseTLibAttr(IntPtr pTLibAttr);
-
-        //public abstract void Dispose();
+        // ITypeLibInternal virtuals to be implemented by the derived class.
 
         public override int GetTypeInfoCount()
         {
@@ -212,7 +170,7 @@ namespace ComRefactorr.ComManagement.TypeLibs
 
             var pTInfo = RdMarshal.ReadIntPtr(ppTInfo);
 
-            using (var outVal = InternalTypeApiFactory.GetTypeInfoWrapper(pTInfo)) // takes ownership of the COM reference [pTInfo]
+            using (var outVal = InternalTypeApiFactory.GetTypeInfoInternalWrapper(pTInfo)) // takes ownership of the COM reference [pTInfo]
             {
                 RdMarshal.WriteIntPtr(ppTInfo, outVal.GetCOMReferencePtr());
 
@@ -258,7 +216,7 @@ namespace ComRefactorr.ComManagement.TypeLibs
             if (_isDisposed) return;
             _isDisposed = true;
             _cachedTypeInfos?.Dispose();
-            _typeLibPointer.Dispose();
+           // _typeLibPointer.Dispose();
         }
 
     }

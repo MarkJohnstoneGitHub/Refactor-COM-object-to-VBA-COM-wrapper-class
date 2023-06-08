@@ -41,13 +41,14 @@ namespace ComRefactor.ComManagement.TypeLibs.Utility
 
             output.AppendLine("- TypeCount: " + _this.TypesCount);
 
-            foreach (var typeInfo in _this.TypeInfos)
-            {
-                using (typeInfo)
-                {
-                    typeInfo.Document(output, _this.Name, 0);
-                }
-            }
+
+            //foreach (var typeInfo in _this.TypeInfos)
+            //{
+            //    using (typeInfo)
+            //    {
+            //        typeInfo.Document(output, _this.Name, 0);
+            //    }
+            //}
         }
 
         public static void Document(this ITypeInfoInternalWrapper _this, StringLineBuilder output, string qualifiedName, int implementsLevel)
