@@ -27,10 +27,15 @@ Currrently investigation stage brainstorming ideas.
 - Document TypeLibInternalWapper.
 - Write output basic TypeLibInternalWapper document to an output file.
 - Utimately the output will be a VBA Com wrapper class.
-- Next stage implement TypeInfoInternalWapper to obtain TypeInfo for each Com object in the Com library.
-    -   TypeLib.FindName Obtain the TypeInfo details for the required Com object
-    -   Document the TypeInfoInternalWapper for the required Com object
-        - Document Com object properties, methods, events? and implemented interfaces.
+- To implement:
+    - TypeInfoInternalWapper to obtain TypeInfo for each Com object in the Com library.
+        -  TypeLib.FindName Obtain the TypeInfo details for the required Com object
+        -  Document the TypeInfoInternalWapper for the required Com object
+            - Document Com object properties, methods, events? and implemented interfaces.
+   - From TypeInfoInternalWapper obtained for the required Com object
+        - VBA class builder
+        - Preferrably utilize RubberDuck components which extract an interface for a class or refactor interface to a class with minor modifications.
+    
 
 **Utilize [RubberDuck Com Management](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement))**
 Items of interest
