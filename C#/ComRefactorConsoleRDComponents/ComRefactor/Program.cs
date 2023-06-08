@@ -31,7 +31,7 @@ namespace ComRefactorConsole
                 ITypeLib typeLib = ComLibrary.LoadTypeLibrary(typeLibraryPath);
 
                 ITypeLibInternalWrapper typeLibWrapper = new TypeLibInternalWrapper(typeLib);
-                string output = DocumentAll(typeLibWrapper);
+                string output = DocumentTypeLibInternal(typeLibWrapper);
                 System.IO.File.WriteAllText(outputPath, output);
 
                 // https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net
@@ -44,7 +44,7 @@ namespace ComRefactorConsole
         /// </summary>
         /// <param name="projectTypeLib">Low-level ITypeLib wrapper</param>
         /// <returns>text document, in a non-standard format, useful for debugging purposes</returns>
-        public static string DocumentAll(ITypeLibInternalWrapper projectTypeLib)
+        public static string DocumentTypeLibInternal(ITypeLibInternalWrapper projectTypeLib)
         {
             var output = new StringLineBuilder();
             projectTypeLib.Document(output);
