@@ -12,8 +12,11 @@ using System.Threading.Tasks;
 using System.Windows.Documents;
 using ComRefactor.ComManagement.TypeLibs.Abstract;
 using ComRefactor.ComManagement.TypeLibs.Utility;
+using ComRefactorConsole.ComRefactor;
+using ComRefactorConsole.ComRefactor.ComManagement.TypeLibs.Utility;
 using ComRefactorConsole.ComReflection;
 using ComRefactorr.ComManagement.TypeLibs;
+using Rubberduck.Parsing.ComReflection;
 using Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
 
 namespace ComRefactorConsole
@@ -27,15 +30,11 @@ namespace ComRefactorConsole
 
             if (File.Exists(typeLibraryPath))
             {
-                //  https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs
-                ITypeLib typeLib = ComLibrary.LoadTypeLibrary(typeLibraryPath);
 
-                ITypeLibInternalWrapper typeLibWrapper = new TypeLibInternalWrapper(typeLib);
-                string output = DocumentTypeLibInternal(typeLibWrapper);
+                ComLibraryInfo libraryInfo = new ComLibraryInfo();
+                ComProject projectTypeLib = libraryInfo.GetLibraryInfoFromPath(typeLibraryPath);
+                string output = DocumentComProject(projectTypeLib);
                 System.IO.File.WriteAllText(outputPath, output);
-
-                // https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net
-                //ParseTypeLib(typeLibraryPath,typeLib);
             }
         }
 
@@ -51,6 +50,13 @@ namespace ComRefactorConsole
             return output.ToString();
         }
 
+
+        public static string DocumentComProject(ComProject projectTypeLib)
+        {
+            var output = new StringLineBuilder();
+            projectTypeLib.Document(output);
+            return output.ToString();
+        }
 
         // https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net
         public static void ParseTypeLib(string path,ITypeLib typeLib)
@@ -113,64 +119,6 @@ namespace ComRefactorConsole
             }
             return;
         }
-
-        // https://github.com/RussKie/WInterop/blob/54e8d2524863fbcfa1be8b9ab07139e9193266f3/src/WInterop.Desktop/Com/Com.cs#L85
-
-        //public static unsafe ITypeInfo GetTypeInfoByName(this ITypeLib typeLib, string typeName)
-        //{
-        //    // The find method is case insensitive, and will overwrite the input buffer
-        //    // with the actual found casing.
-
-        //    char* nameBuffer = stackalloc char[typeName.Length + 1];
-        //    Span<char> nameSpan = new Span<char>(nameBuffer, typeName.Length);
-        //    typeName.AsSpan().CopyTo(nameSpan);
-        //    nameBuffer[typeName.Length] = '\0';
-
-        //    IntPtr* typeInfos = stackalloc IntPtr[1];
-        //    MemberId* memberIds = stackalloc MemberId[1];
-        //    ushort found = 1;
-        //    typeLib.FindName(
-        //        nameBuffer,
-        //        lHashVal: 0,
-        //        typeInfos,
-        //        memberIds,
-        //        &found).ThrowIfFailed(typeName);
-
-        //    return (ITypeInfo)Marshal.GetTypedObjectForIUnknown(typeInfos[0], typeof(ITypeInfo));
-        //}
-
-
-        // https://github.com/RussKie/WInterop/blob/54e8d2524863fbcfa1be8b9ab07139e9193266f3/src/WInterop.Desktop/Com/Com.cs#L85
-        // https://stackoverflow.com/questions/47321869/how-do-i-convert-a-c-sharp-string-to-a-spanchar-spant
-        //public ITypeInfo GetTypeInfoByName(this ITypeLib typeLib, string typeName)
-        //{
-
-        //    //string str = typeName;
-        //    //Span<char> mySpan = stackalloc char[str.Length]; // or `new char[str.Length]`
-        //    //str.AsSpan().CopyTo(mySpan);
-
-
-        //    // The find method is case insensitive, and will overwrite the input buffer
-        //    // with the actual found casing.
-
-        //    char nameBuffer = new char([typeName.Length + 1]);
-        //    Span<char> nameSpan = new char[typeName.Length]
-        //    typeName.AsSpan().CopyTo(nameSpan);
-        //    nameBuffer[typeName.Length] = '\0';
-
-        //    IntPtr typeInfos = IntPtr[1];
-
-        //    MemberId* memberIds = stackalloc MemberId[1];
-        //    ushort found = 1;
-        //    typeLib.FindName(
-        //        nameBuffer,
-        //        lHashVal: 0,
-        //        typeInfos,
-        //        memberIds,
-        //        &found).ThrowIfFailed(typeName);
-
-        //    return (ITypeInfo)Marshal.GetTypedObjectForIUnknown(typeInfos[0], typeof(ITypeInfo));
-        //}
 
     }
 }

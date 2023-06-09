@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComRefactor\ComManagement\TypeLibs\Utility\ComProjectDocumentationExtension.cs" />
+    <Compile Include="ComRefactor\ComReflection\ComLibraryInfo.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Abstract\ITypeInfoInternalImplementedInterfacesCollection.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Abstract\ITypeInfoInternalWrapperCollection.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Abstract\ITypeInfoInternalWrapper.cs" />
