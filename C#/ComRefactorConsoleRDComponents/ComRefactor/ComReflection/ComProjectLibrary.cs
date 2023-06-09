@@ -29,14 +29,10 @@ namespace ComRefactor.ComReflection
         public static readonly ConcurrentDictionary<Guid, ComEnumeration> KnownEnumerations = new ConcurrentDictionary<Guid, ComEnumeration>();
         public static readonly ConcurrentDictionary<Guid, ComAlias> KnownAliases = new ConcurrentDictionary<Guid, ComAlias>();
 
-        //TODO : Added
-        private ITypeLib _typeLib;
-        public int TypeCount;
-        public SYSKIND SYSKIND;
-        public int lcid;
+        private ITypeLib _typeLib;  //TODO : Added
+        public int TypeCount;       //TODO : Added
 
-        public TYPELIBATTR Attributes;
-
+        public TYPELIBATTR Attributes; //TODO : Added
 
         [DataMember(IsRequired = true)]
         public string Path { get; set; }
@@ -96,15 +92,12 @@ namespace ComRefactor.ComReflection
                 {
                     var typeAttr = Marshal.PtrToStructure<TYPELIBATTR>(attribPtr);
 
-                    Attributes = typeAttr;
+                    Attributes = typeAttr; // TODO: Added
 
-                    MajorVersion = typeAttr.wMajorVerNum;
-                    MinorVersion = typeAttr.wMinorVerNum;
-                    wLibFlags = (TypeLibTypeFlags)typeAttr.wLibFlags;
-                    Guid = typeAttr.guid;
-                    //TODO : Added
-                    SYSKIND = typeAttr.syskind;
-                    lcid = typeAttr.lcid;
+                    MajorVersion = typeAttr.wMajorVerNum;  // TODO : Using Attrributes
+                    MinorVersion = typeAttr.wMinorVerNum;  // TODO : Using Attrributes
+                    wLibFlags = (TypeLibTypeFlags)typeAttr.wLibFlags; // TODO : Using Attrributes
+                    Guid = typeAttr.guid;  // TODO : Using Attrributes
                 }
             }
             catch (COMException) { }

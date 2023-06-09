@@ -3,16 +3,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-using ComRefactor.ComManagement.TypeLibs.Abstract;
 using ComRefactor.ComManagement.TypeLibs.Utility;
 using ComRefactor.ComReflection;
 using RD = Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
-//using CR = ComRefactor.ComManagement.TypeLibs.Utility;
-//using Rubberduck.Parsing.ComReflection;
-//using Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
-
-
-//using TYPEATTR = System.Runtime.InteropServices.ComTypes.TYPEATTR;
 
 namespace ComRefactorConsole
 {
