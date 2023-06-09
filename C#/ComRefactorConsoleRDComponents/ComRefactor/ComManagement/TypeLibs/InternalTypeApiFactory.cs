@@ -26,13 +26,22 @@ namespace ComRefactor.ComManagement.TypeLibs
         //    return wrapper;
         //}
 
+        internal static ITypeLibInternalWrapper GetTypeLibInternalWrapper(ITypeLib rawTypeLib)
+        {
+            //ITypeLibInternalWrapper wrapper = new TypeLibInternalWrapper(rawTypeInfo, addRef);
+
+            ITypeLibInternalWrapper wrapper = new TypeLibInternalWrapper(rawTypeLib);
+            //TraceWrapper(ref wrapper);
+            return wrapper;
+        }
+
         //[Conditional("TRACE_TYPEAPI")]
         //private static void TraceWrapper(ref ITypeLibInternalWrapper wrapper)
         //{
         //    wrapper = new TypeLibWrapperTracer(wrapper, (ITypeLibInternal)wrapper);
         //}
 
-        //internal static ITypeLibInternalWrapper GetTypeInfoWrapper(IntPtr rawObjectPtr, int? parentUserFormUniqueId = null)
+        //internal static ITypeLibInternalWrapper GetTypeInfoInternalWrapper(IntPtr rawObjectPtr, int? parentUserFormUniqueId = null)
         //{
         //    ITypeLibInternalWrapper wrapper = new TypeLibInternalWrapper(rawObjectPtr, parentUserFormUniqueId);
         //    //TraceWrapper(ref wrapper);

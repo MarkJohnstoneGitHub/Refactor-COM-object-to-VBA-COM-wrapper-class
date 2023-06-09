@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComRefactor\ComManagement\TypeLibs\Abstract\ITypeInfoInternalImplementedInterfacesCollection.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Abstract\ITypeInfoInternalWrapperCollection.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Abstract\ITypeInfoInternalWrapper.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Abstract\ITypeLibInternalWrapper.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Unmanaged\ObjectHandleExtensions.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Unmanaged\GCHandleProvider.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Utility\InternalTypeInfoDocumentationExtensions.cs" />
+    <Compile Include="Rubberduck\ComReflection\ComLibraryProvider.cs" />
     <Compile Include="Rubberduck\ComReflection\ComAlias.cs" />
     <Compile Include="Rubberduck\ComReflection\ComBase.cs" />
     <Compile Include="Rubberduck\ComReflection\ComCoClass.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="Rubberduck\ComReflection\ComType.cs" />
     <Compile Include="Rubberduck\ComReflection\ComTypeName.cs" />
     <Compile Include="Rubberduck\ComReflection\ComVariant.cs" />
+    <Compile Include="Rubberduck\ComReflection\IComLibraryProvider.cs" />
     <Compile Include="Rubberduck\Grammer\Tokens.cs" />
     <Compile Include="Rubberduck\Parsing\Symbols\DeclarationType.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\TypeInfoFunctionCollection.cs" />
@@ -83,6 +86,7 @@
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Abstract\ITypeInfoFunctionCollection.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Abstract\ITypeInfoInternal.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\TypeInfoFunction.cs" />
+    <Compile Include="ComRefactor\ComManagement\TypeLibs\TypeInfoInternalImplementedInterfacesCollection.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Unmanged\AddressableVariables.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Unmanged\ComHelper.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Unmanged\ComPointer.cs" />
@@ -94,6 +98,15 @@
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Utility\DocClassHelper.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Utility\IDisposableList.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Utility\IndexedCollection.cs" />
+    <Compile Include="Rubberduck\VBEditor\HashCode.cs" />
+    <Compile Include="Rubberduck\VBEditor\ReferenceInfo.cs" />
+    <Compile Include="Rubberduck\VBEditor\SafeComWrappers\Abstract\IComCollection.cs" />
+    <Compile Include="Rubberduck\VBEditor\SafeComWrappers\Abstract\ISafeComWrapper.cs" />
+    <Compile Include="Rubberduck\VBEditor\SafeComWrappers\Abstract\ISafeEventedComWrapper.cs" />
+    <Compile Include="Rubberduck\VBEditor\SafeComWrappers\ReferenceEventArgs.cs" />
+    <Compile Include="Rubberduck\VBEditor\SafeComWrappers\VB\Abstract\IReference.cs" />
+    <Compile Include="Rubberduck\VBEditor\SafeComWrappers\VB\Abstract\IReferences.cs" />
+    <Compile Include="Rubberduck\VBEditor\SafeComWrappers\VB\Enums\ReferenceKind.cs" />
     <Compile Include="Rubberduck\VBEditor\Utility\DisposalActionContainer.cs" />
   </ItemGroup>
   <ItemGroup>

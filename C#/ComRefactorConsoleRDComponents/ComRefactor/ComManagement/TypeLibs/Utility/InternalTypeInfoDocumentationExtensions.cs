@@ -41,6 +41,7 @@ namespace ComRefactor.ComManagement.TypeLibs.Utility
 
             output.AppendLine("- TypeCount: " + _this.TypesCount);
 
+            //TODO : 
 
             //foreach (var typeInfo in _this.TypeInfos)
             //{

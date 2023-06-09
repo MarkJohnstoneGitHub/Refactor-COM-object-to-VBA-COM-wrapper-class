@@ -48,6 +48,6 @@ namespace ComRefactor.ComReflection.TypeLibs.Abstract
         new void ReleaseVarDesc(IntPtr pVarDesc);
         ITypeInfoFunctionCollection Funcs { get; }
         //ITypeInfoVariablesCollection Vars { get; }
-        //ITypeInfoImplementedInterfacesCollection ImplementedInterfaces { get; }
+        ITypeInfoInternalImplementedInterfacesCollection ImplementedInterfaces { get; }
     }
 }

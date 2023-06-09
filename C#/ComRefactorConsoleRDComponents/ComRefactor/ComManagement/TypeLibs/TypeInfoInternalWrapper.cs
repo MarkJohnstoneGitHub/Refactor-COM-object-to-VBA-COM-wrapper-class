@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using ComRefactor.ComManagement.TypeLibs.Unmanaged;
 using ComRefactor.ComReflection.TypeLibs.Abstract;
+using Rubberduck.VBEditor.ComManagement.TypeLibs;
 using Rubberduck.VBEditor.ComManagement.TypeLibs.Abstract;
 using Rubberduck.VBEditor.ComManagement.TypeLibs.Unmanaged;
 using Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
@@ -73,7 +77,7 @@ namespace ComRefactor.ComManagement.TypeLibs
         //    }
         //}
 
-        //public ITypeInfoImplementedInterfacesCollection ImplementedInterfaces { get; private set; }
+        public ITypeInfoInternalImplementedInterfacesCollection ImplementedInterfaces { get; private set; }
 
         // some helpers
         public string Name => CachedTextFields._name;
@@ -130,7 +134,7 @@ namespace ComRefactor.ComManagement.TypeLibs
                 }
             }
 
-            //Funcs = new TypeInfoFunctionCollection(this, CachedAttributes);
+            Funcs = new TypeInfoFunctionCollection(this, CachedAttributes);
 
             // Refer to AllVars XML docs for details
             //AllVars = new TypeInfoVariablesCollection(this, CachedAttributes);
@@ -139,7 +143,7 @@ namespace ComRefactor.ComManagement.TypeLibs
             //    _consts = new TypeInfoConstantsCollection(this, CachedAttributes);
             //}
 
-            //ImplementedInterfaces = new TypeInfoImplementedInterfacesCollection(this, CachedAttributes);
+            ImplementedInterfaces = new TypeInfoInternalImplementedInterfacesCollection(this, CachedAttributes);
 
             // cache the container type library if it is available, else create a simulated one
             using (var typeLibPtr = AddressableVariables.Create<IntPtr>())
@@ -149,8 +153,27 @@ namespace ComRefactor.ComManagement.TypeLibs
 
                 if (!ComHelper.HRESULT_FAILED(hr))
                 {
+
                     // We have to wrap the ITypeLib returned by GetContainingTypeLib
                     //_container = TypeApiFactory.GetTypeLibWrapper(typeLibPtr.Value, addRef: false);
+
+
+                    // We have to wrap the ITypeLib returned by GetContainingTypeLib
+                    // _target_ITypeInfo
+
+                    // TODO : require the containing ITypeLib from typeLibPtr
+
+                    //var typeLibInternalWrapper = typeLibPtr as ITypeLib;
+
+                    //var typeLibInternalWrapper2 = typeLibPtr.Value.GetType();
+
+                    //var typeLibInternalWrapper3 = RdMarshal.GetObjectForIUnknown(typeLibPtr.Value);
+
+                    //ITypeLib ppTLB;
+                    //int pIndex;
+                    //ITypeInfo.GetContainingTypeLib(out ppTLB, out pIndex);
+
+                   _container = InternalTypeApiFactory.GetTypeLibInternalWrapper(typeLibPtr as ITypeLib);
                     ContainerIndex = containerTypeLibIndex.Value;
                 }
                 //else
@@ -284,7 +307,10 @@ namespace ComRefactor.ComManagement.TypeLibs
                 var hr = _target_ITypeInfo.GetRefTypeInfo(hRef, typeInfoPtr.Address);
                 if (ComHelper.HRESULT_FAILED(hr)) return HandleBadHRESULT(hr);
 
-                var outVal = InternalTypeApiFactory.GetTypeInfoInternalWrapper(typeInfoPtr.Value); // takes ownership of the COM reference
+                //var outVal = TypeApiFactory.GetTypeInfoWrapper(typeInfoPtr.Value, IsUserFormBaseClass ? (int?)hRef : null); // takes ownership of the COM reference
+
+                // TODO Check if used
+                var outVal = InternalTypeApiFactory.GetTypeInfoInternalWrapper(typeInfoPtr.Value); // takes ownership of the COM reference 
                 _cachedReferencedTypeInfos = _cachedReferencedTypeInfos ?? new DisposableList<ITypeInfoInternalWrapper>();
                 _cachedReferencedTypeInfos.Add(outVal);
                 outTI = null;
@@ -293,12 +319,12 @@ namespace ComRefactor.ComManagement.TypeLibs
             }
         }
 
-        //int ITypeInfoWrapper.GetSafeRefTypeInfo(int hRef, out ITypeInfoWrapper outTI)
-        //{
-        //    var result = GetSafeRefTypeInfo(hRef, out var outTIW);
-        //    outTI = outTIW;
-        //    return result;
-        //}
+        int ITypeInfoInternalWrapper.GetSafeRefTypeInfo(int hRef, out ITypeInfoInternalWrapper outTI)
+        {
+            var result = GetSafeRefTypeInfo(hRef, out var outTIW);
+            outTI = outTIW;
+            return result;
+        }
 
         public IntPtr GetCOMReferencePtr()
             => RdMarshal.GetComInterfaceForObject(this, typeof(ITypeInfoInternal));
@@ -308,6 +334,23 @@ namespace ComRefactor.ComManagement.TypeLibs
             return hr;
         }
 
+        // TODO: Added
+       void ComTypes.ITypeInfo.GetContainingTypeLib(out ComTypes.ITypeLib ppTLB, out int pIndex)
+        {
+            // initialize out parameters
+            ppTLB = default;
+            pIndex = default;
+
+            using (var typeLibPtr = AddressableVariables.CreateObjectPtr<ComTypes.ITypeLib>())
+            using (var indexPtr = AddressableVariables.Create<int>())
+            {
+                var hr = _target_ITypeInfo.GetContainingTypeLib(typeLibPtr.Address, indexPtr.Address);
+                if (ComHelper.HRESULT_FAILED(hr)) HandleBadHRESULT(hr);
+
+                ppTLB = typeLibPtr.Value;
+                pIndex = indexPtr.Value;
+            }
+        }
 
         public override int GetContainingTypeLib(IntPtr ppTLB, IntPtr pIndex)
         {
@@ -432,6 +475,8 @@ namespace ComRefactor.ComManagement.TypeLibs
             return hr;
         }
 
+
+        // TODO :  public override int GetNames(int memid, IntPtr rgBstrNames, int cMaxNames, IntPtr pcNames)
         public override int GetNames(int memid, IntPtr rgBstrNames, int cMaxNames, IntPtr pcNames)
         {
             //if (IsDispatchMemberIDInOurConstantsRange(memid))

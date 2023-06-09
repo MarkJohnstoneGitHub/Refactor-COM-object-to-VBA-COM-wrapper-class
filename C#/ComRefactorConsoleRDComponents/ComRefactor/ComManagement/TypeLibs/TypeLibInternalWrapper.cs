@@ -22,6 +22,9 @@ namespace ComRefactorr.ComManagement.TypeLibs
 
         private bool _isDisposed;
 
+
+        public ITypeLib InternalTypeLib => _ITypeLib;
+
         public ITypeInfoInternalWrapperCollection TypeInfos { get; set; }
 
         // helpers
