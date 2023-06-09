@@ -1,13 +1,11 @@
-﻿using Rubberduck.Parsing.ComReflection;
-using System;
+﻿//using Rubberduck.Parsing.ComReflection;
+using ComRefactor.ComReflection;
+using Rubberduck.Parsing.ComReflection;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ComRefactorConsole.ComRefactor
+namespace ComRefactor.ComReflection
 {
     public class ComLibraryInfo
     {
@@ -16,7 +14,7 @@ namespace ComRefactorConsole.ComRefactor
         private ITypeLib _typelib;
         
 
-        public ComProject GetLibraryInfoFromPath(string path)
+        public ComProjectLibrary GetLibraryInfoFromPath(string path)
         {
             try
             {
@@ -30,7 +28,7 @@ namespace ComRefactorConsole.ComRefactor
                 if (TypeLibraryExtensions.Contains(extension))
                 {
                     this._typelib = _libraryProvider.LoadTypeLibrary(path);
-                    return new ComProject(this._typelib, path); 
+                    return new ComRefactor.ComReflection.ComProjectLibrary(this._typelib, path); 
                 }
                 return null; 
             }

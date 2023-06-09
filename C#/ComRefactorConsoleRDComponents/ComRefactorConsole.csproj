@@ -58,6 +58,7 @@
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Unmanaged\ObjectHandleExtensions.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Unmanaged\GCHandleProvider.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Utility\InternalTypeInfoDocumentationExtensions.cs" />
+    <Compile Include="ComRefactor\ComReflection\ComProjectLibrary.cs" />
     <Compile Include="Rubberduck\ComReflection\ComLibraryProvider.cs" />
     <Compile Include="Rubberduck\ComReflection\ComAlias.cs" />
     <Compile Include="Rubberduck\ComReflection\ComBase.cs" />

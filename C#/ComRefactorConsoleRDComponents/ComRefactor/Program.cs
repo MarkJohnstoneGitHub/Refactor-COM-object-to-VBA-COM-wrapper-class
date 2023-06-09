@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 using ComRefactor.ComManagement.TypeLibs.Abstract;
 using ComRefactor.ComManagement.TypeLibs.Utility;
-using ComRefactorConsole.ComRefactor;
-using ComRefactorConsole.ComRefactor.ComManagement.TypeLibs.Utility;
-using ComRefactorConsole.ComReflection;
-using ComRefactorr.ComManagement.TypeLibs;
-using Rubberduck.Parsing.ComReflection;
-using Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
+using ComRefactor.ComReflection;
+using RD = Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
+//using CR = ComRefactor.ComManagement.TypeLibs.Utility;
+//using Rubberduck.Parsing.ComReflection;
+//using Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
+
+
+//using TYPEATTR = System.Runtime.InteropServices.ComTypes.TYPEATTR;
 
 namespace ComRefactorConsole
 {
@@ -30,30 +25,16 @@ namespace ComRefactorConsole
 
             if (File.Exists(typeLibraryPath))
             {
-
                 ComLibraryInfo libraryInfo = new ComLibraryInfo();
-                ComProject projectTypeLib = libraryInfo.GetLibraryInfoFromPath(typeLibraryPath);
+                ComProjectLibrary projectTypeLib = libraryInfo.GetLibraryInfoFromPath(typeLibraryPath);
                 string output = DocumentComProject(projectTypeLib);
                 System.IO.File.WriteAllText(outputPath, output);
             }
         }
 
-        /// <summary>
-        /// Documents the type library 
-        /// </summary>
-        /// <param name="projectTypeLib">Low-level ITypeLib wrapper</param>
-        /// <returns>text document, in a non-standard format, useful for debugging purposes</returns>
-        public static string DocumentTypeLibInternal(ITypeLibInternalWrapper projectTypeLib)
+        public static string DocumentComProject(ComProjectLibrary projectTypeLib)
         {
-            var output = new StringLineBuilder();
-            projectTypeLib.Document(output);
-            return output.ToString();
-        }
-
-
-        public static string DocumentComProject(ComProject projectTypeLib)
-        {
-            var output = new StringLineBuilder();
+            var output = new RD.StringLineBuilder();
             projectTypeLib.Document(output);
             return output.ToString();
         }

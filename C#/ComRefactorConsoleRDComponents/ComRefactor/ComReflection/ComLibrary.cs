@@ -9,7 +9,7 @@ using System.Runtime.InteropServices.ComTypes;
 using Rubberduck.Parsing.ComReflection;
 using Rubberduck.VBEditor;
 
-namespace ComRefactorConsole.ComReflection
+namespace ComRefactor.ComReflection
 {
 
     // https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs
