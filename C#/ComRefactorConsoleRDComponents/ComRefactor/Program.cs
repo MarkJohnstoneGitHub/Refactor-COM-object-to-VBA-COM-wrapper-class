@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using ComRefactor.ComManagement.TypeLibs.Utility;
 using ComRefactor.ComReflection;
+using Rubberduck.Parsing.ComReflection;
 using RD = Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
 
 namespace ComRefactorConsole
@@ -15,6 +17,7 @@ namespace ComRefactorConsole
         {
             string typeLibraryPath = args[0];
             string outputPath = args[1];
+            string comClassName = "DateTime"; //args[2];
 
             if (File.Exists(typeLibraryPath))
             {
@@ -22,6 +25,23 @@ namespace ComRefactorConsole
                 ComProjectLibrary projectTypeLib = libraryInfo.GetLibraryInfoFromPath(typeLibraryPath);
                 string output = DocumentComProject(projectTypeLib);
                 System.IO.File.WriteAllText(outputPath, output);
+
+                ComInterface comCoClassInterface = projectTypeLib.FindComCoClassInterface(comClassName);
+
+                if (comCoClassInterface != null)
+                {
+                    // https://stackoverflow.com/questions/3826763/get-full-path-without-filename-from-path-that-includes-filename
+                    // https://stackoverflow.com/questions/674479/how-do-i-get-the-directory-from-a-files-full-path
+                    // TODO : For tessting get file path from outputPath to document the ComInterface 
+
+                }
+                else 
+                { 
+                }
+
+
+
+
             }
         }
 
