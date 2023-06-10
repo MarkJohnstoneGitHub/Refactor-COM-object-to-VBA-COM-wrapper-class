@@ -17,7 +17,7 @@ namespace ComRefactorConsole
         {
             string typeLibraryPath = args[0];
             string outputPath = args[1];
-            string comClassName = "DateTime"; //args[2];
+            string comClassName = args[2];
 
             if (File.Exists(typeLibraryPath))
             {
@@ -30,18 +30,20 @@ namespace ComRefactorConsole
 
                 if (comCoClassInterface != null)
                 {
+                    // Appears to be working finding the Com CoClass default interface required eg. "DateTime" from DotNetLib.tlb
                     // https://stackoverflow.com/questions/3826763/get-full-path-without-filename-from-path-that-includes-filename
                     // https://stackoverflow.com/questions/674479/how-do-i-get-the-directory-from-a-files-full-path
-                    // TODO : For tessting get file path from outputPath to document the ComInterface 
+                    // TODO : For testing obtain the file path from outputPath to document the ComInterface 
+                    // TODO : Document ComInterface comCoClassInterface
+                    // TODO : Refactor comCoClassInterface to extract VBA Com wrapper class
+                    // TODO : Require to investigate how RD extracts class and/or interface and include RD components required
+                    // TODO : First attempt just extract a VBA class without Com wrapper references
+                    // TODO : Modify RD refactoring a VBA interface to extract a class wrapping  the Com object required
 
                 }
                 else 
                 { 
                 }
-
-
-
-
             }
         }
 

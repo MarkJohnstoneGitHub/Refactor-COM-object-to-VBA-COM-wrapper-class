@@ -13,7 +13,6 @@ namespace ComRefactor.ComManagement.TypeLibs.Utility
 
             output.AppendLine("ITypeLib: " + _this.Name);
 
-              
             output.AppendLineNoNullChars("- Documentation: " + _this.Documentation.DocString);
             output.AppendLineNoNullChars("- HelpContext: " + _this.Documentation.HelpContext);
             output.AppendLineNoNullChars("- HelpFile: " + _this.Documentation.HelpFile);
@@ -24,7 +23,6 @@ namespace ComRefactor.ComManagement.TypeLibs.Utility
             output.AppendLine("- wLibFlags: " + _this.Attributes.wLibFlags);
             output.AppendLine("- MajorVer: " + _this.Attributes.wMajorVerNum);
             output.AppendLine("- MinorVer: " + _this.Attributes.wMinorVerNum);
-
 
             output.AppendLine("- TypeCount: " + _this.TypeCount);
 
