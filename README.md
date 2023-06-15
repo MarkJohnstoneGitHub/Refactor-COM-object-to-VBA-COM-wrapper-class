@@ -37,7 +37,7 @@ Outline for implemention of refactoring a Com Object to implement a VBA class CO
      - Include class and method descriptions
      - Add Rubberduck annotations required. eg classs and  method description, hidden items, default, enumeration, predeclared class etc.
      - Option to implement as predeclared class.
--Early or late binding implementation of wrapping the Com object in VBA.
+     - Early or late binding implementation of wrapping the Com object in VBA.
   
 If allowing for various options create a copy of the Com object ComInterface according to selections. 
 i.e. The list of methods is copied according to required methods required and ordering. 
