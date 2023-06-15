@@ -43,6 +43,7 @@ If allowing for various options create a copy of the Com object ComInterface acc
 i.e. The list of methods is copied according to required methods required and ordering. 
 Update ComInterface.IsPreDeclared property.
 To allow for sorting/grouping of methods maybe have to expose some lists eg the methods list?
+
 4) Build the VBA class from a ComInterface template.
 - Add Class Header hidden options
   - See VBA classs header attributes:
