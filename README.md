@@ -45,13 +45,7 @@ Update ComInterface.IsPreDeclared property.
 To allow for sorting/grouping of methods maybe have to expose some lists eg the methods list?
 
 4) Build the VBA class from a ComInterface template.
-- Add Class Header hidden options
-  - See VBA classs header attributes:
-    - Attribute VB_Name = "DateTime"
-    - Attribute VB_GlobalNameSpace = False
-    - Attribute VB_Creatable = False
-    - Attribute VB_PredeclaredId = True
-    - Attribute VB_Exposed = False
+- Add Class Header hidden attributes [VBA Attributes](https://vbaplanet.com/attributes.php#:~:text=VBA%20code%20modules%20contain%20attributes,module%20in%20a%20text%20editor.)
   - Add in Class description if required.
   - Add in Rubberduck module description annotation  if required. '@ModuleDescription("")
   - Add in Rubberduck predeclaredId annotation if required. '@PredeclaredId
