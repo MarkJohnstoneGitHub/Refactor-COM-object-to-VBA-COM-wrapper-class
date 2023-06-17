@@ -50,8 +50,8 @@ Attribute Date.VB_Description = "Gets the date component of this instance."
 End Property
 
 '@Description("Gets the day of the month represented by this instance.")
-Public Property Get day()
-Attribute day.VB_Description = "Gets the day of the month represented by this instance."
+Public Property Get Day()
+Attribute Day.VB_Description = "Gets the day of the month represented by this instance."
 End Property
 
 '@Description("Gets the day of the week represented by this instance.")
@@ -65,28 +65,28 @@ Attribute DayOfYear.VB_Description = "Gets the day of the year represented by th
 End Property
 
 '@Description("Gets the hour component of the date represented by this instance.")
-Public Property Get hour()
-Attribute hour.VB_Description = "Gets the hour component of the date represented by this instance."
+Public Property Get Hour()
+Attribute Hour.VB_Description = "Gets the hour component of the date represented by this instance."
 End Property
 
 '@Description("Gets a value that indicates whether the time represented by this instance is based on local time, Coordinated Universal Time (UTC), or neither.")
-Public Property Get kind()
-Attribute kind.VB_Description = "Gets a value that indicates whether the time represented by this instance is based on local time, Coordinated Universal Time (UTC), or neither."
+Public Property Get Kind()
+Attribute Kind.VB_Description = "Gets a value that indicates whether the time represented by this instance is based on local time, Coordinated Universal Time (UTC), or neither."
 End Property
 
 '@Description("Gets the milliseconds component of the date represented by this instance.")
-Public Property Get millisecond()
-Attribute millisecond.VB_Description = "Gets the milliseconds component of the date represented by this instance."
+Public Property Get Millisecond()
+Attribute Millisecond.VB_Description = "Gets the milliseconds component of the date represented by this instance."
 End Property
 
 '@Description("Gets the minute component of the date represented by this instance.")
-Public Property Get minute()
-Attribute minute.VB_Description = "Gets the minute component of the date represented by this instance."
+Public Property Get Minute()
+Attribute Minute.VB_Description = "Gets the minute component of the date represented by this instance."
 End Property
 
 '@Description("Gets the month component of the date represented by this instance.")
-Public Property Get month()
-Attribute month.VB_Description = "Gets the month component of the date represented by this instance."
+Public Property Get Month()
+Attribute Month.VB_Description = "Gets the month component of the date represented by this instance."
 End Property
 
 '@Description("Gets a DateTime object that is set to the current date and time on this computer, expressed as the local time.")
@@ -95,13 +95,13 @@ Attribute Now.VB_Description = "Gets a DateTime object that is set to the curren
 End Property
 
 '@Description("Gets the seconds component of the date represented by this instance.")
-Public Property Get second()
-Attribute second.VB_Description = "Gets the seconds component of the date represented by this instance."
+Public Property Get Second()
+Attribute Second.VB_Description = "Gets the seconds component of the date represented by this instance."
 End Property
 
 '@Description("Gets the number of ticks that represent the date and time of this instance.")
-Public Property Get ticks()
-Attribute ticks.VB_Description = "Gets the number of ticks that represent the date and time of this instance."
+Public Property Get Ticks()
+Attribute Ticks.VB_Description = "Gets the number of ticks that represent the date and time of this instance."
 End Property
 
 '@Description("Gets the time of day for this instance.")
@@ -120,8 +120,8 @@ Attribute UtcNow.VB_Description = "Gets a DateTime object that is set to the cur
 End Property
 
 '@Description("Gets the year component of the date represented by this instance.")
-Public Property Get year()
-Attribute year.VB_Description = "Gets the year component of the date represented by this instance."
+Public Property Get Year()
+Attribute Year.VB_Description = "Gets the year component of the date represented by this instance."
 End Property
 
 '@Description("Returns a new DateTime that adds the value of the specified TimeSpan to the value of this instance.")

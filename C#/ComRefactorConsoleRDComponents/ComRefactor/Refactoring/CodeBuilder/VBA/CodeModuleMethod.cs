@@ -7,7 +7,12 @@ using System.Text;
 namespace ComRefactor.Refactoring.CodeBuilder.VBA
 {
 
-    //TODO : Issue with method names using VBA reserved words
+    // TODO : Issue with method names using VBA reserved words
+    // TODO : Issue with Com method names in Lowercase quickfix done
+    // TODO : Issue for interface being used when referring to the current Com Object being implemented
+    // eg. 
+    // TODO : Issue missing Function As clause
+
     // https://www.engram9.info/access-2007-vba/reserved-word-list.html
 
     public class CodeModuleMethod
@@ -20,7 +25,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         public CodeModuleMethod(ComMember methodInfo)
         {
             this._methodInfo = methodInfo;
-            this._name = this._methodInfo.Name;
+            this._name = FirstLetterToUpper(this._methodInfo.Name);
         }
         
         public string Name 
@@ -104,7 +109,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                     type = "Event";
                     break;
             }
-            return $"{(this._methodInfo.IsHidden || this._methodInfo.IsRestricted ? "Private" : "Public")} {type} {this._methodInfo.Name}";
+            return $"{(this._methodInfo.IsHidden || this._methodInfo.IsRestricted ? "Private" : "Public")} {type} {this.Name}";
         }
 
         public String DescriptionAttribute()
@@ -133,9 +138,23 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         }
 
         //https://github.com/rubberduck-vba/Rubberduck/wiki/VB_Attribute-Annotations#member-annotations
-        private string AnnotationMemberDescription()
+        public string AnnotationMemberDescription()
         {
             return "'@Description(\"" + this._methodInfo.Documentation.DocString + "\")";
+        }
+
+
+        // https://stackoverflow.com/questions/4135317/make-first-letter-of-a-string-upper-case-with-maximum-performance/4135491#4135491
+        // TODO : Move to appropriate location
+        private string FirstLetterToUpper(string str)
+        {
+            if (str == null)
+                return null;
+
+            if (str.Length > 1)
+                return char.ToUpper(str[0]) + str.Substring(1);
+
+            return str.ToUpper();
         }
 
     }
