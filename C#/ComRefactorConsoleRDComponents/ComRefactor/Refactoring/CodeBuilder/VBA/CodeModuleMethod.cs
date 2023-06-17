@@ -2,6 +2,7 @@
 using Rubberduck.Parsing.Symbols;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
 namespace ComRefactor.Refactoring.CodeBuilder.VBA
@@ -34,9 +35,11 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             private set => _name = value;
         } 
 
+
+        //TODO: Missing function and property get As clause
         public String Signature()
         {
-            return Declaration() + Parameters();
+            return Declaration() + Parameters() + " " + ReturnType();
         }
         public String CodeModule() 
         {
@@ -135,6 +138,17 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             }
             String joined = "(" + String.Join(", ", declarationParameters) + ")";
             return joined;
+        }
+
+
+        public String ReturnType()
+        {
+            if (this._methodInfo.Type == DeclarationType.Function || this._methodInfo.Type == DeclarationType.PropertyGet)
+            {
+                string returnType = this._methodInfo.AsTypeName.TypeName;
+                return "As " + returnType;
+            }
+            return null;
         }
 
         //https://github.com/rubberduck-vba/Rubberduck/wiki/VB_Attribute-Annotations#member-annotations
