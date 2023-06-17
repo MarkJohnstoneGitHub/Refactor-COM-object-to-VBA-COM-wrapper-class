@@ -14,7 +14,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -59,30 +60,39 @@
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Unmanaged\GCHandleProvider.cs" />
     <Compile Include="ComRefactor\ComManagement\TypeLibs\Utility\InternalTypeInfoDocumentationExtensions.cs" />
     <Compile Include="ComRefactor\ComReflection\ComProjectLibrary.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComLibraryProvider.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComAlias.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComBase.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComCoClass.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComDocumentation.cs" />
+    <Compile Include="ComRefactor\Notes\MyNotes.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleOptionExplicit.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleHeader.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\VBAComWrapper.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleHeaderAttributes.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleMethod.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleParameters.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComLibraryProvider.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComAlias.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComBase.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComCoClass.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComDocumentation.cs" />
     <Compile Include="ComRefactor\ComReflection\ComLibrary.cs" />
     <Compile Include="ComRefactor\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComRefactor\ComReflection\IComLibrary.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComEnumeration.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComEnumerationMember.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComField.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComInterface.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComMember.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComModule.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComParameter.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComProject.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComStruct.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComType.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComTypeName.cs" />
-    <Compile Include="Rubberduck\ComReflection\ComVariant.cs" />
-    <Compile Include="Rubberduck\ComReflection\IComLibraryProvider.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComEnumeration.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComEnumerationMember.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComField.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComInterface.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComMember.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComModule.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComParameter.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComProject.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComStruct.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComType.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComTypeName.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\ComVariant.cs" />
+    <Compile Include="Rubberduck\Parsing\ComReflection\IComLibraryProvider.cs" />
     <Compile Include="Rubberduck\Grammer\Tokens.cs" />
+    <Compile Include="Rubberduck\Parsing\Symbols\Accessibility.cs" />
     <Compile Include="Rubberduck\Parsing\Symbols\DeclarationType.cs" />
+    <Compile Include="Rubberduck\Resources\Registration\WellKnownDispIds.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\TypeInfoFunctionCollection.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Abstract\IDispatch.cs" />
     <Compile Include="Rubberduck\VBEditor\ComManagement\TypeLibs\Abstract\ITypeInfoFunction.cs" />

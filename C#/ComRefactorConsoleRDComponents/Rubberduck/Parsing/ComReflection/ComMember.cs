@@ -25,6 +25,10 @@ namespace Rubberduck.Parsing.ComReflection
         Value = 0               //The default member for the object.
     }
 
+
+    //TODO : Member signiture
+    //TODO : For Function Returns
+
     [DataContract]
     [KnownType(typeof(ComBase))]
     [DebuggerDisplay("{" + nameof(MemberDeclaration) + "}")]
@@ -52,12 +56,13 @@ namespace Rubberduck.Parsing.ComReflection
         [DataMember(IsRequired = true)]
         public ComParameter AsTypeName { get; private set; } = ComParameter.Void;
 
+        // TODO : RD changed to public
         [DataMember(IsRequired = true)]
-        private List<ComParameter> _parameters = new List<ComParameter>();
+        public List<ComParameter> ParametersList = new List<ComParameter>();
 
         //See https://docs.microsoft.com/en-us/windows/desktop/midl/retval
         //"Parameters with the [retval] attribute are not displayed in user-oriented browsers."
-        public IEnumerable<ComParameter> Parameters => _parameters.Where(param => !param.IsReturnValue);
+        public IEnumerable<ComParameter> Parameters => ParametersList.Where(param => !param.IsReturnValue);
 
         public ComMember(IComBase parent, ITypeInfo info, FUNCDESC funcDesc) : base(parent, info, funcDesc)
         {
@@ -89,7 +94,7 @@ namespace Rubberduck.Parsing.ComReflection
             {
                 Type = DeclarationType.PropertySet;
             }
-            else if (returnsVoid || !_parameters.Any(param => param.IsReturnValue) && returnsHResult)
+            else if (returnsVoid || !ParametersList.Any(param => param.IsReturnValue) && returnsHResult)
             {
                 Type = DeclarationType.Procedure;
             }
@@ -101,13 +106,13 @@ namespace Rubberduck.Parsing.ComReflection
             if (Type == DeclarationType.Function || Type == DeclarationType.PropertyGet)
             {
                 var returnType = new ComParameter(this, funcDesc.elemdescFunc, info, string.Empty);
-                if (!_parameters.Any())
+                if (!ParametersList.Any())
                 {
                     AsTypeName = returnType;
                 }
                 else
                 {
-                    var retval = _parameters.FirstOrDefault(x => x.IsReturnValue);
+                    var retval = ParametersList.FirstOrDefault(x => x.IsReturnValue);
                     AsTypeName = retval ?? returnType;
                 }
             }
@@ -123,7 +128,7 @@ namespace Rubberduck.Parsing.ComReflection
                 var paramPtr = new IntPtr(funcDesc.lprgelemdescParam.ToInt64() + Marshal.SizeOf(typeof(ELEMDESC)) * index);
                 var elemDesc = Marshal.PtrToStructure<ELEMDESC>(paramPtr);
                 var param = new ComParameter(this, elemDesc, info, names[index + 1] ?? $"{index}unnamedParameter");
-                _parameters.Add(param);
+                ParametersList.Add(param);
             }
 
             // See https://docs.microsoft.com/en-us/windows/desktop/midl/propput
@@ -131,8 +136,8 @@ namespace Rubberduck.Parsing.ComReflection
             if (funcDesc.invkind.HasFlag(INVOKEKIND.INVOKE_PROPERTYPUTREF) ||
                 funcDesc.invkind.HasFlag(INVOKEKIND.INVOKE_PROPERTYPUT))
             {
-                AsTypeName = _parameters.Last();
-                _parameters = _parameters.Take(funcDesc.cParams - 1).ToList();
+                AsTypeName = ParametersList.Last();
+                ParametersList = ParametersList.Take(funcDesc.cParams - 1).ToList();
                 return;
             }
 
@@ -171,5 +176,8 @@ namespace Rubberduck.Parsing.ComReflection
                 return $"{(IsHidden || IsRestricted ? "Private" : "Public")} {type} {Name}{(AsTypeName == null ? string.Empty : $" As {AsTypeName.TypeName}")}";
             }
         }
+
+
+
     }
 }

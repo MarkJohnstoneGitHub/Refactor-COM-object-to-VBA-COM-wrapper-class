@@ -14,6 +14,7 @@ namespace Rubberduck.Parsing.ComReflection
     {
         // ReSharper disable once InconsistentNaming
         private const ushort VT_TYPEMASK = 0xFFF;
+
         private static readonly bool ProcessIs32Bit = IntPtr.Size == 4;
 
         internal static readonly IDictionary<VarEnum, string> TypeNames = new Dictionary<VarEnum, string>

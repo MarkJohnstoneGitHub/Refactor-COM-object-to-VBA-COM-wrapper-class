@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using ComRefactor.ComManagement.TypeLibs.Utility;
 using ComRefactor.ComReflection;
+using ComRefactor.Refactoring.CodeBuilder.VBA;
 using Rubberduck.Parsing.ComReflection;
 using RD = Rubberduck.VBEditor.ComManagement.TypeLibs.Utility;
 
@@ -23,14 +23,23 @@ namespace ComRefactorConsole
             {
                 ComLibraryInfo libraryInfo = new ComLibraryInfo();
                 ComProjectLibrary projectTypeLib = libraryInfo.GetLibraryInfoFromPath(typeLibraryPath);
-                string output = DocumentComProject(projectTypeLib);
-                System.IO.File.WriteAllText(outputPath, output);
-
                 ComInterface comCoClassInterface = projectTypeLib.FindComCoClassInterface(comClassName);
-
                 if (comCoClassInterface != null)
                 {
+                    string codeModule = null;
+                    VBAComWrapper codebuilder = new VBAComWrapper(comCoClassInterface, comClassName);
+                    codeModule = codebuilder.CodeModule();
+                    System.IO.File.WriteAllText(outputPath, codeModule);
+
                     // Appears to be working finding the Com CoClass default interface required eg. "DateTime" from DotNetLib.tlb
+                    // Successfully created class for all methods and descriptions
+
+                    // TODO : Attributes for enumeration, default member etc.
+                    // TODO : Issue with optional parameters
+                    // TODO : Issue with methods using VBA reserved words eg method Date
+                    // TODO : Implement wrapping of early binding Com object
+                    // TODO : Rubberduck annotations for description etc.
+
                     // https://stackoverflow.com/questions/3826763/get-full-path-without-filename-from-path-that-includes-filename
                     // https://stackoverflow.com/questions/674479/how-do-i-get-the-directory-from-a-files-full-path
                     // TODO : For testing obtain the file path from outputPath to document the ComInterface 
@@ -39,6 +48,7 @@ namespace ComRefactorConsole
                     // TODO : Require to investigate how RD extracts class and/or interface and include RD components required
                     // TODO : First attempt just extract a VBA class without Com wrapper references
                     // TODO : Modify RD refactoring a VBA interface to extract a class wrapping  the Com object required
+
 
                 }
                 else 

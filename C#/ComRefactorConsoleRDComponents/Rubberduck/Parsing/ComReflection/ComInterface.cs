@@ -23,17 +23,20 @@ namespace Rubberduck.Parsing.ComReflection
         [DataMember(IsRequired = true)]
         public bool IsExtensible { get; private set; }
 
-        [DataMember(IsRequired = true)]
-        private List<ComInterface> _inherited = new List<ComInterface>();
-        public IEnumerable<ComInterface> InheritedInterfaces => _inherited;
+        // TODO : Changed list to public
+        // TODO : renamed private lists
 
         [DataMember(IsRequired = true)]
-        private List<ComMember> _members = new List<ComMember>();
-        public IEnumerable<ComMember> Members => _members;
+        public List<ComInterface> InheritedInterfacesList = new List<ComInterface>();
+        public IEnumerable<ComInterface> InheritedInterfaces => InheritedInterfacesList;
 
         [DataMember(IsRequired = true)]
-        private List<ComField> _properties = new List<ComField>();
-        public IEnumerable<ComField> Properties => _properties;
+        public List<ComMember> MembersList = new List<ComMember>();
+        public IEnumerable<ComMember> Members => MembersList;
+
+        [DataMember(IsRequired = true)]
+        public List<ComField> PropertiesList = new List<ComField>();
+        public IEnumerable<ComField> Properties => PropertiesList;
 
         [DataMember(IsRequired = true)]
         public ComMember DefaultMember { get; private set; }
@@ -86,7 +89,7 @@ namespace Rubberduck.Parsing.ComReflection
 
                     ComProject.KnownTypes.TryGetValue(attribs.guid, out ComType inherited);
                     var intface = inherited as ComInterface ?? new ComInterface(Project, implemented, attribs);
-                    _inherited.Add(intface);
+                    InheritedInterfacesList.Add(intface);
                     ComProject.KnownTypes.TryAdd(attribs.guid, intface);
                 }
             }
@@ -105,7 +108,7 @@ namespace Rubberduck.Parsing.ComReflection
                         continue;
                     }
                     var comMember = new ComMember(this, info, member);
-                    _members.Add(comMember);
+                    MembersList.Add(comMember);
                     if (comMember.IsDefault)
                     {
                         DefaultMember = comMember;
@@ -126,7 +129,7 @@ namespace Rubberduck.Parsing.ComReflection
                     info.GetNames(property.memid, names, names.Length, out int length);
                     Debug.Assert(length == 1);
 
-                    _properties.Add(new ComField(this, info, names[0], property, index, DeclarationType.Property));
+                    PropertiesList.Add(new ComField(this, info, names[0], property, index, DeclarationType.Property));
                 }
             }
         }

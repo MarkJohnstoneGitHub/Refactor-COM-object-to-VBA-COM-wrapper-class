@@ -106,7 +106,7 @@ namespace Rubberduck.Parsing.Symbols
         {
         }
 
-        // expose attributes?
+        // expose Attributes?
     }
 
     public abstract class ModuleOptionNode

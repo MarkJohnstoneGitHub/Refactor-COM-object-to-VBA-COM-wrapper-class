@@ -96,7 +96,7 @@ namespace ComRefactor.ComManagement.TypeLibs
         // we make up some unique names for these constants, and create unique DispIDs for them at runtime.  
         // This will help some ITypeInfo consumers that may not like the unnamed fields. 
         // Currently this is achieved by defining a range in the 32-bit space used by DispIDs that is unlikely to conflict with 
-        // any normal DispIDs assigned by VBA, and one would think unlikely to be used by custom VB_UserMemId attributes. 
+        // any normal DispIDs assigned by VBA, and one would think unlikely to be used by custom VB_UserMemId Attributes. 
         // The range chosen allows for 65536 constants, starting at _ourConstantsDispatchMemberIDRangeStart.
         // generated names are in the format "_constantFieldId" + Index (where index is the index into GetVarDesc)
         //const int _ourConstantsDispatchMemberIDRangeStart = unchecked((int)0xFEDC0000);
