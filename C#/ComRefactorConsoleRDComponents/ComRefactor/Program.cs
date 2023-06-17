@@ -19,6 +19,10 @@ namespace ComRefactorConsole
             string outputPath = args[1];
             string comClassName = args[2];
 
+            Boolean isPredeclaredId = false;
+            //  https://stackoverflow.com/questions/49590754/convert-a-string-to-a-boolean-in-c-sharp
+            Boolean.TryParse(args[3], out isPredeclaredId);
+
             if (File.Exists(typeLibraryPath))
             {
                 ComLibraryInfo libraryInfo = new ComLibraryInfo();
@@ -27,7 +31,7 @@ namespace ComRefactorConsole
                 if (comCoClassInterface != null)
                 {
                     string codeModule = null;
-                    VBAComWrapper codebuilder = new VBAComWrapper(comCoClassInterface, comClassName);
+                    VBAComWrapper codebuilder = new VBAComWrapper(comCoClassInterface, comClassName,isPredeclaredId);
                     codeModule = codebuilder.CodeModule();
                     System.IO.File.WriteAllText(outputPath, codeModule);
 

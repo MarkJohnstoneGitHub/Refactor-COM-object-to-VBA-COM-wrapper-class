@@ -36,6 +36,11 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         public String CodeModule() 
         {
             StringBuilder method = new StringBuilder();
+
+            if (this._methodInfo.Documentation.DocString != null)
+            {
+                method.AppendLine(AnnotationMemberDescription());
+            }
             method.AppendLine(Signature());
             if (this._methodInfo.Documentation.DocString != null)
             {
@@ -125,6 +130,12 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             }
             String joined = "(" + String.Join(", ", declarationParameters) + ")";
             return joined;
+        }
+
+        //https://github.com/rubberduck-vba/Rubberduck/wiki/VB_Attribute-Annotations#member-annotations
+        private string AnnotationMemberDescription()
+        {
+            return "'@Description(\"" + this._methodInfo.Documentation.DocString + "\")";
         }
 
     }
