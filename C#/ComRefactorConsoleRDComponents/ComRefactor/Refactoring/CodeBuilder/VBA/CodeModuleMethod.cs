@@ -11,6 +11,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
     // TODO : Issue with method names using VBA reserved words
     // TODO : Issue with Com method names in Lowercase quickfix done
     // TODO : Issue for interface being used when referring to the current Com Object being implemented
+    // TODO : Check for parameters and return type equal to ComCoClass default interface
     // eg. 
     // TODO : Issue missing Function As clause
 
@@ -20,19 +21,21 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
     {
         private const string Quote = "\"";
 
-        String _name;
-
         ComMember _methodInfo;
-        public CodeModuleMethod(ComMember methodInfo)
+        String _memberName;
+        String _comCoClassName;  //ComCoClass.Name
+
+        public CodeModuleMethod(ComMember methodInfo, String comCoClassName)
         {
             this._methodInfo = methodInfo;
-            this._name = FirstLetterToUpper(this._methodInfo.Name);
+            this._memberName = FirstLetterToUpper(this._methodInfo.Name);
+            this._comCoClassName = comCoClassName;
         }
         
         public string Name 
         {
-            get => _name;
-            private set => _name = value;
+            get => _memberName;
+            private set => _memberName = value;
         } 
 
 
@@ -141,11 +144,27 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         }
 
 
+        // TODO : Issue with return types being interface, how to handle for other interfaces returned that are in the current library?
+        // TODO : Posssible pass in the Com library object to check and replace with qualified name eg. DotNetLib.TimeSpan? or keep as ITimeSpan?
         public String ReturnType()
         {
             if (this._methodInfo.Type == DeclarationType.Function || this._methodInfo.Type == DeclarationType.PropertyGet)
             {
                 string returnType = this._methodInfo.AsTypeName.TypeName;
+
+                //If the return type is the interface name replace with comCoClassName/new class name
+                if (returnType != null) 
+                { 
+                    if (returnType == this._methodInfo.Parent.Name)
+                    {
+                        returnType = this._comCoClassName;  //If new class name selected use instead of default comCoClassName
+                    }
+                }
+                else 
+                {
+                    // TODO : throw error
+                }
+
                 return "As " + returnType;
             }
             return null;

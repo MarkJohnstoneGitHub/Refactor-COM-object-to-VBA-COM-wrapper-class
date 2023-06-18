@@ -1,4 +1,5 @@
 ﻿using Rubberduck.Parsing.ComReflection;
+using Rubberduck.Parsing.Symbols;
 using System;
 using System.Text;
 
@@ -16,14 +17,25 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         static int _maxCapacity = 65536;
 
         private StringBuilder _codeBuilder;
-        private ComInterface _template;
+        private ComCoClass _comCoClass;
+        private ComInterface _comInterface => this._comCoClass.DefaultInterface;
+
         private String _moduleName;
         private bool _isPredeclaredId;
 
-        public VBAComWrapper(ComInterface template, String moduleName, bool isPredeclaredId = false ) 
+        //public VBAComWrapper(ComInterface comInterface, String moduleName, bool isPredeclaredId = false ) 
+        //{
+        //    _codeBuilder = new StringBuilder(_capacity, _maxCapacity);
+        //    _comInterface = comInterface;
+        //    _moduleName = moduleName;
+        //    _isPredeclaredId = isPredeclaredId;
+        //    BuildCodeModule();
+        //}
+
+        public VBAComWrapper(ComCoClass comCoClass, String moduleName, bool isPredeclaredId = false)
         {
             _codeBuilder = new StringBuilder(_capacity, _maxCapacity);
-            _template = template;
+            _comCoClass = comCoClass;
             _moduleName = moduleName;
             _isPredeclaredId = isPredeclaredId;
             BuildCodeModule();
@@ -37,14 +49,14 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         private void BuildCodeModule()
         {
             this._codeBuilder.AppendLine(CodeModuleHeader.Header);
-            CodeModuleHeaderAttributes headerAttributes = new CodeModuleHeaderAttributes(this._moduleName, _template.Documentation.DocString, this._isPredeclaredId);
+            CodeModuleHeaderAttributes headerAttributes = new CodeModuleHeaderAttributes(this._moduleName, _comInterface.Documentation.DocString, this._isPredeclaredId);
             this._codeBuilder.AppendLine(headerAttributes.CodeModule());
             if (this._isPredeclaredId)
             {
                 this._codeBuilder.AppendLine(AnnotationPredeclaredId());
             }
 
-            if (this._template.Documentation.DocString != null)
+            if (this._comInterface.Documentation.DocString != null)
             {
                 this._codeBuilder.AppendLine(AnnotationModuleDescription()); 
             }
@@ -53,11 +65,11 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             this._codeBuilder.AppendLine();
 
             //TODO : require to handle if VBA class module exceeds maximum size 65536
-            foreach (var methodInfo in this._template.Members)
+            foreach (var methodInfo in this._comInterface.Members)
             {
                 if (!methodInfo.IsRestricted)
                 {
-                    CodeModuleMethod method = new CodeModuleMethod(methodInfo);
+                    CodeModuleMethod method = new CodeModuleMethod(methodInfo, this._moduleName);
                     _codeBuilder.AppendLine(method.CodeModule());
                 }
             }
@@ -72,7 +84,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         // https://github.com/rubberduck-vba/Rubberduck/wiki/VB_Attribute-Annotations#module-annotations
         private string AnnotationModuleDescription()
         {
-            return "'@ModuleDescription(\"" + _template.Documentation.DocString + "\")";
+            return "'@ModuleDescription(\"" + _comInterface.Documentation.DocString + "\")";
         }
 
 

@@ -15,37 +15,37 @@ Attribute VB_Exposed  = False
 Option Explicit
 
 '@Description("Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time.")
-Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As IDateTime
+Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As DateTime
 Attribute CreateFromTicks.VB_Description = "Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time."
 End Function
 
 '@Description("Initializes a new instance of the DateTime structure to the specified year, month, and day.")
-Public Function CreateFromDate(ByVal year As Long, ByVal month As Long, ByVal day As Long) As IDateTime
+Public Function CreateFromDate(ByVal year As Long, ByVal month As Long, ByVal day As Long) As DateTime
 Attribute CreateFromDate.VB_Description = "Initializes a new instance of the DateTime structure to the specified year, month, and day."
 End Function
 
 '@Description("Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, and millisecond.")
-Public Function CreateFromDateTime(ByVal year As Long, ByVal month As Long, ByVal day As Long, ByVal hour As Long, ByVal minute As Long, ByVal second As Long, Optional ByVal millisecond As Long = 0) As IDateTime
+Public Function CreateFromDateTime(ByVal year As Long, ByVal month As Long, ByVal day As Long, ByVal hour As Long, ByVal minute As Long, ByVal second As Long, Optional ByVal millisecond As Long = 0) As DateTime
 Attribute CreateFromDateTime.VB_Description = "Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, and millisecond."
 End Function
 
 '@Description("Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, millisecond, and Coordinated Universal Time (UTC) or local time.")
-Public Function CreateFromDateTimeKind(ByVal year As Long, ByVal month As Long, ByVal day As Long, ByVal hour As Long, ByVal minute As Long, ByVal second As Long, ByVal millisecond As Long, ByVal kind As DateTimeKind) As IDateTime
+Public Function CreateFromDateTimeKind(ByVal year As Long, ByVal month As Long, ByVal day As Long, ByVal hour As Long, ByVal minute As Long, ByVal second As Long, ByVal millisecond As Long, ByVal kind As DateTimeKind) As DateTime
 Attribute CreateFromDateTimeKind.VB_Description = "Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, millisecond, and Coordinated Universal Time (UTC) or local time."
 End Function
 
 '@Description("Represents the largest possible value of DateTime. This field is read-only.")
-Public Property Get MaxValue() As IDateTime
+Public Property Get MaxValue() As DateTime
 Attribute MaxValue.VB_Description = "Represents the largest possible value of DateTime. This field is read-only."
 End Property
 
 '@Description("Represents the smallest possible value of DateTime. This field is read-only.")
-Public Property Get MinValue() As IDateTime
+Public Property Get MinValue() As DateTime
 Attribute MinValue.VB_Description = "Represents the smallest possible value of DateTime. This field is read-only."
 End Property
 
 '@Description("Gets the date component of this instance.")
-Public Property Get Date() As IDateTime
+Public Property Get Date() As DateTime
 Attribute Date.VB_Description = "Gets the date component of this instance."
 End Property
 
@@ -90,7 +90,7 @@ Attribute Month.VB_Description = "Gets the month component of the date represent
 End Property
 
 '@Description("Gets a DateTime object that is set to the current date and time on this computer, expressed as the local time.")
-Public Property Get Now() As IDateTime
+Public Property Get Now() As DateTime
 Attribute Now.VB_Description = "Gets a DateTime object that is set to the current date and time on this computer, expressed as the local time."
 End Property
 
@@ -110,12 +110,12 @@ Attribute TimeOfDay.VB_Description = "Gets the time of day for this instance."
 End Property
 
 '@Description("Gets the current date.")
-Public Property Get Today() As IDateTime
+Public Property Get Today() As DateTime
 Attribute Today.VB_Description = "Gets the current date."
 End Property
 
 '@Description("Gets a DateTime object that is set to the current date and time on this computer, expressed as the Coordinated Universal Time (UTC).")
-Public Property Get UtcNow() As IDateTime
+Public Property Get UtcNow() As DateTime
 Attribute UtcNow.VB_Description = "Gets a DateTime object that is set to the current date and time on this computer, expressed as the Coordinated Universal Time (UTC)."
 End Property
 
@@ -125,47 +125,47 @@ Attribute Year.VB_Description = "Gets the year component of the date represented
 End Property
 
 '@Description("Returns a new DateTime that adds the value of the specified TimeSpan to the value of this instance.")
-Public Function Add(ByRef value As ITimeSpan) As IDateTime
+Public Function Add(ByRef value As ITimeSpan) As DateTime
 Attribute Add.VB_Description = "Returns a new DateTime that adds the value of the specified TimeSpan to the value of this instance."
 End Function
 
 '@Description("Returns a new DateTime that adds the specified number of days to the value of this instance.")
-Public Function AddDays(ByVal value As Double) As IDateTime
+Public Function AddDays(ByVal value As Double) As DateTime
 Attribute AddDays.VB_Description = "Returns a new DateTime that adds the specified number of days to the value of this instance."
 End Function
 
 '@Description("Returns a new DateTime that adds the specified number of hours to the value of this instance.")
-Public Function AddHours(ByVal value As Double) As IDateTime
+Public Function AddHours(ByVal value As Double) As DateTime
 Attribute AddHours.VB_Description = "Returns a new DateTime that adds the specified number of hours to the value of this instance."
 End Function
 
 '@Description("Returns a new DateTime that adds the specified number of milliseconds to the value of this instance.")
-Public Function AddMilliseconds(ByVal value As Double) As IDateTime
+Public Function AddMilliseconds(ByVal value As Double) As DateTime
 Attribute AddMilliseconds.VB_Description = "Returns a new DateTime that adds the specified number of milliseconds to the value of this instance."
 End Function
 
 '@Description("Returns a new DateTime that adds the specified number of minutes to the value of this instance.")
-Public Function AddMinutes(ByVal value As Double) As IDateTime
+Public Function AddMinutes(ByVal value As Double) As DateTime
 Attribute AddMinutes.VB_Description = "Returns a new DateTime that adds the specified number of minutes to the value of this instance."
 End Function
 
 '@Description("Returns a new DateTime that adds the specified number of months to the value of this instance.")
-Public Function AddMonths(ByVal months As Long) As IDateTime
+Public Function AddMonths(ByVal months As Long) As DateTime
 Attribute AddMonths.VB_Description = "Returns a new DateTime that adds the specified number of months to the value of this instance."
 End Function
 
 '@Description("Returns a new DateTime that adds the specified number of seconds to the value of this instance.")
-Public Function AddSeconds(ByVal value As Double) As IDateTime
+Public Function AddSeconds(ByVal value As Double) As DateTime
 Attribute AddSeconds.VB_Description = "Returns a new DateTime that adds the specified number of seconds to the value of this instance."
 End Function
 
 '@Description("Returns a new DateTime that adds the specified number of ticks to the value of this instance.")
-Public Function AddTicks(ByVal value As LongLong) As IDateTime
+Public Function AddTicks(ByVal value As LongLong) As DateTime
 Attribute AddTicks.VB_Description = "Returns a new DateTime that adds the specified number of ticks to the value of this instance."
 End Function
 
 '@Description("Returns a new DateTime that adds the specified number of years to the value of this instance.")
-Public Function AddYears(ByVal value As Long) As IDateTime
+Public Function AddYears(ByVal value As Long) As DateTime
 Attribute AddYears.VB_Description = "Returns a new DateTime that adds the specified number of years to the value of this instance."
 End Function
 
@@ -200,22 +200,22 @@ Attribute Equals3.VB_Description = "Returns a value indicating whether two DateT
 End Function
 
 '@Description("Deserializes a 64-bit binary value and recreates an original serialized DateTime object.")
-Public Function FromBinary(ByVal dateData As LongLong) As IDateTime
+Public Function FromBinary(ByVal dateData As LongLong) As DateTime
 Attribute FromBinary.VB_Description = "Deserializes a 64-bit binary value and recreates an original serialized DateTime object."
 End Function
 
 '@Description("Converts the specified Windows file time to an equivalent local time.")
-Public Function FromFileTime(ByVal fileTime As LongLong) As IDateTime
+Public Function FromFileTime(ByVal fileTime As LongLong) As DateTime
 Attribute FromFileTime.VB_Description = "Converts the specified Windows file time to an equivalent local time."
 End Function
 
 '@Description("Converts the specified Windows file time to an equivalent UTC time.")
-Public Function FromFileTimeUtc(ByVal fileTime As LongLong) As IDateTime
+Public Function FromFileTimeUtc(ByVal fileTime As LongLong) As DateTime
 Attribute FromFileTimeUtc.VB_Description = "Converts the specified Windows file time to an equivalent UTC time."
 End Function
 
 '@Description("Returns a DateTime equivalent to the specified OLE Automation Date.")
-Public Function FromOADate(ByVal d As Double) As IDateTime
+Public Function FromOADate(ByVal d As Double) As DateTime
 Attribute FromOADate.VB_Description = "Returns a DateTime equivalent to the specified OLE Automation Date."
 End Function
 
@@ -240,42 +240,42 @@ Attribute IsLeapYear.VB_Description = "Returns an indication whether the specifi
 End Function
 
 '@Description("Converts the string representation of a date and time to its DateTime equivalent by using the conventions of the current culture.")
-Public Function Parse(ByVal s As String) As IDateTime
+Public Function Parse(ByVal s As String) As DateTime
 Attribute Parse.VB_Description = "Converts the string representation of a date and time to its DateTime equivalent by using the conventions of the current culture."
 End Function
 
 '@Description("Converts the string representation of a date and time to its DateTime equivalent by using the conventions of the current culture.")
-Public Function Parse2(ByVal s As String, ByRef provider As IFormatProvider) As IDateTime
+Public Function Parse2(ByVal s As String, ByRef provider As IFormatProvider) As DateTime
 Attribute Parse2.VB_Description = "Converts the string representation of a date and time to its DateTime equivalent by using the conventions of the current culture."
 End Function
 
 '@Description("Defines the formatting options that customize string parsing for some date and time parsing methods.  This enumeration supports a bitwise combination of its member values.")
-Public Function Parse3(ByVal s As String, ByRef provider As IFormatProvider, ByVal styles As DateTimeStyles) As IDateTime
+Public Function Parse3(ByVal s As String, ByRef provider As IFormatProvider, ByVal styles As DateTimeStyles) As DateTime
 Attribute Parse3.VB_Description = "Defines the formatting options that customize string parsing for some date and time parsing methods.  This enumeration supports a bitwise combination of its member values."
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified format and culture-specific format information. The format of the string representation must match the specified format exactly.")
-Public Function ParseExact(ByVal s As String, ByVal format As String, ByRef provider As IFormatProvider) As IDateTime
+Public Function ParseExact(ByVal s As String, ByVal format As String, ByRef provider As IFormatProvider) As DateTime
 Attribute ParseExact.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified format and culture-specific format information. The format of the string representation must match the specified format exactly."
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified format, culture-specific format information, and style. The format of the string representation must match the specified format exactly or an exception is thrown.")
-Public Function ParseExact2(ByVal s As String, ByVal format As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As IDateTime
+Public Function ParseExact2(ByVal s As String, ByVal format As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime
 Attribute ParseExact2.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified format, culture-specific format information, and style. The format of the string representation must match the specified format exactly or an exception is thrown."
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified array of formats, culture-specific format information, and style. The format of the string representation must match at least one of the specified formats exactly or an exception is thrown.")
-Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As IDateTime
+Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime
 Attribute ParseExact3.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified array of formats, culture-specific format information, and style. The format of the string representation must match at least one of the specified formats exactly or an exception is thrown."
 End Function
 
 '@Description("Creates a new DateTime object that has the same number of ticks as the specified DateTime, but is designated as either local time, Coordinated Universal Time (UTC), or neither, as indicated by the specified DateTimeKind value.")
-Public Function SpecifyKind(ByRef value As IDateTime, ByVal kind As DateTimeKind) As IDateTime
+Public Function SpecifyKind(ByRef value As IDateTime, ByVal kind As DateTimeKind) As DateTime
 Attribute SpecifyKind.VB_Description = "Creates a new DateTime object that has the same number of ticks as the specified DateTime, but is designated as either local time, Coordinated Universal Time (UTC), or neither, as indicated by the specified DateTimeKind value."
 End Function
 
 '@Description("Returns a new DateTime that subtracts the specified duration from the value of this instance.")
-Public Function Subtract(ByRef value As ITimeSpan) As IDateTime
+Public Function Subtract(ByRef value As ITimeSpan) As DateTime
 Attribute Subtract.VB_Description = "Returns a new DateTime that subtracts the specified duration from the value of this instance."
 End Function
 
@@ -300,7 +300,7 @@ Attribute ToFileTimeUtc.VB_Description = "Converts the value of the current Date
 End Function
 
 '@Description("Converts the value of the current DateTime object to local time.")
-Public Function ToLocalTime() As IDateTime
+Public Function ToLocalTime() As DateTime
 Attribute ToLocalTime.VB_Description = "Converts the value of the current DateTime object to local time."
 End Function
 
@@ -349,13 +349,13 @@ Public Function ToString4(ByVal format As String, ByRef provider As IFormatProvi
 Attribute ToString4.VB_Description = "Converts the value of the current DateTime object to its equivalent string representation using the specified format and culture-specific format information."
 End Function
 
-Public Function ToUniversalTime() As IDateTime
+Public Function ToUniversalTime() As DateTime
 End Function
 
 Public Function TryParse(ByVal s As String, ByRef result As IDateTime) As Boolean
 End Function
 
-Public Function Addition(ByRef d As IDateTime, ByRef t As ITimeSpan) As IDateTime
+Public Function Addition(ByRef d As IDateTime, ByRef t As ITimeSpan) As DateTime
 End Function
 
 Public Function Equality(ByRef d1 As IDateTime, ByRef d2 As IDateTime) As Boolean
@@ -379,6 +379,6 @@ End Function
 Public Function Subtraction(ByRef d1 As IDateTime, ByRef d2 As IDateTime) As ITimeSpan
 End Function
 
-Public Function Subtraction2(ByRef d As IDateTime, ByRef t As ITimeSpan) As IDateTime
+Public Function Subtraction2(ByRef d As IDateTime, ByRef t As ITimeSpan) As DateTime
 End Function
 

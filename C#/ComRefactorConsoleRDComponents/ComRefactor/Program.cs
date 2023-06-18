@@ -27,11 +27,12 @@ namespace ComRefactorConsole
             {
                 ComLibraryInfo libraryInfo = new ComLibraryInfo();
                 ComProjectLibrary projectTypeLib = libraryInfo.GetLibraryInfoFromPath(typeLibraryPath);
-                ComInterface comCoClassInterface = projectTypeLib.FindComCoClassInterface(comClassName);
-                if (comCoClassInterface != null)
+                //ComInterface comCoClassInterface = projectTypeLib.FindComCoClassInterface(comClassName);
+                ComCoClass comCoClass = projectTypeLib.FindComCoClass(comClassName);
+                if (comCoClass != null)
                 {
                     string codeModule = null;
-                    VBAComWrapper codebuilder = new VBAComWrapper(comCoClassInterface, comClassName,isPredeclaredId);
+                    VBAComWrapper codebuilder = new VBAComWrapper(comCoClass, comClassName,isPredeclaredId);
                     codeModule = codebuilder.CodeModule();
                     System.IO.File.WriteAllText(outputPath, codeModule);
 

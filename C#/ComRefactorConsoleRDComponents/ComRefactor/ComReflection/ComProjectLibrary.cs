@@ -105,7 +105,7 @@ namespace ComRefactor.ComReflection
             LoadModules(typeLibrary);
         }
 
-        // TODO : Added returrn the interface for the coClass required
+        // TODO : Added returrn the interface for the comCoClass required
         // https://stackoverflow.com/questions/4937060/how-to-check-if-listt-element-contains-an-item-with-a-particular-property-valu/4937099#4937099
         // https://stackoverflow.com/questions/15456845/getting-a-list-item-by-index/15456851#15456851
 
@@ -115,11 +115,22 @@ namespace ComRefactor.ComReflection
             int index = this._classes.FindIndex(item => item.Name == comCoClassName);
             if (index >= 0)
             {
-                ComCoClass coClass = this._classes[index];
-                return coClass.DefaultInterface;
+                ComCoClass comCoClass = this._classes[index];
+                return comCoClass.DefaultInterface;
             }
             return null;
 
+        }
+
+        public ComCoClass FindComCoClass(string comCoClassName)
+        {
+            int index = this._classes.FindIndex(item => item.Name == comCoClassName);
+            if (index >= 0)
+            {
+                ComCoClass comCoClass = this._classes[index];
+                return comCoClass;
+            }
+            return null;
         }
 
 
