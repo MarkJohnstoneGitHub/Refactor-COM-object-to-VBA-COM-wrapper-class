@@ -4,24 +4,20 @@ Aim: To refactor COM object to extract VBA COM wrapper class.  This is in regard
 
 Suggestion for RubberDuck feature [Adding refactoring of COM objects](https://github.com/rubberduck-vba/Rubberduck/discussions/6111)
 
-First stage obtaining the COM TypeLib info for an COM object.
 
 Investigating methods in VBA and/or C# to obtain the type library info.
 
 From the type library info for the required class obtain the class template to extract to a VBA COM wrapper classs.
 
 - Preferrable utilize [RubberDuck](https://github.com/rubberduck-vba/Rubberduck) COM typelib wrappers
-- Alternative using [twinBasic](https://github.com/twinbasic/twinbasic) addin for VBA could parse a reference pseudocode (From my understanding is based on the RD COM typelib wrappers and handlers). See [latest twinBasic IDE and you can see pseudocode](https://github.com/rubberduck-vba/Rubberduck/discussions/6111#discussioncomment-6041980)
 
-**Issues:**
-If issues with the TLI reference in [COM Refactoring.accdb](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/COM%20Refactoring.accdb) see [tlbinf32.dll in a 64bits .Net application](https://stackoverflow.com/questions/42569377/tlbinf32-dll-in-a-64bits-net-application/42581513#42581513).
 
 **Development:**
 
 Outline for implemention of refactoring a Com Object to implement a VBA class COM wrapper.
 
 1) Locate Com type library required and load using ComLibraryProvider class.
-2) Find the Com object required by name returning the default interface [ComInterface](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComInterface.cs) object.
+2) Find the Com object required by name [ComCoClass.cs](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComCoClass.cs) object.
 3) Selecting various options for implementing :
 - Intially the default implementation will be template of the ComInterface object required, using early binding, including descriptions and Rubberduck annotations for a predeclared class.
 - Selecting various options would require a GUI etc. 
@@ -42,10 +38,10 @@ Outline for implemention of refactoring a Com Object to implement a VBA class CO
   
 If allowing for various options create a copy of the Com object ComInterface according to selections. 
 i.e. The list of methods is copied according to required methods required and ordering. 
-Update ComInterface.IsPreDeclared property.
+Update ComInterface.IsPreDeclared property?
 To allow for sorting/grouping of methods maybe have to expose some lists eg the methods list?
 
-4) Build the VBA class from a ComInterface template.
+4) Build the VBA class from the default interface for the ComCoClass object obtained.
 - Add Class Header hidden attributes [VBA Attributes](https://vbaplanet.com/attributes.php#:~:text=VBA%20code%20modules%20contain%20attributes,module%20in%20a%20text%20editor.)
   - Add in Class description if required.
   - Add in Rubberduck module description annotation  if required. '@ModuleDescription("")
@@ -59,7 +55,7 @@ To allow for sorting/grouping of methods maybe have to expose some lists eg the 
 - Add VBA Constructors and Destructors
   - Private Sub Class_Initialize()
   - Private Sub Class_Terminate()
-- Add VBA Internal helper property to access the Com object wrapped.
+- Add VBA Internal helper properties to access the Com object wrapped.
 - Add Class Methods (constructors/factory methods, properties, methods)
   - Create in the order of the ComInterface template.
   - Add Rubberduck description annotation comment if required.
