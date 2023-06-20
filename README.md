@@ -14,7 +14,7 @@ From the type library info for the required class obtain the class template to e
 
 **Development:**
 
-Outline for implemention of refactoring a Com Object to implement a VBA class COM wrapper.
+Outline for implemention of refactoring a Com Object to implement a VBA class COM wrapper. eg. Sample output [DateTime.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTime.cls)
 
 1) Locate Com type library required and load using ComLibraryProvider class.
 2) Find the Com object required by name [ComCoClass.cs](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComCoClass.cs) object.
