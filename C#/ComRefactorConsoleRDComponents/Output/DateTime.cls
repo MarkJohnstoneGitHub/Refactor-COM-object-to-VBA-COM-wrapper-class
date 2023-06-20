@@ -14,22 +14,26 @@ Attribute VB_Exposed  = False
 
 Option Explicit
 
-Private mDateTime As DotNetLib.DateTime
+Private Type TDateTime
+   DotNetLibDateTime As DotNetLib.DateTime
+End Type
+
+Private this As TDateTime
 
 Private Sub Class_Initialize()
-   Set mDateTime = New DotNetLib.DateTime
+   Set this.DotNetLibDateTime = New DotNetLib.DateTime
 End Sub
 
 Private Sub Class_Terminate()
-   Set mDateTime = Nothing
+   Set this.DotNetLibDateTime = Nothing
 End Sub
 
 Friend Property Get ComObject() As DotNetLib.DateTime
-   Set ComObject = mDateTime
+   Set ComObject = this.DotNetLibDateTime
 End Property
 
 Friend Property Set ComObject(ByVal objDateTime As DotNetLib.DateTime)
-   Set ComObject = mDateTime
+   Set ComObject = this.DotNetLibDateTime
 End Property
 
 Friend Property Get Self() As DateTime

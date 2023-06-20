@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Xml.Linq;
 
 namespace ComRefactor.Refactoring.CodeBuilder.VBA
 {
@@ -30,7 +31,13 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
 
         public String ModuleName;
-        public string ComVariableName => "m" + _comCoClass.Name;
+
+        public string ComObjectIdentifier
+        {
+            get { return "this." + ComObjectTypeIdentifier; }
+        }
+
+        public string ComObjectTypeIdentifier => this._comCoClass.Parent.Name + this._comCoClass.Name;
 
         public VBAComWrapper(ComCoClass comCoClass, String moduleName, bool isPredeclaredId = false)
         {
@@ -65,8 +72,8 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             this._codeBuilder.AppendLine();
 
             //private variable to wrapping Com object
-            this._codeBuilder.AppendLine(VariableComObject());
-            this._codeBuilder.AppendLine();
+            this._codeBuilder.AppendLine(PrivateType());
+            this._codeBuilder.AppendLine(PrivateVariableThis());
 
             //VBA Class_Initialize and Class_Terminate
             this._codeBuilder.AppendLine(ClassInitialize());
@@ -82,27 +89,11 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             {
                 if (!methodInfo.IsRestricted)
                 {
-                    //CodeModuleMethod method = new CodeModuleMethod(methodInfo, this.ModuleName);
-                    CodeModuleMethod method = new CodeModuleMethod(methodInfo, this.ModuleName,this.ComVariableName );
-
-                    // TODO : update to AppendLine method.Signiture
-                    // TODO : loop through member attributes to AppendLine
-                    // TODO : AppendLine reference to COM object being wrapped, also indent
-                    // TODO : AppendLine member End
-
+                    CodeModuleMethod method = new CodeModuleMethod(methodInfo, this.ModuleName,this.ComObjectIdentifier );
                     _codeBuilder.AppendLine(method.CodeModule());
                 }
             }
         }
-
-        //require name of COM object being wrapped
-        //output eg. Private mDateTime As DotNetLib.DateTime
-        private String VariableComObject()
-        {
-            string output;
-            output = "Private " + this.ComVariableName + " As " + QualifierName;   
-            return output; 
-        }    
 
         // https://github.com/rubberduck-vba/Rubberduck/wiki/VB_Attribute-Annotations#module-annotations
         private string AnnotationPredeclaredId()
@@ -117,6 +108,26 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         }
 
 
+        // output eg.
+        // Private Type TDateTime
+        //     DotNetLibDateTime As DotNetLib.DateTime
+        // End Type
+        private String PrivateType()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Private Type T" + this.ModuleName);
+            sb.AppendLine(Indent + ComObjectTypeIdentifier + " As " + this.QualifierName);
+            sb.AppendLine("End Type");
+            return sb.ToString();
+        }
+        //output eg. Private this As TDateTime
+        private String PrivateVariableThis()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Private this As T" + this.ModuleName);
+            return sb.ToString();
+        }
+
         // Eg.
         // Private Sub Class_Initialize()
         //    Set mCol = New VBA.Collection
@@ -125,7 +136,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         {
             StringBuilder methodInitialize = new StringBuilder();
             methodInitialize.AppendLine("Private Sub Class_Initialize()");
-            string codeLine = Indent + "Set " + ComVariableName + " = " + "New " + QualifierName;
+            string codeLine = Indent + "Set " + ComObjectIdentifier + " = " + "New " + QualifierName;
             methodInitialize.AppendLine(codeLine);
             methodInitialize.AppendLine("End Sub");
             return methodInitialize.ToString();
@@ -133,12 +144,12 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         private string ClassTerminate()
         {
-            StringBuilder methodInitialize = new StringBuilder();
-            methodInitialize.AppendLine("Private Sub Class_Terminate()");
-            string codeLine = Indent + "Set " + ComVariableName + " = " + "Nothing";
-            methodInitialize.AppendLine(codeLine);
-            methodInitialize.AppendLine("End Sub");
-            return methodInitialize.ToString();
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Private Sub Class_Terminate()");
+            string codeLine = Indent + "Set " + ComObjectIdentifier + " = " + "Nothing";
+            sb.AppendLine(codeLine);
+            sb.AppendLine("End Sub");
+            return sb.ToString();
         }
 
         //Internal propeties
@@ -147,7 +158,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Friend Property Get ComObject() As " + QualifierName);
-            sb.AppendLine(Indent + "Set ComObject = " + ComVariableName);
+            sb.AppendLine(Indent + "Set ComObject = " + ComObjectIdentifier);
             sb.AppendLine("End Property");
             return sb.ToString();
         }
@@ -156,7 +167,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Friend Property Set ComObject(ByVal " + "obj"+_comCoClass.Name +   " As " + QualifierName +")");
-            sb.AppendLine(Indent + "Set ComObject = " + ComVariableName);
+            sb.AppendLine(Indent + "Set ComObject = " + ComObjectIdentifier);
             sb.AppendLine("End Property");
             return sb.ToString();
         }
