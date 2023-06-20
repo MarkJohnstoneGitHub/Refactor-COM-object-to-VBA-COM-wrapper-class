@@ -17,12 +17,24 @@ Option Explicit
 Private mDateTime As DotNetLib.DateTime
 
 Private Sub Class_Initialize()
-    Set mDateTime = New DotNetLib.DateTime
+   Set mDateTime = New DotNetLib.DateTime
 End Sub
 
 Private Sub Class_Terminate()
-    Set mDateTime = Nothing
+   Set mDateTime = Nothing
 End Sub
+
+Friend Property Get ComObject() As DotNetLib.DateTime
+   Set ComObject = mDateTime
+End Property
+
+Friend Property Set ComObject(ByVal objDateTime As DotNetLib.DateTime)
+   Set ComObject = mDateTime
+End Property
+
+Friend Property Get Self() As DateTime
+   Set Self = Me
+End Property
 
 '@Description("Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time.")
 Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As DateTime

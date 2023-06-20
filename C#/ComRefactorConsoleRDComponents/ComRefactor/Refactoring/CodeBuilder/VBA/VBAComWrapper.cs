@@ -26,6 +26,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         private ComCoClass _comCoClass;
         private ComInterface _comInterface => this._comCoClass.DefaultInterface;
         private bool _isPredeclaredId;
+        public string QualifierName => _comCoClass.Parent.Name + "." + _comCoClass.Name;
 
 
         public String ModuleName;
@@ -66,8 +67,15 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             //private variable to wrapping Com object
             this._codeBuilder.AppendLine(VariableComObject());
             this._codeBuilder.AppendLine();
+
+            //VBA Class_Initialize and Class_Terminate
             this._codeBuilder.AppendLine(ClassInitialize());
             this._codeBuilder.AppendLine(ClassTerminate());
+
+            //Internal Properties
+            this._codeBuilder.AppendLine(InternalPropertyGetComObject());
+            this._codeBuilder.AppendLine(InternalPropertySetComObject());
+            this._codeBuilder.AppendLine(InternalPropertySelf());
 
             //TODO : require to handle if VBA class module exceeds maximum size 65536
             foreach (var methodInfo in this._comInterface.Members)
@@ -92,7 +100,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         private String VariableComObject()
         {
             string output;
-            output = "Private " + this.ComVariableName + " As " + _comCoClass.Parent.Name + "." + _comCoClass.Name;   
+            output = "Private " + this.ComVariableName + " As " + QualifierName;   
             return output; 
         }    
 
@@ -117,7 +125,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         {
             StringBuilder methodInitialize = new StringBuilder();
             methodInitialize.AppendLine("Private Sub Class_Initialize()");
-            string codeLine = Indent + "Set " + ComVariableName + " = " + "New " + _comCoClass.Parent.Name + "." + _comCoClass.Name;
+            string codeLine = Indent + "Set " + ComVariableName + " = " + "New " + QualifierName;
             methodInitialize.AppendLine(codeLine);
             methodInitialize.AppendLine("End Sub");
             return methodInitialize.ToString();
@@ -133,5 +141,33 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             return methodInitialize.ToString();
         }
 
+        //Internal propeties
+
+        private string InternalPropertyGetComObject()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Friend Property Get ComObject() As " + QualifierName);
+            sb.AppendLine(Indent + "Set ComObject = " + ComVariableName);
+            sb.AppendLine("End Property");
+            return sb.ToString();
+        }
+
+        private string InternalPropertySetComObject()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Friend Property Set ComObject(ByVal " + "obj"+_comCoClass.Name +   " As " + QualifierName +")");
+            sb.AppendLine(Indent + "Set ComObject = " + ComVariableName);
+            sb.AppendLine("End Property");
+            return sb.ToString();
+        }
+
+        private string InternalPropertySelf()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Friend Property Get Self() As " + ModuleName);
+            sb.AppendLine(Indent + "Set Self = Me");
+            sb.AppendLine("End Property");
+            return sb.ToString();
+        }
     }
 }
