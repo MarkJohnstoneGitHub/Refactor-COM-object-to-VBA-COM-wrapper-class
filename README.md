@@ -89,9 +89,9 @@ Any custom error handling required to be done manually. Maybe by parsing the .Ne
      - Default member, enumeration attributes
      - Static helper class if required? Would require option to select which members required.
  
--Issues
-     - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
-     - Paramaters for object being wrapped displayed as interface of the object. eg IDateTime think require to convert to DateTime. i.e. CoClass.Name
+- Issues
+  - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
+  - Paramaters for object being wrapped displayed as interface of the object. eg IDateTime think require to convert to DateTime. i.e. CoClass.Name
 
 **Utilize [RubberDuck Com Management](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement))**
 Items of interest
