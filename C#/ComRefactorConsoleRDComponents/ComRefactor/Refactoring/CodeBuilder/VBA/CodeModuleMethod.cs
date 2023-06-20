@@ -24,6 +24,9 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         ComMember _methodInfo;
         String _memberName;
         String _comCoClassName; 
+        String _comObjectVariable;
+        private IEnumerable<ComParameter> _parameters => this._methodInfo.Parameters;
+
 
         public CodeModuleMethod(ComMember methodInfo, String comCoClassName)
         {
@@ -31,7 +34,15 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             this._memberName = FirstLetterToUpper(this._methodInfo.Name);
             this._comCoClassName = comCoClassName;
         }
-        
+
+        public CodeModuleMethod(ComMember methodInfo, String comCoClassName, String comObjectVariable)
+        {
+            this._methodInfo = methodInfo;
+            this._memberName = FirstLetterToUpper(this._methodInfo.Name);
+            this._comCoClassName = comCoClassName;
+            this._comObjectVariable = comObjectVariable;
+        }
+
         public string Name 
         {
             get => _memberName;
@@ -59,6 +70,12 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             }
             //TODO method attributes
             //TODO: reference to Com object  being wrapped
+            if (this._comObjectVariable != null) 
+            {
+                // TODO : AppendLine reference to COM object being wrapped, also indent
+                //method.AppendLine();
+            }
+
             method.AppendLine(DeclarationEnd());
 
             return method.ToString();
@@ -185,6 +202,51 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             }
             return null;
         }
+
+
+        //Eg. For a function
+        // Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As IDateTime
+        //     With New DateTime
+        //          Set .CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
+        //     End With
+        // End Function
+        // Eg. returns  Set CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
+        // Require "Set" if return type is an object
+        // Require the list of parameter names
+        // return declaration type,
+
+        // Dim pvtDateTime as DateTime
+        // pvtDateTime = New DateTime
+        // Set CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
+
+
+        //eg returns mDateTime.CreateFromTicks(ticks, kind)
+        private String ComObjectWrapperReference()
+        {
+            List<String> parameterNames = new List<String>();
+
+            foreach (var parameter in this._parameters)
+            {
+                parameterNames.Add(parameter.Name);
+            }
+            String joined = "(" + String.Join(", ", parameterNames) + ")";
+            
+            return this._comObjectVariable + this._methodInfo.Name + joined;
+        }
+
+        // TODO: eg returns Set CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
+        private String ComObjectVariableDeclaration() 
+        {
+
+            if (this._methodInfo.Type == DeclarationType.Function || this._methodInfo.Type == DeclarationType.PropertyGet)
+            {
+                return "Set " + this._methodInfo.Name  ;
+            }
+            return string.Empty;
+        }
+
+
+
 
         //https://github.com/rubberduck-vba/Rubberduck/wiki/VB_Attribute-Annotations#member-annotations
         public string AnnotationMemberDescription()

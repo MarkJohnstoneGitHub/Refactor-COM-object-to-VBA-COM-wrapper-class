@@ -16,6 +16,14 @@ Option Explicit
 
 Private mDateTime As DotNetLib.DateTime
 
+Private Sub Class_Initialize()
+    Set mDateTime = New DotNetLib.DateTime
+End Sub
+
+Private Sub Class_Terminate()
+    Set mDateTime = Nothing
+End Sub
+
 '@Description("Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time.")
 Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As DateTime
 Attribute CreateFromTicks.VB_Description = "Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time."

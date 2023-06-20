@@ -1,6 +1,8 @@
 ﻿using Rubberduck.Parsing.ComReflection;
 using Rubberduck.Parsing.Symbols;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace ComRefactor.Refactoring.CodeBuilder.VBA
@@ -15,21 +17,25 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
     public class VBAComWrapper
     {
+        const string Indent = "   ";
+
         static int _capacity = 255;
         static int _maxCapacity = 65536;
 
         private StringBuilder _codeBuilder;
         private ComCoClass _comCoClass;
         private ComInterface _comInterface => this._comCoClass.DefaultInterface;
-
-        private String _moduleName;
         private bool _isPredeclaredId;
+
+
+        public String ModuleName;
+        public string ComVariableName => "m" + _comCoClass.Name;
 
         public VBAComWrapper(ComCoClass comCoClass, String moduleName, bool isPredeclaredId = false)
         {
             _codeBuilder = new StringBuilder(_capacity, _maxCapacity);
             _comCoClass = comCoClass;
-            _moduleName = moduleName;
+            ModuleName = moduleName;
             _isPredeclaredId = isPredeclaredId;
             BuildCodeModule();
         }
@@ -42,7 +48,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         private void BuildCodeModule()
         {
             this._codeBuilder.AppendLine(CodeModuleHeader.Header);
-            CodeModuleHeaderAttributes headerAttributes = new CodeModuleHeaderAttributes(this._moduleName, _comInterface.Documentation.DocString, this._isPredeclaredId);
+            CodeModuleHeaderAttributes headerAttributes = new CodeModuleHeaderAttributes(this.ModuleName, _comInterface.Documentation.DocString, this._isPredeclaredId);
             this._codeBuilder.AppendLine(headerAttributes.CodeModule());
             if (this._isPredeclaredId)
             {
@@ -60,13 +66,22 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             //private variable to wrapping Com object
             this._codeBuilder.AppendLine(VariableComObject());
             this._codeBuilder.AppendLine();
+            this._codeBuilder.AppendLine(ClassInitialize());
+            this._codeBuilder.AppendLine(ClassTerminate());
 
             //TODO : require to handle if VBA class module exceeds maximum size 65536
             foreach (var methodInfo in this._comInterface.Members)
             {
                 if (!methodInfo.IsRestricted)
                 {
-                    CodeModuleMethod method = new CodeModuleMethod(methodInfo, this._moduleName);
+                    //CodeModuleMethod method = new CodeModuleMethod(methodInfo, this.ModuleName);
+                    CodeModuleMethod method = new CodeModuleMethod(methodInfo, this.ModuleName,this.ComVariableName );
+
+                    // TODO : update to AppendLine method.Signiture
+                    // TODO : loop through member attributes to AppendLine
+                    // TODO : AppendLine reference to COM object being wrapped, also indent
+                    // TODO : AppendLine member End
+
                     _codeBuilder.AppendLine(method.CodeModule());
                 }
             }
@@ -77,7 +92,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         private String VariableComObject()
         {
             string output;
-            output = "Private " + "m" + _comCoClass.Name + " As " + _comCoClass.Parent.Name + "." + _comCoClass.Name;   
+            output = "Private " + this.ComVariableName + " As " + _comCoClass.Parent.Name + "." + _comCoClass.Name;   
             return output; 
         }    
 
@@ -93,6 +108,30 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             return "'@ModuleDescription(\"" + _comInterface.Documentation.DocString + "\")";
         }
 
+
+        // Eg.
+        // Private Sub Class_Initialize()
+        //    Set mCol = New VBA.Collection
+        //End Sub
+        private string ClassInitialize()
+        {
+            StringBuilder methodInitialize = new StringBuilder();
+            methodInitialize.AppendLine("Private Sub Class_Initialize()");
+            string codeLine = Indent + "Set " + ComVariableName + " = " + "New " + _comCoClass.Parent.Name + "." + _comCoClass.Name;
+            methodInitialize.AppendLine(codeLine);
+            methodInitialize.AppendLine("End Sub");
+            return methodInitialize.ToString();
+        }
+
+        private string ClassTerminate()
+        {
+            StringBuilder methodInitialize = new StringBuilder();
+            methodInitialize.AppendLine("Private Sub Class_Terminate()");
+            string codeLine = Indent + "Set " + ComVariableName + " = " + "Nothing";
+            methodInitialize.AppendLine(codeLine);
+            methodInitialize.AppendLine("End Sub");
+            return methodInitialize.ToString();
+        }
 
     }
 }
