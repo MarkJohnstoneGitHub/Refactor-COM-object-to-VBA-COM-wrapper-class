@@ -27,7 +27,6 @@ namespace ComRefactorConsole
             {
                 ComLibraryInfo libraryInfo = new ComLibraryInfo();
                 ComProjectLibrary projectTypeLib = libraryInfo.GetLibraryInfoFromPath(typeLibraryPath);
-                //ComInterface comCoClassInterface = projectTypeLib.FindComCoClassInterface(comClassName);
                 ComCoClass comCoClass = projectTypeLib.FindComCoClass(comClassName);
                 if (comCoClass != null)
                 {

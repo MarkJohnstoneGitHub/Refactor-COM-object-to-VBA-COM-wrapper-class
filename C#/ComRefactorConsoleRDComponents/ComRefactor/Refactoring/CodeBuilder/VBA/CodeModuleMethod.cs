@@ -23,7 +23,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         ComMember _methodInfo;
         String _memberName;
-        String _comCoClassName;  //ComCoClass.Name
+        String _comCoClassName; 
 
         public CodeModuleMethod(ComMember methodInfo, String comCoClassName)
         {
@@ -130,14 +130,30 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         }
 
 
-        //TODO : Issue with optional parameters if equal null 
+        // TODO : Issue with optional parameters if equal null 
+        // TODO : Move to CodeModuleParrameters
         public String Parameters()
         {
             List<String> declarationParameters = new List<String>();
 
             foreach (var parameter in this._methodInfo.Parameters)
             {
-                declarationParameters.Add(parameter.DeclarationName);
+                String declarationName;
+                if (parameter.TypeName == this._methodInfo.Parent.Name)
+                {
+                    string parameterTypeName = this._comCoClassName;
+
+                    declarationName = parameter.DeclarationName; // TODO: update to class name i.e. default is the  comCoClass.Name or new module name ???
+
+                    //See ComParameter
+                    //declarationName = $"{(parameter.IsOptional ? "Optional " : string.Empty)}{(parameter.IsByRef ? "ByRef" : "ByVal")} {parameter.Name} As {parameterTypeName}{(parameter.IsOptional && parameter.DefaultValue != null ? " = " : string.Empty)}{(parameter.IsOptional && parameter.DefaultValue != null ? _typeName.IsEnumMember ? DefaultAsEnum : DefaultValue : string.Empty)}";
+                }
+                else
+                {
+                    declarationName = parameter.DeclarationName;
+                }
+
+                declarationParameters.Add(declarationName);
             }
             String joined = "(" + String.Join(", ", declarationParameters) + ")";
             return joined;
@@ -152,7 +168,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             {
                 string returnType = this._methodInfo.AsTypeName.TypeName;
 
-                //If the return type is the interface name replace with comCoClassName/new class name
+                //If the return type is the interface name replace with comCoClassName/new class name  ???
                 if (returnType != null) 
                 { 
                     if (returnType == this._methodInfo.Parent.Name)
@@ -162,7 +178,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 }
                 else 
                 {
-                    // TODO : throw error
+                    // TODO : throw error???
                 }
 
                 return "As " + returnType;
