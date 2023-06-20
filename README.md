@@ -38,6 +38,7 @@ Outline for implemention of refactoring a Com Object to implement a VBA class CO
      - Add Rubberduck annotations required. eg classs and  method description, hidden items, default, enumeration, predeclared class etc.
      - Option to implement as predeclared class.
      - Early or late binding implementation of wrapping the Com object in VBA.
+- May require option to create static helper class for field properties returning constant objects. eg. DateTime.MaxValue
   
 If allowing for various options create a copy of the Com object ComInterface according to selections. 
 i.e. The list of methods is copied according to required methods required and ordering. 
@@ -55,9 +56,10 @@ To allow for sorting/grouping of methods maybe have to expose some lists eg the 
    - Add Option Explicit
    - Add private variable for Com object being wrapped in the type libary.
    - EG. Private mDateTime As DotNetLib.DateTime
-- Add VBA Constructors and Destructors?
+- Add VBA Constructors and Destructors
   - Private Sub Class_Initialize()
   - Private Sub Class_Terminate()
+- Add VBA Internal helper property to access the Com object wrapped.
 - Add Class Methods (constructors/factory methods, properties, methods)
   - Create in the order of the ComInterface template.
   - Add Rubberduck description annotation comment if required.
@@ -71,26 +73,25 @@ To allow for sorting/grouping of methods maybe have to expose some lists eg the 
   - Add Method End
      - Eg.  End Function, End Property, End Sub
 5) Write VBA class output to a file with extension ".cls" for the output path obtained. eg. DateTime.cls
+6) May also require creating a static helper class for constant field values/objects. eg  DateTimeStatic.cls
 
 Will require to investigate VBA wrappers of objects eg a Collection wrapper to check correct implementation.
 
 Any custom error handling required to be done manually. Maybe by parsing the .Net documentation could extract exceptions for a method?
 
-**Implemented June 8**
+**Implemented June 20th**
 - Obtain a type library by path.
-- TypeLibInternalWapper
-- Document TypeLibInternalWapper.
-- Write output basic TypeLibInternalWapper document to an output file.
-- Utimately the output will be a VBA Com wrapper class.
+- Obtain the ComCoClass required by name
+- Created the VBA Com wrapper class for all properties and members, including description attribute.
+- Added internal helper properties to access the wrapped Com object.
 - To implement:
-    - TypeInfoInternalWapper to obtain TypeInfo for each Com object in the Com library.
-        -  TypeLib.FindName Obtain the TypeInfo details for the required Com object
-        -  Document the TypeInfoInternalWapper for the required Com object
-            - Document Com object properties, methods, events? and implemented interfaces.
-   - From TypeInfoInternalWapper obtained for the required Com object
-        - VBA class builder
-        - Preferrably utilize RubberDuck components which extract an interface for a class or refactor interface to a class with minor modifications.
-    
+     - For each property/member reference the Com object being wrapped.
+     - Default member, enumeration attributes
+     - Static helper class if required? Would require option to select which members required.
+ 
+-Issues
+     - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
+     - Paramaters for object being wrapped displayed as interface of the object. eg IDateTime think require to convert to DateTime. i.e. CoClass.Name
 
 **Utilize [RubberDuck Com Management](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement))**
 Items of interest
@@ -110,33 +111,12 @@ Items of interest
 - [LibraryReferencedDeclarationsCollector](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/LibraryReferencedDeclarationsCollector.cs)
   - IReadOnlyCollection<Declaration> CollectedDeclarations(ReferenceInfo reference)
 
-
-Things to do
-
-1) Load a type library .tlb into a TypeInfo
-    - [ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection)
-    - [ComLibraryProvider](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs)
+- [ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection)
+- [ComLibraryProvider](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs)
         - public ITypeLib LoadTypeLibrary(string libraryPath)
-    - [is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net](https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net) 
-    - eg DotNetLib.tlb
-2) Obtain the required COM object TypeInfo
-    - eg DateTime
-3) Obtain COM Object Class Info for the required object
-    - Class Name
-    - Class Description
- 4) Obtain Class Properties
-    - Poperty Name
-    - Get and/or Set
-    - Description?
- 5) Obtain Class Methods
-    
-    -Method Name
-    
-    -Method Description
-    
-    -Method parameters
-    
-    -return type
+  - [is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net](https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net) 
+
+
     
     
     
