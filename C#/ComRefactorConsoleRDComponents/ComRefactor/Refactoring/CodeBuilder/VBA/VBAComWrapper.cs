@@ -107,7 +107,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             return "'@ModuleDescription(\"" + _comInterface.Documentation.DocString + "\")";
         }
 
-
         // output eg.
         // Private Type TDateTime
         //     DotNetLibDateTime As DotNetLib.DateTime

@@ -42,7 +42,6 @@ namespace ComRefactorConsole
                     // TODO : Issue with optional parameters
                     // TODO : Issue with methods using VBA reserved words eg method Date
                     // TODO : Implement wrapping of early binding Com object
-                    // TODO : Rubberduck annotations for description etc.
 
                     // https://stackoverflow.com/questions/3826763/get-full-path-without-filename-from-path-that-includes-filename
                     // https://stackoverflow.com/questions/674479/how-do-i-get-the-directory-from-a-files-full-path

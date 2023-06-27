@@ -112,6 +112,7 @@ namespace ComRefactor.ComReflection
         // returrn the ComInterface object found
         public ComInterface FindComCoClassInterface(string comCoClassName)
         {
+
             int index = this._classes.FindIndex(item => item.Name == comCoClassName);
             if (index >= 0)
             {

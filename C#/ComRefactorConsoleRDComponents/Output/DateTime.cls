@@ -196,12 +196,12 @@ Attribute AddYears.VB_Description = "Returns a new DateTime that adds the specif
 End Function
 
 '@Description("Compares two instances of DateTime and returns an integer that indicates whether the first instance is earlier than, the same as, or later than the second instance.")
-Public Function Compare(ByRef t1 As IDateTime, ByRef t2 As IDateTime) As Long
+Public Function Compare(ByRef t1 As DateTime, ByRef t2 As DateTime) As Long
 Attribute Compare.VB_Description = "Compares two instances of DateTime and returns an integer that indicates whether the first instance is earlier than, the same as, or later than the second instance."
 End Function
 
 '@Description("Compares the value of this instance to a specified DateTime value and returns an integer that indicates whether this instance is earlier than, the same as, or later than the specified DateTime value.")
-Public Function CompareTo(ByRef t As IDateTime) As Long
+Public Function CompareTo(ByRef t As DateTime) As Long
 Attribute CompareTo.VB_Description = "Compares the value of this instance to a specified DateTime value and returns an integer that indicates whether this instance is earlier than, the same as, or later than the specified DateTime value."
 End Function
 
@@ -211,7 +211,7 @@ Attribute DaysInMonth.VB_Description = "Returns the number of days in the specif
 End Function
 
 '@Description("Returns a value indicating whether the value of this instance is equal to the value of the specified DateTime instance.")
-Public Function Equals(ByRef value As IDateTime) As Boolean
+Public Function Equals(ByRef value As DateTime) As Boolean
 Attribute Equals.VB_Description = "Returns a value indicating whether the value of this instance is equal to the value of the specified DateTime instance."
 End Function
 
@@ -221,7 +221,7 @@ Attribute Equals2.VB_Description = "Returns a value indicating whether this inst
 End Function
 
 '@Description("Returns a value indicating whether two DateTime instances have the same date and time value.")
-Public Function Equals3(ByRef t1 As IDateTime, ByRef t2 As IDateTime) As Boolean
+Public Function Equals3(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
 Attribute Equals3.VB_Description = "Returns a value indicating whether two DateTime instances have the same date and time value."
 End Function
 
@@ -296,7 +296,7 @@ Attribute ParseExact3.VB_Description = "Converts the specified string representa
 End Function
 
 '@Description("Creates a new DateTime object that has the same number of ticks as the specified DateTime, but is designated as either local time, Coordinated Universal Time (UTC), or neither, as indicated by the specified DateTimeKind value.")
-Public Function SpecifyKind(ByRef value As IDateTime, ByVal kind As DateTimeKind) As DateTime
+Public Function SpecifyKind(ByRef value As DateTime, ByVal kind As DateTimeKind) As DateTime
 Attribute SpecifyKind.VB_Description = "Creates a new DateTime object that has the same number of ticks as the specified DateTime, but is designated as either local time, Coordinated Universal Time (UTC), or neither, as indicated by the specified DateTimeKind value."
 End Function
 
@@ -306,7 +306,7 @@ Attribute Subtract.VB_Description = "Returns a new DateTime that subtracts the s
 End Function
 
 '@Description("Returns a new TimeSpan that subtracts the specified date and time from the value of this instance.")
-Public Function Subtract2(ByRef value As IDateTime) As ITimeSpan
+Public Function Subtract2(ByRef value As DateTime) As ITimeSpan
 Attribute Subtract2.VB_Description = "Returns a new TimeSpan that subtracts the specified date and time from the value of this instance."
 End Function
 
@@ -355,9 +355,11 @@ Public Function ToShortTimeString() As String
 Attribute ToShortTimeString.VB_Description = "Converts the value of the current DateTime object to its equivalent short time string representation."
 End Function
 
+'@DefaultMember
 '@Description("Converts the value of the current DateTime object to its equivalent string representation using the formatting conventions of the current culture.")
 Public Property Get ToString() As String
 Attribute ToString.VB_Description = "Converts the value of the current DateTime object to its equivalent string representation using the formatting conventions of the current culture."
+Attribute ToString.VB_UserMemId = 0
 End Property
 
 '@Description("Converts the value of the current DateTime object to its equivalent string representation using the specified format and the formatting conventions of the current culture.")
@@ -378,33 +380,33 @@ End Function
 Public Function ToUniversalTime() As DateTime
 End Function
 
-Public Function TryParse(ByVal s As String, ByRef result As IDateTime) As Boolean
+Public Function TryParse(ByVal s As String, ByRef result As DateTime) As Boolean
 End Function
 
-Public Function Addition(ByRef d As IDateTime, ByRef t As ITimeSpan) As DateTime
+Public Function Addition(ByRef d As DateTime, ByRef t As ITimeSpan) As DateTime
 End Function
 
-Public Function Equality(ByRef d1 As IDateTime, ByRef d2 As IDateTime) As Boolean
+Public Function Equality(ByRef d1 As DateTime, ByRef d2 As DateTime) As Boolean
 End Function
 
-Public Function GreaterThan(ByRef t1 As IDateTime, ByRef t2 As IDateTime) As Boolean
+Public Function GreaterThan(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
 End Function
 
-Public Function GreaterThanOrEqual(ByRef t1 As IDateTime, ByRef t2 As IDateTime) As Boolean
+Public Function GreaterThanOrEqual(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
 End Function
 
-Public Function Inequality(ByRef t1 As IDateTime, ByRef t2 As IDateTime) As Boolean
+Public Function Inequality(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
 End Function
 
-Public Function LessThan(ByRef t1 As IDateTime, ByRef t2 As IDateTime) As Boolean
+Public Function LessThan(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
 End Function
 
-Public Function LessThanOrEqual(ByRef t1 As IDateTime, ByRef t2 As IDateTime) As Boolean
+Public Function LessThanOrEqual(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
 End Function
 
-Public Function Subtraction(ByRef d1 As IDateTime, ByRef d2 As IDateTime) As ITimeSpan
+Public Function Subtraction(ByRef d1 As DateTime, ByRef d2 As DateTime) As ITimeSpan
 End Function
 
-Public Function Subtraction2(ByRef d As IDateTime, ByRef t As ITimeSpan) As DateTime
+Public Function Subtraction2(ByRef d As DateTime, ByRef t As ITimeSpan) As DateTime
 End Function
 

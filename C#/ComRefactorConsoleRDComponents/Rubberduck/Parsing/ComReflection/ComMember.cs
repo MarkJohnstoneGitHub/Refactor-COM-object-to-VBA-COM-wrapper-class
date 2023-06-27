@@ -61,7 +61,7 @@ namespace Rubberduck.Parsing.ComReflection
         public List<ComParameter> ParametersList = new List<ComParameter>();
 
         //See https://docs.microsoft.com/en-us/windows/desktop/midl/retval
-        //"Parameters with the [retval] attribute are not displayed in user-oriented browsers."
+        //"ParametersCode with the [retval] attribute are not displayed in user-oriented browsers."
         public IEnumerable<ComParameter> Parameters => ParametersList.Where(param => !param.IsReturnValue);
 
         public ComMember(IComBase parent, ITypeInfo info, FUNCDESC funcDesc) : base(parent, info, funcDesc)

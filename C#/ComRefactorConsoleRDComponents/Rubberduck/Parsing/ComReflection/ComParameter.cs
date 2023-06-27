@@ -62,6 +62,8 @@ namespace Rubberduck.Parsing.ComReflection
         private ComTypeName _typeName;
         public string TypeName => _typeName.Name;
 
+        public ComTypeName Type => _typeName;  //TODO : RD Added
+
         [DataMember(IsRequired = true)]
         ComMember Parent { get; set; }
         public ComProject Project => Parent?.Project;

@@ -27,7 +27,7 @@ namespace ComRefactorConsole.ComRefactor.Notes
 //Documentation.DocString
 
 //Method Signature
-//AsTypeName -> Parent -> MemberDeclartion
+//AsTypeName -> _codeMethod -> MemberDeclartion
 //"Public Function CreateFromTicks As IDateTime"
 
 //RD Annotation "'Description("" & Documentation.DocString & ")"
