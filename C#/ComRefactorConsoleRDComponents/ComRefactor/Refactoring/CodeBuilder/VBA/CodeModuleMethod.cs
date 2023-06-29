@@ -284,6 +284,38 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         }
 
         // TODO: eg returns Set CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
+
+        // Issue :
+
+        //Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As DateTime
+        //Attribute CreateFromTicks.VB_Description = "Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time."
+        //       With New DateTime
+        //          Set .CreateFromTicks = this.DotNetLibDateTime.CreateFromTicks(ticks, kind)
+        //       End With
+        //End Function
+
+        // Expected output for return types of current object wrapping
+        // Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As DateTime
+        //     With New DateTime
+        //         Set .ComObject = this.DotNetLibDateTime.CreateFromTicks(ticks, kind)
+        //         Set Create = .Self
+        //     End With
+        // End Function
+
+        // Note for 
+        //Public Property Get TimeOfDay() As ITimeSpan
+        //Attribute TimeOfDay.VB_Description = "Gets the time of day for this instance."
+        //   With New ITimeSpan
+        //      Set .TimeOfDay = this.DotNetLibDateTime.TimeOfDay()
+        //   End With
+        //End Property
+
+        //Expected output
+        //Public Property Get TimeOfDay() As DotNetLib.TimeSpan
+        //   With New DotNetLib.TimeSpan
+        //       Set .TimeOfDay = this.DotNetLibDateTime.TimeOfDay()
+        //   End With
+        // End Property
         private String ComObjectVariableDeclaration() 
         {
             if (this.MethodInfo.Type == DeclarationType.Function || this.MethodInfo.Type == DeclarationType.PropertyGet)
