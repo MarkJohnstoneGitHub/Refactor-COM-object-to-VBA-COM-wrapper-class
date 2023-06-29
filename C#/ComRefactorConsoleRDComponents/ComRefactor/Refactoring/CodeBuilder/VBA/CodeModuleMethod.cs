@@ -279,7 +279,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             }
             String joinParameters = "(" + String.Join(", ", parameterNames) + ")";
             
-            return $"{this._comObjectVariable}.{this.MethodInfo.Name}{joinParameters}"; //this._comObjectVariable + this.MethodInfo.Name + joinParameters;
+            return $"{this._comObjectVariable}.{this.MethodInfo.Name}{joinParameters}"; 
 
         }
 
@@ -298,7 +298,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         // Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As DateTime
         //     With New DateTime
         //         Set .ComObject = this.DotNetLibDateTime.CreateFromTicks(ticks, kind)
-        //         Set Create = .Self
+        //         Set CreateFromTicks = .Self
         //     End With
         // End Function
 
@@ -311,36 +311,40 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         //End Property
 
         //Expected output
-        //Public Property Get TimeOfDay() As DotNetLib.TimeSpan
-        //   With New DotNetLib.TimeSpan
-        //       Set .TimeOfDay = this.DotNetLibDateTime.TimeOfDay()
-        //   End With
-        // End Property
+        //Dim pvtTimeSpan as DotNetLib.TimeSpan        
+        //Set pvtTimeSpan = this.DotNetLibDateTime.TimeOfDay()
+        //Set TimeOfDay =  pvtTimeSpan
+
         private String ComObjectVariableDeclaration() 
         {
             if (this.MethodInfo.Type == DeclarationType.Function || this.MethodInfo.Type == DeclarationType.PropertyGet)
             {
-                string assignment = this._memberName + " = ";
                 if (this.MethodInfo.AsTypeName.IsByRef)
                 {
                     StringBuilder sb = new StringBuilder();
-                    //get return object name make sure not default interface
-                    sb.AppendLine($"{Indent}With New {ReturnType()}");  
-                    sb.AppendLine($"{Indent}{Indent}Set .{assignment}{ComObjectWrapperReference()}");
-                    sb.AppendLine($"{Indent}End With");
 
-                    // Require return object eg Date how to object implementation from interface?
-                    //TODO : create code block to create object to return
                     //TODO : Issue with return types being an interface
-                    // EG.
-                    //     With New DateTime
-                    //          Set .CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
-                    //     End With
+                    //get return object name make sure not default interface
+
+                    if (ReturnType() == this.ModuleName)
+                    {
+                        sb.AppendLine($"{Indent}With New {ReturnType()}");
+                        sb.AppendLine($"{Indent}{Indent}Set .ComObject = {ComObjectWrapperReference()}");
+                        sb.AppendLine($"{Indent}{Indent}Set {this._memberName} = .Self");
+                        sb.AppendLine($"{Indent}End With");
+                    }
+                    else
+                    {
+                        //TODO: require qualified name? 
+                        sb.AppendLine($"{Indent}Dim pvt{ReturnType()} As {ReturnType()}");
+                        sb.AppendLine($"{Indent}Set pvt{ReturnType()} = {ComObjectWrapperReference()}");
+                        sb.AppendLine($"{Indent}Set {this._memberName}  = pvt{ReturnType()}");
+                    }
                     return sb.ToString();
                 }
                 else
                 {
-                    return $"{Indent}{assignment}{ComObjectWrapperReference()}" +Environment.NewLine; ;
+                    return $"{Indent}{this._memberName} = {ComObjectWrapperReference()}" + Environment.NewLine;
                 }
             }
             return string.Empty;
