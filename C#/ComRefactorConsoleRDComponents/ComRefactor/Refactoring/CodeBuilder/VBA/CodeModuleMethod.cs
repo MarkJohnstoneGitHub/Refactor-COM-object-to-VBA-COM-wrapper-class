@@ -96,6 +96,11 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 method.AppendLine(AnnotationDefaultMember());
             }
 
+            if (this.MethodInfo.IsEnumerator)
+            {
+                method.AppendLine(AnnotationEnumerator());
+            }
+
             if (this.MethodInfo.Documentation.DocString != null)
             {
                 method.AppendLine(AnnotationMemberDescription());
@@ -111,6 +116,11 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             if (this.MethodInfo.IsDefault)
             {
                 method.AppendLine(AttributeDefaultMember());
+            }
+
+            if (this.MethodInfo.IsEnumerator)
+            {
+                method.AppendLine(AttributeEnumerator());
             }
 
             //TODO method attribute for enumeration
@@ -181,9 +191,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             return type;
         }
 
-
-        //'@DefaultMember
-        //Attribute Item.VB_UserMemId = 0
         public String AttributeDefaultMember()
         {
             if (this.MethodInfo.IsDefault)
@@ -202,6 +209,14 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             return String.Empty;
         }
 
+        public String AttributeEnumerator()
+        {
+            if (this.MethodInfo.IsEnumerator)
+            {
+                return $"Attribute {Name}.VB_UserMemId = -4";
+            }
+            return String.Empty;
+        }
 
         private void CodeParamaters()
         {
@@ -212,7 +227,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         }
 
 
-        // TODO : Issue with return types being interface, how to handle for other interfaces returned that are in the current library?
+        // TODO : Issue with return types being interface, how to handle for other interfaces returned that are in the current type library or external type libraries?
         // TODO : Posssible pass in the Com library object to check and replace with qualified name eg. DotNetLib.TimeSpan? or keep as ITimeSpan?
         public String ReturnType()
         {
@@ -314,6 +329,15 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         }
 
+        // https://rubberduckvba.blog/2019/12/14/rubberduck-annotations/
+        public string AnnotationEnumerator()
+        {
+            if (this.MethodInfo.IsEnumerator)
+            {
+                return "'@Enumerator";
+            }
+            return String.Empty;
+        }
 
         // https://stackoverflow.com/questions/4135317/make-first-letter-of-a-string-upper-case-with-maximum-performance/4135491#4135491
         // TODO : Move to appropriate location
@@ -328,39 +352,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             return str.ToUpper();
         }
 
-
-
     }
 
 }
-
-
-
-// TODO : Issue with optional parameters if equal null 
-// TODO : Move to CodeModuleParrameters
-//public String Parameters()
-//{
-//    List<String> declarationParameters = new List<String>();
-
-//    foreach (var parameter in this.MethodInfo.Parameters)
-//    {
-//        String declarationName;
-//        if (parameter.TypeName == this.MethodInfo.Parent.Name)
-//        {
-//            string parameterTypeName = this.ModuleName;
-
-//            declarationName = parameter.DeclarationName; // TODO: update to class name i.e. default is the  comCoClass.Name or new module name ???
-
-//            //See _comParameter
-//            //declarationName = $"{(parameter.IsOptional ? "Optional " : string.Empty)}{(parameter.IsByRef ? "ByRef" : "ByVal")} {parameter.Name} As {parameterTypeName}{(parameter.IsOptional && parameter.DefaultValue != null ? " = " : string.Empty)}{(parameter.IsOptional && parameter.DefaultValue != null ? _typeName.IsEnumMember ? DefaultAsEnum : DefaultValue : string.Empty)}";
-//        }
-//        else
-//        {
-//            declarationName = parameter.DeclarationName;
-//        }
-
-//        declarationParameters.Add(declarationName);
-//    }
-//    String joined = "(" + String.Join(", ", declarationParameters) + ")";
-//    return joined;
-//}
