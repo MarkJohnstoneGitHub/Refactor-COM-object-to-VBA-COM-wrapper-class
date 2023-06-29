@@ -48,6 +48,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
     public class CodeModuleMethod
     {
         private const string Quote = "\"";
+        const string Indent = "   ";
 
         String _memberName;
         String _comObjectVariable;
@@ -83,14 +84,12 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         //TODO: Missing function and property get As clause
         public String Signature()
         {
-            return Declaration() + ParametersDeclaration + " " + ReturnType();
+            return Declaration() + ParametersDeclaration + (ReturnType() == null ? string.Empty : " As " + ReturnType());
         }
         public String CodeModule() 
         {
             StringBuilder method = new StringBuilder();
 
-            // Annotations
-            // TODO : Add enumeration annoation
             if (this.MethodInfo.IsDefault)
             {
                 method.AppendLine(AnnotationDefaultMember());
@@ -123,10 +122,10 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 method.AppendLine(AttributeEnumerator());
             }
 
-            //TODO method attribute for enumeration
             //TODO: reference to Com object  being wrapped
             if (this._comObjectVariable != null) 
             {
+                method.Append(ComObjectVariableDeclaration());
                 // TODO : AppendLine reference to COM object being wrapped, also indent
                 //method.AppendLine();
             }
@@ -248,7 +247,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                     // TODO : throw error???
                 }
 
-                return "As " + returnType;
+                return returnType;  //TODO : Remove "As "
             }
             return null;
         }
@@ -278,36 +277,39 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             {
                 parameterNames.Add(parameter.Name);
             }
-            String joined = "(" + String.Join(", ", parameterNames) + ")";
+            String joinParameters = "(" + String.Join(", ", parameterNames) + ")";
             
-            return this._comObjectVariable + this.MethodInfo.Name + joined;
+            return $"{this._comObjectVariable}.{this.MethodInfo.Name}{joinParameters}"; //this._comObjectVariable + this.MethodInfo.Name + joinParameters;
+
         }
 
         // TODO: eg returns Set CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
         private String ComObjectVariableDeclaration() 
         {
-
             if (this.MethodInfo.Type == DeclarationType.Function || this.MethodInfo.Type == DeclarationType.PropertyGet)
             {
-                string assignment = this.MethodInfo.Name + " = ";
+                string assignment = this._memberName + " = ";
                 if (this.MethodInfo.AsTypeName.IsByRef)
                 {
-                    assignment = "Set " + assignment;
+                    StringBuilder sb = new StringBuilder();
+                    //get return object name make sure not default interface
+                    sb.AppendLine($"{Indent}With New {ReturnType()}");  
+                    sb.AppendLine($"{Indent}{Indent}Set .{assignment}{ComObjectWrapperReference()}");
+                    sb.AppendLine($"{Indent}End With");
 
                     // Require return object eg Date how to object implementation from interface?
                     //TODO : create code block to create object to return
+                    //TODO : Issue with return types being an interface
                     // EG.
                     //     With New DateTime
                     //          Set .CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
                     //     End With
-                    return assignment;
+                    return sb.ToString();
                 }
                 else
                 {
-                    return assignment;
+                    return $"{Indent}{assignment}{ComObjectWrapperReference()}" +Environment.NewLine; ;
                 }
-                // TODO require to determine if object for Set
-               
             }
             return string.Empty;
         }
