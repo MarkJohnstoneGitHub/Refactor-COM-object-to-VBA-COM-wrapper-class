@@ -90,11 +90,18 @@ Any custom error handling required to be done manually.
   - Paramaters for object being wrapped displayed as interface of the object. eg eg ITimeSpan
 
 Overall preforming resonable well with some outstanding issues regarding parameters and return types require to convert interface to the object required.
-This issue may require some restructing to search dependent external type libraries. i.e. For the DotNetLib.tlb example 
+This issue may require some restructing to search dependent external type libraries. 
+
+i.e. For the DotNetLib.tlb example IFormatProvider is referenced in the \Windows\Microsoft.NET\Framework64\v4.0.30319\mscorlib.tlb type library.
+In this example is the interface is required as there are multiple implementmentations. 
 
 ```
 Public Function ToString4(ByVal format As String, ByRef provider As IFormatProvider) As String
 ```
+
+If there is only one default implementation found then use that implementation. 
+EG  ```Public Property Get TimeOfDay() As ITimeSpan ```
+Require to search known types may require searching dependent external type libraries?
 
 
 **Utilize [RubberDuck Com Management](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement))**
