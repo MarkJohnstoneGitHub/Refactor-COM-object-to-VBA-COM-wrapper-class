@@ -93,7 +93,7 @@ Overall preforming resonable well with some outstanding issues regarding paramet
 This issue may require some restructing to search dependent external type libraries. 
 
 i.e. For the DotNetLib.tlb example IFormatProvider is referenced in the \Windows\Microsoft.NET\Framework64\v4.0.30319\mscorlib.tlb type library.
-In this example is the interface is required as there are multiple implementmentations. 
+In this example is the interface is required as there are multiple implementations. 
 
 ```
 Public Function ToString4(ByVal format As String, ByRef provider As IFormatProvider) As String
