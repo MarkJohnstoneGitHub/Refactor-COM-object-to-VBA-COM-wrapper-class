@@ -69,39 +69,42 @@ To allow for sorting/grouping of methods maybe have to expose some lists eg the 
      - Eg.  End Function, End Property, End Sub
 5) Write VBA class output to a file with extension ".cls" for the output path obtained. eg. DateTime.cls
 6) May also require creating a static helper class for constant field values/objects. eg  DateTimeStatic.cls
+7) To implement inherited interfaces, so far the DateTime example only has a default interface.
 
 Will require to investigate VBA wrappers of objects eg a Collection wrapper to check correct implementation.
 
-Any custom error handling required to be done manually.
+Any custom error handling required to be done manually and/or extending the VBA Com wrapper class as required.
 
 **Implemented July 2nd 20223**
 - Obtain a type library by path.
 - Obtain the ComCoClass required by name
-- Created the VBA Com wrapper class for all properties and members, including description attribute.
+- Created the VBA Com wrapper class for all properties and members, including Rubberduck annotations and attributes.
 - Added internal helper properties to access the wrapped Com object.
 - To implement:
      - Covert if required parameters and return types to implemented object eg ITimeSpan
      - Would require finding it's implementating object i.e. From known types or maybe require searching an external typelib from GUID?
      - Static helper class if required? Would require option to select which members required for static fields.
      - Eg.Public Property Get MaxValue() As DateTime should be implemented in a static DateTime helper class.
+     - Inherited interfaces i.e. require Implements section and generate private VBA members including references to the COM object being wrapped.
  
 - Issues
   - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
   - Paramaters for object being wrapped displayed as interface of the object. eg eg ITimeSpan
 
-Overall preforming resonable well with some outstanding issues regarding parameters and return types require to convert interface to the object required.
-This issue may require some restructing to search dependent external type libraries. 
+Overall preforming resonable well with some outstanding issues regarding parameters and return types required to convert the interface to the object required.
+This issue may require some restructing to search dependent external type libraries. Also issue member names using reserved words.
 
-i.e. For the DotNetLib.tlb example IFormatProvider is referenced in the \Windows\Microsoft.NET\Framework64\v4.0.30319\mscorlib.tlb type library.
+i.e. For the DotNetLib.tlb example IFormatProvider is referenced from \Windows\Microsoft.NET\Framework64\v4.0.30319\mscorlib.tlb type library.
 In this example is the interface is required as there are multiple implementations. 
 
 ```
 Public Function ToString4(ByVal format As String, ByRef provider As IFormatProvider) As String
 ```
 
-If there is only one default implementation found then use that implementation. 
+If there is only one implementation found then use that implementation. 
 EG  ```Public Property Get TimeOfDay() As ITimeSpan ```
-Require to search known types may require searching dependent external type libraries?
+Expect output  ```Public Property Get TimeOfDay() As TimeSpan ```
+Require to search known types may require searching dependent external type libraries? Currently an outstanding issue, quick fix perform manualy.
 
 
 **Utilize [RubberDuck Com Management](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement))**
@@ -127,8 +130,4 @@ Items of interest
         - public ITypeLib LoadTypeLibrary(string libraryPath)
   - [is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net](https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net) 
 
-
-    
-    
-    
 
