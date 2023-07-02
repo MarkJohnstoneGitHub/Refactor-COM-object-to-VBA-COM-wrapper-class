@@ -1,6 +1,4 @@
 ﻿using System.Text;
-using ComRefactor.ComReflection.TypeLibs.Abstract;
-using Rubberduck.VBEditor.ComManagement.TypeLibs.Abstract;
 
 namespace Rubberduck.VBEditor.ComManagement.TypeLibs.Utility
 {

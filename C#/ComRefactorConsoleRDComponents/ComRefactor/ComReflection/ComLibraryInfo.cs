@@ -1,5 +1,4 @@
 ﻿//using Rubberduck.Parsing.ComReflection;
-using ComRefactor.ComReflection;
 using Rubberduck.Parsing.ComReflection;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +8,7 @@ namespace ComRefactor.ComReflection
 {
     public class ComLibraryInfo
     {
-        public static readonly List<string> TypeLibraryExtensions = new List<string> { ".tlb" }; //{ ".olb", ".tlb", ".dll", ".ocx", ".exe" };
+        public static readonly List<string> TypeLibraryExtensions = new List<string> { ".tlb" , ".olb", ".tlb", ".dll", ".ocx", ".exe" };
         private readonly IComLibraryProvider _libraryProvider = new ComLibraryProvider();
         private ITypeLib _typelib;
         
@@ -28,7 +27,7 @@ namespace ComRefactor.ComReflection
                 if (TypeLibraryExtensions.Contains(extension))
                 {
                     this._typelib = _libraryProvider.LoadTypeLibrary(path);
-                    return new ComRefactor.ComReflection.ComProjectLibrary(this._typelib, path); 
+                    return new ComProjectLibrary(this._typelib, path); 
                 }
                 return null; 
             }

@@ -1,9 +1,4 @@
 ﻿using Rubberduck.Parsing.ComReflection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ComRefactor.Refactoring.CodeBuilder.VBA
 {
@@ -23,6 +18,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                     return _codeMethod.ModuleName;
                 }
                 else
+                // TODO If (this._comParameter.IsByRef) //replace with quantative name of object i.e. is the default interface
                 {
                     //TODO : may require to rename for interface returned when only one implementation i.e. the default interface.  If cant find it's ComCoClass or has multiple implementations then use interface?
                     return _comParameter.TypeName;

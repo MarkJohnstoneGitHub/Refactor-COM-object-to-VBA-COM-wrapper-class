@@ -1,10 +1,6 @@
 ﻿using Rubberduck.Parsing.ComReflection;
-using Rubberduck.Parsing.Symbols;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Text;
-using System.Xml.Linq;
 
 namespace ComRefactor.Refactoring.CodeBuilder.VBA
 {
@@ -167,15 +163,9 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Friend Property Set ComObject(ByVal " + "obj"+_comCoClass.Name +   " As " + QualifierName +")");
             sb.AppendLine($"{Indent}Set {ComObjectIdentifier} = obj{this._comCoClass.Name}");
-            //sb.AppendLine(Indent + "Set ComObject = " + ComObjectIdentifier);
             sb.AppendLine("End Property");
             return sb.ToString();
         }
-
-        //Friend Property Set ComObject(ByVal objDateTime As DotNetLib.DateTime)
-        //   Set this.DotNetLibDateTime = objDateTime
-        //End Property
-
 
         private string InternalPropertySelf()
         {

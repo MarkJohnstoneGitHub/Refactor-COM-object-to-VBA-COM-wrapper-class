@@ -1,10 +1,7 @@
-﻿using ComRefactor.Refactoring.CodeBuilder.VBA;
-using Rubberduck.Parsing.ComReflection;
+﻿using Rubberduck.Parsing.ComReflection;
 using Rubberduck.Parsing.Symbols;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
 namespace ComRefactor.Refactoring.CodeBuilder.VBA
@@ -246,8 +243,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 {
                     // TODO : throw error???
                 }
-
-                return returnType;  //TODO : Remove "As "
+                return returnType;
             }
             return null;
         }
