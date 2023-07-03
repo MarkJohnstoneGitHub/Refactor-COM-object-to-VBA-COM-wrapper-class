@@ -7,7 +7,7 @@ Suggestion for RubberDuck feature [Adding refactoring of COM objects](https://gi
 
 From the type library info for the required class obtain the class template to extract to a VBA COM wrapper classs.
 
-- Utilizing [RubberDuck](https://github.com/rubberduck-vba/Rubberduck) COM typelib wrappers
+- Utilizing [Rubberduck ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection) COM TypeLib wrappers
 
 For testing using [DotNetLib.tlb](https://github.com/MarkJohnstoneGitHub/DotNetLib/blob/main/bin/Release/DotNetLib.tlb) for the Com object DateTime 
 Sample output [DateTime.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTime.cls)
@@ -35,7 +35,6 @@ Outline for implemention of refactoring a Com Object to implement a VBA class CO
      - Add Rubberduck annotations required. eg classs and  method description, hidden items, default, enumeration, predeclared class etc.
      - Option to implement as predeclared class.
      - Early or late binding implementation of wrapping the Com object in VBA.
-- May require option to create static helper class for field properties returning constant objects. eg. DateTime.MaxValue
   
 If allowing for various options create a copy of the Com object ComInterface according to selections. 
 i.e. The list of methods is copied according to required methods required and ordering. 
@@ -69,8 +68,10 @@ To allow for sorting/grouping of methods maybe have to expose some lists eg the 
   - Add Method End
      - Eg.  End Function, End Property, End Sub
 5) Write VBA class output to a file with extension ".cls" for the output path obtained. eg. DateTime.cls
-6) May also require creating a static helper class for constant field values/objects. eg  DateTimeStatic.cls
+6) May also require creating a static helper class for constant field values/objects i.e. DateTime.MaxValue. Eg. DateTimeStatic.cls
+     - Possibly redesign DotNetLib type library moving  static fields  to static helper class?
 7) To implement inherited interfaces, so far the DateTime example only has a default interface.
+- May require option to create static helper class for field properties returning constant objects. eg. DateTime.MaxValue
 
 Will require to investigate VBA wrappers of objects eg a Collection wrapper to check correct implementation.
 
@@ -134,10 +135,5 @@ Items of interest
 
 - [LibraryReferencedDeclarationsCollector](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/LibraryReferencedDeclarationsCollector.cs)
   - IReadOnlyCollection<Declaration> CollectedDeclarations(ReferenceInfo reference)
-
-- [ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection)
-- [ComLibraryProvider](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComLibraryProvider.cs)
-        - public ITypeLib LoadTypeLibrary(string libraryPath)
-  - [is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net](https://stackoverflow.com/questions/43875454/is-there-a-way-to-view-com-entries-by-traversing-a-tlb-file-in-net) 
 
 
