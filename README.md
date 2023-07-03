@@ -7,7 +7,7 @@ Suggestion for RubberDuck feature [Adding refactoring of COM objects](https://gi
 
 From the type library info for the required class obtain the class template to extract to a VBA COM wrapper classs.
 
-- Utilizing [RubberDuck](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection) COM TypeLib wrappers
+- Utilizing [RubberDuck ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection) COM TypeLib wrappers
 
 For testing using [DotNetLib.tlb](https://github.com/MarkJohnstoneGitHub/DotNetLib/blob/main/bin/Release/DotNetLib.tlb) for the Com object DateTime 
 Sample output [DateTime.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTime.cls)
