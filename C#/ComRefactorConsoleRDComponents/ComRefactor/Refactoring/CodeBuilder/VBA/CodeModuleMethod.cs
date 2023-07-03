@@ -231,6 +231,8 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             {
                 string returnType = this.MethodInfo.AsTypeName.TypeName;
 
+                
+
                 //If the return type is the interface name replace with moduleName/new class name  ???
                 if (returnType != null) 
                 { 
@@ -243,6 +245,12 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 {
                     // TODO : throw error???
                 }
+
+                if (this.MethodInfo.AsTypeName.IsArray)
+                { 
+                    returnType = returnType + "()"; 
+                }
+                    
                 return returnType;
             }
             return null;

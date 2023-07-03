@@ -35,6 +35,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         }
 
         //From ComParameter DeclarationName required to add public property Type to ComParameter to access required properties.
+        //Test for if _comParameter.IsArrray
         public override string ToString()
         {
             return  $"{(_comParameter.IsOptional ? "Optional " : string.Empty)}{(_comParameter.IsByRef ? "ByRef" : "ByVal")} {_comParameter.Name} As {this.Name}{(_comParameter.IsOptional && _comParameter.DefaultValue != null ? " = " : string.Empty)}{(_comParameter.IsOptional && _comParameter.DefaultValue != null ? _comParameter.Type.IsEnumMember ? _comParameter.DefaultAsEnum : _comParameter.DefaultValue : string.Empty)}";

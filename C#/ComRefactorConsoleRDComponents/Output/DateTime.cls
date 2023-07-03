@@ -358,7 +358,7 @@ Attribute FromOADate.VB_Description = "Returns a DateTime equivalent to the spec
 End Function
 
 '@Description("Converts the value of this instance to all the string representations supported by the standard date and time format specifiers.")
-Public Function GetDateTimeFormats() As String
+Public Function GetDateTimeFormats() As String()
 Attribute GetDateTimeFormats.VB_Description = "Converts the value of this instance to all the string representations supported by the standard date and time format specifiers."
    GetDateTimeFormats = this.DotNetLibDateTime.GetDateTimeFormats()
 End Function
