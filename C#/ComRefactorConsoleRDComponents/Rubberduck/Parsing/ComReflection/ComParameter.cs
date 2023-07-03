@@ -136,6 +136,11 @@ namespace Rubberduck.Parsing.ComReflection
                         {
                             _typeName = new ComTypeName(Project, type);
                         }
+                        //TODO: RD required GUID for TKIND_DISPATCH for ComParameter ??
+                        //else if (attribs.typekind == TYPEKIND.TKIND_DISPATCH)
+                        //   _typeName = new ComTypeName(Project, type, Guid.Empty, attribs.guid)
+                        // TODO : Investigate (attribs.typekind == TYPEKIND.TKIND_DISPATCH appears can obtain attribs.guid
+
                     }
                 }
                 catch (COMException)

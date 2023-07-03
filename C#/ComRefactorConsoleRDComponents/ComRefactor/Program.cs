@@ -1,53 +1,48 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices.ComTypes;
 using ComRefactor.ComReflection;
 using ComRefactor.Refactoring.CodeBuilder.VBA;
 using Rubberduck.Parsing.ComReflection;
 
 namespace ComRefactorConsole
 {
+    // https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class
+    // Issues: 
+    // TODO : Issue with methods using VBA reserved words eg method Date
+
     internal class Program
     {
         static void Main(string[] args)
         {
-            string typeLibraryPath = args[0];
-            string outputPath = args[1];
-            string comClassName = args[2];
+            string typeLibraryPath = args[0];  // path of type library
+            string comClassName = args[1];     // COM object name required to wrap
+            string outputPath = args[2];       // output path for VBA COM wrapper 
+            string moduleName = args[3];       // VBA class name
 
             Boolean isPredeclaredId = false;
             //  https://stackoverflow.com/questions/49590754/convert-a-string-to-a-boolean-in-c-sharp
-            Boolean.TryParse(args[3], out isPredeclaredId);
+            Boolean.TryParse(args[4], out isPredeclaredId);  // Select predeclared VBA COM wrapper
 
             if (File.Exists(typeLibraryPath))
             {
-                ComLibraryInfo libraryInfo = new ComLibraryInfo();
-                ComProjectLibrary projectTypeLib = libraryInfo.GetLibraryInfoFromPath(typeLibraryPath);
-                ComCoClass comCoClass = projectTypeLib.FindComCoClass(comClassName);
-                if (comCoClass != null)
+                ComLibraryProvider libraryInfo = new ComLibraryProvider();
+                ITypeLib  typeLib = libraryInfo.LoadTypeLibrary(typeLibraryPath);
+                if (typeLib != null)
                 {
-                    string codeModule = null;
-                    VBAComWrapper codebuilder = new VBAComWrapper(comCoClass, comClassName,isPredeclaredId);
-                    codeModule = codebuilder.CodeModule();
+                    ComProject projectTypeLib = new ComProject(typeLib, typeLibraryPath);
+                    VBAComWrapper codebuilder = new VBAComWrapper(projectTypeLib, comClassName, moduleName, isPredeclaredId);
+
+                    //TODO : If  comClassName not found??
+                    String codeModule = codebuilder.CodeModule();
                     System.IO.File.WriteAllText(outputPath, codeModule);
-
-                    // Appears to be working finding the Com CoClass default interface required eg. "DateTime" from DotNetLib.tlb
-                    // Successfully created class for all methods and descriptions
-
-                    // TODO : Issue with methods using VBA reserved words eg method Date
 
                     // https://stackoverflow.com/questions/3826763/get-full-path-without-filename-from-path-that-includes-filename
                     // https://stackoverflow.com/questions/674479/how-do-i-get-the-directory-from-a-files-full-path
-                    // TODO : For testing obtain the file path from outputPath to document the ComInterface 
-                    // TODO : Document ComInterface comCoClassInterface
-                    // TODO : Refactor comCoClassInterface to extract VBA Com wrapper class
-                    // TODO : Require to investigate how RD extracts class and/or interface and include RD components required
-                    // TODO : First attempt just extract a VBA class without Com wrapper references
-                    // TODO : Modify RD refactoring a VBA interface to extract a class wrapping  the Com object required
-
 
                 }
-                else 
-                { 
+                else
+                {
                 }
             }
         }

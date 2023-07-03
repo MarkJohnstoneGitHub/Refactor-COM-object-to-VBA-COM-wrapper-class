@@ -60,10 +60,8 @@
     <Compile Include="Rubberduck\Parsing\ComReflection\ComBase.cs" />
     <Compile Include="Rubberduck\Parsing\ComReflection\ComCoClass.cs" />
     <Compile Include="Rubberduck\Parsing\ComReflection\ComDocumentation.cs" />
-    <Compile Include="ComRefactor\ComReflection\ComLibrary.cs" />
     <Compile Include="ComRefactor\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ComRefactor\ComReflection\IComLibrary.cs" />
     <Compile Include="Rubberduck\Parsing\ComReflection\ComEnumeration.cs" />
     <Compile Include="Rubberduck\Parsing\ComReflection\ComEnumerationMember.cs" />
     <Compile Include="Rubberduck\Parsing\ComReflection\ComField.cs" />

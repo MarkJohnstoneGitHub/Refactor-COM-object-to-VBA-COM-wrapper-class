@@ -23,9 +23,9 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         private ComCoClass _comCoClass;
         private ComInterface _comInterface => this._comCoClass.DefaultInterface;
         private bool _isPredeclaredId;
+
+        public ComProject Project;
         public string QualifierName => _comCoClass.Parent.Name + "." + _comCoClass.Name;
-
-
         public String ModuleName;
 
         public string ComObjectIdentifier
@@ -35,13 +35,18 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         public string ComObjectTypeIdentifier => this._comCoClass.Parent.Name + this._comCoClass.Name;
 
-        public VBAComWrapper(ComCoClass comCoClass, String moduleName, bool isPredeclaredId = false)
+        public VBAComWrapper(ComProject comProject, String comCoClassName, String moduleName, bool isPredeclaredId = false)
         {
-            _codeBuilder = new StringBuilder(_capacity, _maxCapacity);
-            _comCoClass = comCoClass;
-            ModuleName = moduleName;
-            _isPredeclaredId = isPredeclaredId;
-            BuildCodeModule();
+            ComCoClass comCoClass = comProject.FindComCoClass(comCoClassName);
+            if (comCoClass != null)
+            {
+                Project = comProject;
+                _comCoClass = comCoClass;
+                ModuleName = moduleName;
+                _isPredeclaredId = isPredeclaredId;
+                _codeBuilder = new StringBuilder(_capacity, _maxCapacity);
+                BuildCodeModule();
+            }
         }
 
         public String CodeModule()

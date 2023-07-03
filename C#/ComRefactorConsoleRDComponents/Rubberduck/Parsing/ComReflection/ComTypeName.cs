@@ -4,12 +4,13 @@ using System.Runtime.Serialization;
 
 namespace Rubberduck.Parsing.ComReflection
 {
+    //TODO: RD required GUID for TKIND_DISPATCH for ComParameter ??
     [DataContract]
     [KnownType(typeof(ComProject))]
     public class ComTypeName
     {
         [DataMember(IsRequired = true)]
-        public Guid EnumGuid { get; private set; } = Guid.Empty;
+        public Guid EnumGuid { get; private set; } = Guid.Empty;  
         public bool IsEnumMember => !EnumGuid.Equals(Guid.Empty);
 
         [DataMember(IsRequired = true)]

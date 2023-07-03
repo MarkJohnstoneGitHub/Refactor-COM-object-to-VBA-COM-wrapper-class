@@ -90,6 +90,19 @@ namespace Rubberduck.Parsing.ComReflection
             LoadModules(typeLibrary);
         }
 
+        // TODO : RD Added
+        public ComCoClass FindComCoClass(string comCoClassName)
+        {
+            int index = this._classes.FindIndex(item => item.Name == comCoClassName);
+            if (index >= 0)
+            {
+                ComCoClass comCoClass = this._classes[index];
+                return comCoClass;
+            }
+            return null;
+        }
+
+
         private void LoadModules(ITypeLib typeLibrary)
         {
             var typeCount = typeLibrary.GetTypeInfoCount();
