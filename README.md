@@ -99,12 +99,7 @@ Any custom error handling required to be done manually and/or extending the VBA 
        - Expected output ```Public Function GetDateTimeFormats() As String() ```
   - Parameter is an array.
   - ``` Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime ```
-       - ``` IDateTime ParseExact3(
-	[in] BSTR s,
-	[in] SAFEARRAY(BSTR) formats,
-	[in] IFormatProvider#i* provider,
-	[in] DateTimeStyles#i style
-);```
+       - ``` IDateTime ParseExact3([in] BSTR s,	[in] SAFEARRAY(BSTR) formats,[in] IFormatProvider provider,[in] DateTimeStyles style);```
 
 Overall preforming resonable well with some outstanding issues regarding parameters and return types required to convert the interface to the object required.
 This issue may require some restructing to search dependent external type libraries. Also issue member names using reserved words.
