@@ -95,7 +95,7 @@ Any custom error handling required to be done manually and/or extending the VBA 
   - Parameters for object being wrapped displayed as interface of the object. Eg. ITimeSpan
   - Return type not converted from interface to object
        - ```Public Property Get TimeOfDay() As ITimeSpan ```
-  - Return type is an array
+  - Return type is an array (Fixed)
        - ```Public Function GetDateTimeFormats() As String ```
        - Expected output ```Public Function GetDateTimeFormats() As String() ```
   - Parameter is an array.
