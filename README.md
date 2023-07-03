@@ -90,7 +90,16 @@ Any custom error handling required to be done manually and/or extending the VBA 
  
 - Issues
   - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
-  - Paramaters for object being wrapped displayed as interface of the object. eg eg ITimeSpan
+       - ``` Public Property Get Date() As DateTime ```
+  - Parameters for object being wrapped displayed as interface of the object. Eg. ITimeSpan
+  - Return type not converted from interface to object
+       - ```Public Property Get TimeOfDay() As ITimeSpan ```
+  - Return type is an array
+       - ```Public Function GetDateTimeFormats() As String ```
+       - Expected output ```Public Function GetDateTimeFormats() As String() ```
+  - Parameter is an array.
+  - ``` Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime ```
+       - ``` IDateTime ParseExact3([in] BSTR s,	[in] SAFEARRAY(BSTR) formats,[in] IFormatProvider provider,[in] DateTimeStyles style);```
 
 Overall preforming resonable well with some outstanding issues regarding parameters and return types required to convert the interface to the object required.
 This issue may require some restructing to search dependent external type libraries. Also issue member names using reserved words.
