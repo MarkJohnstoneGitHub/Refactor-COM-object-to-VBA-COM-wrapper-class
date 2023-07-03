@@ -90,6 +90,7 @@ Any custom error handling required to be done manually and/or extending the VBA 
  
 - Issues
   - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
+       - ``` Public Property Get Date() As DateTime ```
   - Paramaters for object being wrapped displayed as interface of the object. Eg. ITimeSpan
   - Return type not converted from interface to object Eg. ```Public Property Get TimeOfDay() As ITimeSpan ```
   - Return type is an array
