@@ -77,13 +77,13 @@ Will require to investigate VBA wrappers of objects eg a Collection wrapper to c
 
 Any custom error handling required to be done manually and/or extending the VBA Com wrapper class as required.
 
-**Implemented July 2nd 20223**
+**Implemented July 4th, 20223**
 - Obtain a type library by path.
 - Obtain the ComCoClass required by name
 - Created the VBA Com wrapper class for all properties and members, including Rubberduck annotations and attributes.
 - Added internal helper properties to access the wrapped Com object.
 - To implement:
-     - Covert if required parameters and return types to implemented object eg ITimeSpan
+     - Covert if required parameters implemented object eg ITimeSpan
      - Would require finding it's implementating object i.e. From known types or maybe require searching an external typelib from GUID?
      - Static helper class if required? Would require option to select which members required for static fields.
      - Eg.Public Property Get MaxValue() As DateTime should be implemented in a static DateTime helper class.
@@ -91,15 +91,18 @@ Any custom error handling required to be done manually and/or extending the VBA 
  
 - Issues
   - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
-       - ``` Public Property Get Date() As DateTime ```
+       - Currently low priority to fix
+       - EG. ``` Public Property Get Date() As DateTime ```
   - Parameters for object being wrapped displayed as interface of the object. Eg. ITimeSpan
-  - Return type not converted from interface to object
-       - ```Public Property Get TimeOfDay() As ITimeSpan ```
+  - Return type not converted from interface to object (Issue addressed, require to preferrable use qualified name)
+       - ```Public Property Get TimeOfDay() As TimeSpan ```
+       - Expected output ```Public Property Get TimeOfDay() As DotNetLib.TimeSpan ```
   - Return type is an array (Fixed)
        - ```Public Function GetDateTimeFormats() As String ```
        - Expected output ```Public Function GetDateTimeFormats() As String() ```
   - Parameter is an array.
-  - ``` Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime ```
+       - Requires further investigation, possible issue with DotNetLib type library for ParseExact3 function.  
+       - ``` Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime ```
        - ``` IDateTime ParseExact3([in] BSTR s,	[in] SAFEARRAY(BSTR) formats,[in] IFormatProvider provider,[in] DateTimeStyles style);```
 
 Overall preforming resonable well with some outstanding issues regarding parameters and return types required to convert the interface to the object required.
@@ -114,7 +117,7 @@ Public Function ToString4(ByVal format As String, ByRef provider As IFormatProvi
 
 If there is only one implementation found then use that implementation. 
 EG  ```Public Property Get TimeOfDay() As ITimeSpan ```
-Expect output  ```Public Property Get TimeOfDay() As TimeSpan ```
+Expect output  ```Public Property Get TimeOfDay() As DotNetLib.TimeSpan ```
 Require to search known types may require searching dependent external type libraries? Currently an outstanding issue, quick fix perform manualy.
 
 
