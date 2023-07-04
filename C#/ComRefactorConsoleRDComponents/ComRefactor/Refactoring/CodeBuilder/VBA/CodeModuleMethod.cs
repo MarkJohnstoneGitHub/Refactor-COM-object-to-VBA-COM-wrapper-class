@@ -2,6 +2,7 @@
 using Rubberduck.Parsing.Symbols;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ComRefactor.Refactoring.CodeBuilder.VBA
@@ -19,7 +20,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
     //  eg  CultureInfo : ICloneable, IFormatProvider implements IFormatProvider
     // https://learn.microsoft.com/en-us/dotnet/api/system.iformatprovider.getformat?view=netframework-4.8.1
     // Maybe check if not in list of default implementation use interface reference?
-    // Easiest way to fully implement wrapping a Com Object would require access to any external type libraries referenced?
+    // Easiest way to fully implementedInterface wrapping a Com Object would require access to any external type libraries referenced?
     // Usually would be in the same type libary?
     // Maybe could be VBA
     // Or for DotNetLib \Windows\Microsoft.NET\Framework64\v4.0.30319\mscorlib.tlb
@@ -50,6 +51,8 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         String _memberName;
         String _comObjectVariable;
 
+
+        public ComProject Project { get; private set; }
         public ComMember MethodInfo;
 
         public String ModuleName; 
@@ -63,8 +66,9 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         private IEnumerable<ComParameter> _parameters => this.MethodInfo.Parameters;
 
 
-        public CodeModuleMethod(ComMember methodInfo, String moduleName, String comObjectVariable)
+        public CodeModuleMethod(ComProject parentProject, ComMember methodInfo, String moduleName, String comObjectVariable)
         {
+            this.Project = parentProject;
             this.MethodInfo = methodInfo;
             this._memberName = FirstLetterToUpper(this.MethodInfo.Name);
             this.ModuleName = moduleName;
@@ -231,19 +235,31 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             {
                 string returnType = this.MethodInfo.AsTypeName.TypeName;
 
-                
-
-                //If the return type is the interface name replace with moduleName/new class name  ???
-                if (returnType != null) 
-                { 
-                    if (returnType == this.MethodInfo.Parent.Name)
+                if (this.MethodInfo.AsTypeName.TypeName == this.MethodInfo.Parent.Name)
+                {
+                    returnType = this.ModuleName;  //If new class name selected use instead of default moduleName
+                }
+                else if(this.MethodInfo.AsTypeName.Type.IsDispatch)
+                {
+                    //Find implemented object for interface
+                    IEnumerable<ComCoClass> implementedInterface = this.MethodInfo.AsTypeName.Type.Project.FindImplementedInterface(this.MethodInfo.AsTypeName.Type.DispatchGuid);
+                    if (implementedInterface != null)
                     {
-                        returnType = this.ModuleName;  //If new class name selected use instead of default moduleName
+                        if(implementedInterface.Count() == 1)
+                        {
+                            //TODO : Issue using qualified name and variable name
+                            //returnType = $"{this.MethodInfo.AsTypeName.Type.Project.Name}.{implementedInterface.First().Name}"; //qualified name of IDispatch object
+                            returnType = $"{implementedInterface.First().Name}";
+                        } 
+                        else
+                        {
+                            returnType = this.MethodInfo.AsTypeName.TypeName;
+                        }
                     }
                 }
-                else 
+                else
                 {
-                    // TODO : throw error???
+                    return returnType = this.MethodInfo.AsTypeName.TypeName;
                 }
 
                 if (this.MethodInfo.AsTypeName.IsArray)

@@ -1,5 +1,6 @@
 ﻿using Rubberduck.Parsing.ComReflection;
 using System;
+using System.Linq;
 using System.Text;
 
 namespace ComRefactor.Refactoring.CodeBuilder.VBA
@@ -37,7 +38,9 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         public VBAComWrapper(ComProject comProject, String comCoClassName, String moduleName, bool isPredeclaredId = false)
         {
-            ComCoClass comCoClass = comProject.FindComCoClass(comCoClassName);
+            //ComCoClass comCoClass = comProject.FindComCoClass(comCoClassName);
+            ComCoClass comCoClass = FindComCoClass(comProject, comCoClassName);
+
             if (comCoClass != null)
             {
                 Project = comProject;
@@ -48,6 +51,23 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 BuildCodeModule();
             }
         }
+
+        // TODO : replaces ComProject.FindComCoClass
+        private ComCoClass FindComCoClass(ComProject comProject, string comCoClassName)
+        {
+            ComCoClass coClass = null;
+            try
+            {
+                coClass = (ComCoClass)comProject.CoClasses.Single(item => item.Name == comCoClassName);
+                return coClass;
+            }
+            catch (System.InvalidOperationException)
+            {
+                Console.WriteLine(@"ComCoClass not found");
+            }
+            return null;
+        }
+
 
         public String CodeModule()
         {
@@ -90,7 +110,9 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             {
                 if (!methodInfo.IsRestricted)
                 {
-                    CodeModuleMethod method = new CodeModuleMethod(methodInfo, this.ModuleName,this.ComObjectIdentifier );
+                    //CodeModuleMethod method = new CodeModuleMethod(methodInfo, this.ModuleName,this.ComObjectIdentifier );
+
+                    CodeModuleMethod method = new CodeModuleMethod(Project, methodInfo, this.ModuleName, this.ComObjectIdentifier);
                     _codeBuilder.AppendLine(method.CodeModule());
                 }
             }

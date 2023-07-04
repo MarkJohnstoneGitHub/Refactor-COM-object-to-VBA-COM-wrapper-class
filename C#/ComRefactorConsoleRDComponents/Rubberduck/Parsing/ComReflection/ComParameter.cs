@@ -132,6 +132,13 @@ namespace Rubberduck.Parsing.ComReflection
                         {
                             _typeName = new ComTypeName(Project, type, Guid.Empty, attribs.guid);
                         }
+
+                        //TODO : Rubberduck added require to obtain the GUID for a parameter to obtain its implementation by searching CoClass default interfaces
+                        else if (attribs.typekind == TYPEKIND.TKIND_DISPATCH)
+                        {
+                            _typeName = new ComTypeName(Project, type, Guid.Empty, Guid.Empty, attribs.guid);
+                        }
+
                         else
                         {
                             _typeName = new ComTypeName(Project, type);

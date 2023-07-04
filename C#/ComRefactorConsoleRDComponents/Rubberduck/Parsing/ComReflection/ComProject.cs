@@ -102,6 +102,12 @@ namespace Rubberduck.Parsing.ComReflection
             return null;
         }
 
+        //Find all ComCoClass implementing as default interface, check inherited interfaces?
+        public IEnumerable<ComCoClass> FindImplementedInterface(Guid coClassInterface)
+        {
+            return this._classes.Where(item => item.DefaultInterface.Guid == coClassInterface);
+        }
+
 
         private void LoadModules(ITypeLib typeLibrary)
         {
