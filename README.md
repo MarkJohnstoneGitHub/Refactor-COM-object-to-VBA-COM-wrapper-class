@@ -50,7 +50,7 @@ To allow for sorting/grouping of methods maybe have to expose some lists eg the 
   - Potential issues if class name already exists in project or reserved names?
 - Declarations
    - Add Option Explicit
-   - Add Implements if required. i.e. excluding the default interface.  Currenlty not implemented.
+   - Add Implements if required. i.e. excluding the default interface.  Currently not implemented.
    - Add private variable for Com object being wrapped in the type libary.
    - EG. Private mDateTime As DotNetLib.DateTime
 - Add VBA Constructors and Destructors
