@@ -259,7 +259,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 }
                 else
                 {
-                    return returnType = this.MethodInfo.AsTypeName.TypeName;
+                    returnType = this.MethodInfo.AsTypeName.TypeName;
                 }
 
                 if (this.MethodInfo.AsTypeName.IsArray)
