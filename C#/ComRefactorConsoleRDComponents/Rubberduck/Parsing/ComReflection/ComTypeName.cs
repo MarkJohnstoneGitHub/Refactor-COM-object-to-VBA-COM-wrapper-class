@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -6,6 +7,8 @@ namespace Rubberduck.Parsing.ComReflection
 {
     //TODO : Rubberduck required GUID for TKIND_DISPATCH for ComParameter ??
     //TODO : Why Guid for Enum and Alias? why not jut one GUID for a parameter?
+    //TODO : Probably requires refactoring with GUID property and TYPEKIND ?
+    //TODO : See ComParameter
 
     [DataContract]
     [KnownType(typeof(ComProject))]
@@ -41,13 +44,25 @@ namespace Rubberduck.Parsing.ComReflection
                 }
 
                 // TODO: Rubberduck added
-                //if (IsDispatch && ComProject.KnownTypes.TryGetValue(DispatchGuid, out var dispatch))
-                //{
-                //    //require to search KnownTypes or coClass where .DefaultInterface = dispatch.name?
-                //    //KnownTypes of type ComCoClass where .DefaultInterface = dispatch.name
+                // Search the current project for the implementation of the interface
+                // If only one implementation i.e. default implementation use that?
+                if (IsDispatch && ComProject.KnownTypes.TryGetValue(DispatchGuid, out var dispatch))
+                {
+                    IEnumerable<ComCoClass> implementedInterface = Project.FindImplementedInterface(DispatchGuid);
 
-                //    return dispatch.Name;
-                //}
+                    if (implementedInterface != null)
+                    {
+                        if (implementedInterface.Count() == 1)
+                        {
+                            return $"{implementedInterface.First().Name}";
+                        }
+                        else
+                        {
+                            return dispatch.Name;
+                        }
+                    }
+                    return dispatch.Name;
+                }
 
                 if (Project == null)
                 {

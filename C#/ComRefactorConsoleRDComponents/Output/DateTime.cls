@@ -205,7 +205,7 @@ Attribute Year.VB_Description = "Gets the year component of the date represented
 End Property
 
 '@Description("Returns a new DateTime that adds the value of the specified TimeSpan to the value of this instance.")
-Public Function Add(ByRef value As ITimeSpan) As DateTime
+Public Function Add(ByRef value As TimeSpan) As DateTime
 Attribute Add.VB_Description = "Returns a new DateTime that adds the value of the specified TimeSpan to the value of this instance."
    With New DateTime
       Set .ComObject = this.DotNetLibDateTime.Add(value)
@@ -445,7 +445,7 @@ Attribute SpecifyKind.VB_Description = "Creates a new DateTime object that has t
 End Function
 
 '@Description("Returns a new DateTime that subtracts the specified duration from the value of this instance.")
-Public Function Subtract(ByRef value As ITimeSpan) As DateTime
+Public Function Subtract(ByRef value As TimeSpan) As DateTime
 Attribute Subtract.VB_Description = "Returns a new DateTime that subtracts the specified duration from the value of this instance."
    With New DateTime
       Set .ComObject = this.DotNetLibDateTime.Subtract(value)
@@ -555,7 +555,7 @@ Public Function TryParse(ByVal s As String, ByRef result As DateTime) As Boolean
    TryParse = this.DotNetLibDateTime.TryParse(s, result)
 End Function
 
-Public Function Addition(ByRef d As DateTime, ByRef t As ITimeSpan) As DateTime
+Public Function Addition(ByRef d As DateTime, ByRef t As TimeSpan) As DateTime
    With New DateTime
       Set .ComObject = this.DotNetLibDateTime.Addition(d, t)
       Set Addition = .Self
@@ -592,7 +592,7 @@ Public Function Subtraction(ByRef d1 As DateTime, ByRef d2 As DateTime) As TimeS
    Set Subtraction  = pvtTimeSpan
 End Function
 
-Public Function Subtraction2(ByRef d As DateTime, ByRef t As ITimeSpan) As DateTime
+Public Function Subtraction2(ByRef d As DateTime, ByRef t As TimeSpan) As DateTime
    With New DateTime
       Set .ComObject = this.DotNetLibDateTime.Subtraction2(d, t)
       Set Subtraction2 = .Self
