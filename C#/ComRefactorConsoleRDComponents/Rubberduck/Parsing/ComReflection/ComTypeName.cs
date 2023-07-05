@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Serialization;
+using TYPEKIND = System.Runtime.InteropServices.ComTypes.TYPEKIND;
 
 namespace Rubberduck.Parsing.ComReflection
 {
@@ -24,6 +27,11 @@ namespace Rubberduck.Parsing.ComReflection
 
         public bool IsDispatch => !DispatchGuid.Equals(Guid.Empty);  // TODO : Rubberduck Added
         public Guid DispatchGuid { get; private set; } = Guid.Empty; // TODO : Rubberduck Added
+
+        //To replace Guid and flags for each?
+        public TYPEKIND TypeKind { get; private set; }   // TODO : Rubberduck Added
+        public Guid Guid { get; private set; } = Guid.Empty; // TODO : Rubberduck Added
+
 
         public ComProject Project { get; set; }
 
@@ -48,7 +56,7 @@ namespace Rubberduck.Parsing.ComReflection
                 // If only one implementation i.e. default implementation use that?
                 if (IsDispatch && ComProject.KnownTypes.TryGetValue(DispatchGuid, out var dispatch))
                 {
-                    IEnumerable<ComCoClass> implementedInterface = Project.FindImplementedInterface(DispatchGuid);
+                    IEnumerable<ComCoClass> implementedInterface = Project.FindImplementedInterface(dispatch.Guid);
 
                     if (implementedInterface != null)
                     {
@@ -93,5 +101,26 @@ namespace Rubberduck.Parsing.ComReflection
             AliasGuid = aliasGuid;
             DispatchGuid = dispatchGuid;
         }
+
+        //TODO : Rubberduck added ??
+        public ComTypeName(ComProject project, string name, Guid guid, TYPEKIND typeKind) : this(project, name)
+        {
+            Guid = guid;
+            TypeKind = typeKind;
+            //quick fix to not effect Rubberduck dependencies for EnumGuid, AliasGuid Are they really required and just use guid
+            switch (typeKind)
+            {
+                case TYPEKIND.TKIND_ENUM:
+                    EnumGuid = guid;
+                    break;
+                case TYPEKIND.TKIND_ALIAS:
+                    AliasGuid = guid;
+                    break;
+                case TYPEKIND.TKIND_DISPATCH:
+                    DispatchGuid = guid;
+                    break;
+            }
+        }
+
     }
 }

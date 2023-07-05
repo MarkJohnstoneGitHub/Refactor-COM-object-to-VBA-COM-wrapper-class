@@ -293,9 +293,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 if (this.MethodInfo.AsTypeName.IsByRef)
                 {
                     StringBuilder sb = new StringBuilder();
-
-                    //TODO : improve condition check using GUID of return type and this.MethodInfo.Parent.Guid
-                    //if (ReturnType() == this.ModuleName)
                     // if member return type is same as COM object being wrapped.
                     if (this.MethodInfo.AsTypeName.Type.DispatchGuid == this.MethodInfo.Parent.Guid)
                     {
@@ -317,7 +314,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             }
             return string.Empty;
         }
-
 
         //https://github.com/rubberduck-vba/Rubberduck/wiki/VB_Attribute-Annotations#member-annotations
         public string AnnotationMemberDescription()
