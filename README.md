@@ -94,7 +94,9 @@ Any custom error handling required to be done manually and/or extending the VBA 
        - Currently low priority to fix
        - EG. ``` Public Property Get Date() As DateTime ```
   - Parameters for object being wrapped displayed as interface of the object. Eg. ITimeSpan
-  - Return type not converted from interface to object (Issue addressed, require to preferrable use qualified name)
+     - Issue addressed, require to preferrable use qualified name
+  - Return type not converted from interface to object
+       - Issue addressed, require to preferrable use qualified name
        - ```Public Property Get TimeOfDay() As TimeSpan ```
        - Expected output ```Public Property Get TimeOfDay() As DotNetLib.TimeSpan ```
   - Return type is an array (Fixed)
