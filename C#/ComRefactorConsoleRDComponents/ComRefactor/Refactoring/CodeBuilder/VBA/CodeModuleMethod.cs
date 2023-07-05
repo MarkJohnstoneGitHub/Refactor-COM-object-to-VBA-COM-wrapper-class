@@ -295,7 +295,9 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                     StringBuilder sb = new StringBuilder();
 
                     //TODO : improve condition check using GUID of return type and this.MethodInfo.Parent.Guid
-                    if (ReturnType() == this.ModuleName)
+                    //if (ReturnType() == this.ModuleName)
+                    // if member return type is same as COM object being wrapped.
+                    if (this.MethodInfo.AsTypeName.Type.DispatchGuid == this.MethodInfo.Parent.Guid)
                     {
                         sb.AppendLine($"{Indent}With New {ReturnType()}");
                         sb.AppendLine($"{Indent}{Indent}Set .ComObject = {ComObjectWrapperReference()}");
@@ -304,10 +306,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                     }
                     else
                     {
-                        //TODO: require qualified name? Simplify VBA Code
-                        sb.AppendLine($"{Indent}Dim pvt{ReturnType()} As {ReturnType()}");
-                        sb.AppendLine($"{Indent}Set pvt{ReturnType()} = {ComObjectWrapperReference()}");
-                        sb.AppendLine($"{Indent}Set {this._memberName}  = pvt{ReturnType()}");
+                        sb.AppendLine($"{Indent}Set {this._memberName}  = {ComObjectWrapperReference()}");
                     }
                     return sb.ToString();
                 }

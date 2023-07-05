@@ -175,9 +175,7 @@ End Property
 '@Description("Gets the time of day for this instance.")
 Public Property Get TimeOfDay() As TimeSpan
 Attribute TimeOfDay.VB_Description = "Gets the time of day for this instance."
-   Dim pvtTimeSpan As TimeSpan
-   Set pvtTimeSpan = this.DotNetLibDateTime.TimeOfDay()
-   Set TimeOfDay  = pvtTimeSpan
+   Set TimeOfDay  = this.DotNetLibDateTime.TimeOfDay()
 End Property
 
 '@Description("Gets the current date.")
@@ -456,9 +454,7 @@ End Function
 '@Description("Returns a new TimeSpan that subtracts the specified date and time from the value of this instance.")
 Public Function Subtract2(ByRef value As DateTimeWrapper) As TimeSpan
 Attribute Subtract2.VB_Description = "Returns a new TimeSpan that subtracts the specified date and time from the value of this instance."
-   Dim pvtTimeSpan As TimeSpan
-   Set pvtTimeSpan = this.DotNetLibDateTime.Subtract2(value.ComObject)
-   Set Subtract2  = pvtTimeSpan
+   Set Subtract2  = this.DotNetLibDateTime.Subtract2(value.ComObject)
 End Function
 
 '@Description("Serializes the current DateTime object to a 64-bit binary value that subsequently can be used to recreate the DateTime object.")
@@ -587,9 +583,7 @@ Public Function LessThanOrEqual(ByRef t1 As DateTimeWrapper, ByRef t2 As DateTim
 End Function
 
 Public Function Subtraction(ByRef d1 As DateTimeWrapper, ByRef d2 As DateTimeWrapper) As TimeSpan
-   Dim pvtTimeSpan As TimeSpan
-   Set pvtTimeSpan = this.DotNetLibDateTime.Subtraction(d1.ComObject, d2.ComObject)
-   Set Subtraction  = pvtTimeSpan
+   Set Subtraction  = this.DotNetLibDateTime.Subtraction(d1.ComObject, d2.ComObject)
 End Function
 
 Public Function Subtraction2(ByRef d As DateTimeWrapper, ByRef t As TimeSpan) As DateTimeWrapper
