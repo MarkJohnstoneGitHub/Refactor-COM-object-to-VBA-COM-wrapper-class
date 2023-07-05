@@ -288,13 +288,13 @@ End Function
 '@Description("Compares two instances of DateTime and returns an integer that indicates whether the first instance is earlier than, the same as, or later than the second instance.")
 Public Function Compare(ByRef t1 As DateTime, ByRef t2 As DateTime) As Long
 Attribute Compare.VB_Description = "Compares two instances of DateTime and returns an integer that indicates whether the first instance is earlier than, the same as, or later than the second instance."
-   Compare = this.DotNetLibDateTime.Compare(t1, t2)
+   Compare = this.DotNetLibDateTime.Compare(t1.ComObject, t2.ComObject)
 End Function
 
 '@Description("Compares the value of this instance to a specified DateTime value and returns an integer that indicates whether this instance is earlier than, the same as, or later than the specified DateTime value.")
 Public Function CompareTo(ByRef t As DateTime) As Long
 Attribute CompareTo.VB_Description = "Compares the value of this instance to a specified DateTime value and returns an integer that indicates whether this instance is earlier than, the same as, or later than the specified DateTime value."
-   CompareTo = this.DotNetLibDateTime.CompareTo(t)
+   CompareTo = this.DotNetLibDateTime.CompareTo(t.ComObject)
 End Function
 
 '@Description("Returns the number of days in the specified month and year.")
@@ -306,7 +306,7 @@ End Function
 '@Description("Returns a value indicating whether the value of this instance is equal to the value of the specified DateTime instance.")
 Public Function Equals(ByRef value As DateTime) As Boolean
 Attribute Equals.VB_Description = "Returns a value indicating whether the value of this instance is equal to the value of the specified DateTime instance."
-   Equals = this.DotNetLibDateTime.Equals(value)
+   Equals = this.DotNetLibDateTime.Equals(value.ComObject)
 End Function
 
 '@Description("Returns a value indicating whether this instance is equal to a specified object.")
@@ -318,7 +318,7 @@ End Function
 '@Description("Returns a value indicating whether two DateTime instances have the same date and time value.")
 Public Function Equals3(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
 Attribute Equals3.VB_Description = "Returns a value indicating whether two DateTime instances have the same date and time value."
-   Equals3 = this.DotNetLibDateTime.Equals3(t1, t2)
+   Equals3 = this.DotNetLibDateTime.Equals3(t1.ComObject, t2.ComObject)
 End Function
 
 '@Description("Deserializes a 64-bit binary value and recreates an original serialized DateTime object.")
@@ -439,7 +439,7 @@ End Function
 Public Function SpecifyKind(ByRef value As DateTime, ByVal kind As DateTimeKind) As DateTime
 Attribute SpecifyKind.VB_Description = "Creates a new DateTime object that has the same number of ticks as the specified DateTime, but is designated as either local time, Coordinated Universal Time (UTC), or neither, as indicated by the specified DateTimeKind value."
    With New DateTime
-      Set .ComObject = this.DotNetLibDateTime.SpecifyKind(value, kind)
+      Set .ComObject = this.DotNetLibDateTime.SpecifyKind(value.ComObject, kind)
       Set SpecifyKind = .Self
    End With
 End Function
@@ -457,7 +457,7 @@ End Function
 Public Function Subtract2(ByRef value As DateTime) As TimeSpan
 Attribute Subtract2.VB_Description = "Returns a new TimeSpan that subtracts the specified date and time from the value of this instance."
    Dim pvtTimeSpan As TimeSpan
-   Set pvtTimeSpan = this.DotNetLibDateTime.Subtract2(value)
+   Set pvtTimeSpan = this.DotNetLibDateTime.Subtract2(value.ComObject)
    Set Subtract2  = pvtTimeSpan
 End Function
 
@@ -552,49 +552,49 @@ Public Function ToUniversalTime() As DateTime
 End Function
 
 Public Function TryParse(ByVal s As String, ByRef result As DateTime) As Boolean
-   TryParse = this.DotNetLibDateTime.TryParse(s, result)
+   TryParse = this.DotNetLibDateTime.TryParse(s, result.ComObject)
 End Function
 
 Public Function Addition(ByRef d As DateTime, ByRef t As TimeSpan) As DateTime
    With New DateTime
-      Set .ComObject = this.DotNetLibDateTime.Addition(d, t)
+      Set .ComObject = this.DotNetLibDateTime.Addition(d.ComObject, t)
       Set Addition = .Self
    End With
 End Function
 
 Public Function Equality(ByRef d1 As DateTime, ByRef d2 As DateTime) As Boolean
-   Equality = this.DotNetLibDateTime.Equality(d1, d2)
+   Equality = this.DotNetLibDateTime.Equality(d1.ComObject, d2.ComObject)
 End Function
 
 Public Function GreaterThan(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
-   GreaterThan = this.DotNetLibDateTime.GreaterThan(t1, t2)
+   GreaterThan = this.DotNetLibDateTime.GreaterThan(t1.ComObject, t2.ComObject)
 End Function
 
 Public Function GreaterThanOrEqual(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
-   GreaterThanOrEqual = this.DotNetLibDateTime.GreaterThanOrEqual(t1, t2)
+   GreaterThanOrEqual = this.DotNetLibDateTime.GreaterThanOrEqual(t1.ComObject, t2.ComObject)
 End Function
 
 Public Function Inequality(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
-   Inequality = this.DotNetLibDateTime.Inequality(t1, t2)
+   Inequality = this.DotNetLibDateTime.Inequality(t1.ComObject, t2.ComObject)
 End Function
 
 Public Function LessThan(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
-   LessThan = this.DotNetLibDateTime.LessThan(t1, t2)
+   LessThan = this.DotNetLibDateTime.LessThan(t1.ComObject, t2.ComObject)
 End Function
 
 Public Function LessThanOrEqual(ByRef t1 As DateTime, ByRef t2 As DateTime) As Boolean
-   LessThanOrEqual = this.DotNetLibDateTime.LessThanOrEqual(t1, t2)
+   LessThanOrEqual = this.DotNetLibDateTime.LessThanOrEqual(t1.ComObject, t2.ComObject)
 End Function
 
 Public Function Subtraction(ByRef d1 As DateTime, ByRef d2 As DateTime) As TimeSpan
    Dim pvtTimeSpan As TimeSpan
-   Set pvtTimeSpan = this.DotNetLibDateTime.Subtraction(d1, d2)
+   Set pvtTimeSpan = this.DotNetLibDateTime.Subtraction(d1.ComObject, d2.ComObject)
    Set Subtraction  = pvtTimeSpan
 End Function
 
 Public Function Subtraction2(ByRef d As DateTime, ByRef t As TimeSpan) As DateTime
    With New DateTime
-      Set .ComObject = this.DotNetLibDateTime.Subtraction2(d, t)
+      Set .ComObject = this.DotNetLibDateTime.Subtraction2(d.ComObject, t)
       Set Subtraction2 = .Self
    End With
 End Function

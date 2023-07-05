@@ -82,7 +82,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             private set => _memberName = value;
         } 
 
-        //TODO: Missing function and property get As clause
         public String Signature()
         {
             return Declaration() + ParametersDeclaration + (ReturnType() == null ? string.Empty : " As " + ReturnType());
@@ -135,7 +134,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
             return method.ToString();
         }
-
 
         public String Declaration()
         {
@@ -293,9 +291,18 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         {
             List<String> parameterNames = new List<String>();
 
+
             foreach (var parameter in this._parameters)
             {
-                parameterNames.Add(parameter.Name);
+                //i.e. if parameter type is Com object being wrapped
+                if (parameter.Type.DispatchGuid ==  this.MethodInfo.Parent.Guid)
+                {
+                    parameterNames.Add($"{parameter.Name}.ComObject");
+                }
+                else 
+                { 
+                    parameterNames.Add(parameter.Name);
+                }
             }
             String joinParameters = "(" + String.Join(", ", parameterNames) + ")";
             
