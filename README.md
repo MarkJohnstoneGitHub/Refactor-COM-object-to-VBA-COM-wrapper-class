@@ -83,8 +83,7 @@ Any custom error handling required to be done manually and/or extending the VBA 
 - Created the VBA Com wrapper class for all properties and members, including Rubberduck annotations and attributes.
 - Added internal helper properties to access the wrapped Com object.
 - To implement:
-     - Covert if required parameters implemented object eg ITimeSpan
-     - Would require finding it's implementating object i.e. From known types or maybe require searching an external typelib from GUID?
+     - For parameters and return types for implemented object for an interface eg. ITimeSpan i.e. of TYPEKIND.TKIND_DISPATCH use qualified name.
      - Static helper class if required? Would require option to select which members required for static fields.
      - Eg.Public Property Get MaxValue() As DateTime should be implemented in a static DateTime helper class.
      - Inherited interfaces i.e. require Implements section and generate private VBA members including references to the COM object being wrapped.
@@ -94,7 +93,9 @@ Any custom error handling required to be done manually and/or extending the VBA 
        - Currently low priority to fix
        - EG. ``` Public Property Get Date() As DateTime ```
   - Parameters for object being wrapped displayed as interface of the object. Eg. ITimeSpan
-  - Return type not converted from interface to object (Issue addressed, require to preferrable use qualified name)
+     - Issue addressed, require to preferrable use qualified name
+  - Return type not converted from interface to object
+       - Issue addressed, require to preferrable use qualified name
        - ```Public Property Get TimeOfDay() As TimeSpan ```
        - Expected output ```Public Property Get TimeOfDay() As DotNetLib.TimeSpan ```
   - Return type is an array (Fixed)
@@ -108,7 +109,7 @@ Any custom error handling required to be done manually and/or extending the VBA 
      - Possible requires refactoring with a GUID property and TYPEKIND replacing GUID property for each TYPEKIND?
      - See [ComParameter](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComParameter.cs)
   
-Overall preforming resonable well with some outstanding issues regarding parameters and return types required to convert the interface to the object required.
+Overall preforming resonable well with some outstanding issues regarding parameters and return types converted an interface to the object required.
 This issue may require some restructing to search dependent external type libraries. Also issue member names using reserved words.
 
 
