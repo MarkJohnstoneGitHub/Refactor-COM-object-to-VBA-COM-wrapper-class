@@ -25,7 +25,7 @@ Outline for implemention of refactoring a COM Object to implement a VBA class CO
 - Selecting various options would require a GUI etc. 
 - Select which methods to implement.
 - Ordering/grouping of methods/properties.
-     - Ie. group as constructor  functions, properties,  methods in alpabetical order or same as Com object template.
+     - Ie. group as constructor  functions, properties,  methods in alphabetical order or same as Com object template.
      - Issue distinguishing between constructors and other similar factory functions that don't wish  to group as constructor overloads.
      - In Com objects created I'm placing these in the order as constructors, properties, methods.
            - Therefore possible could obtain a list  of constructor functions before the first property found.   
