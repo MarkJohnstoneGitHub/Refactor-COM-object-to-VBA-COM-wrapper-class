@@ -104,9 +104,18 @@ Any custom error handling required to be done manually and/or extending the VBA 
        - Requires further investigation, possible issue with DotNetLib type library for ParseExact3 function.  
        - ``` Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime ```
        - ``` IDateTime ParseExact3([in] BSTR s,	[in] SAFEARRAY(BSTR) formats,[in] IFormatProvider provider,[in] DateTimeStyles style);```
-
+       - 
 Overall preforming resonable well with some outstanding issues regarding parameters and return types required to convert the interface to the object required.
 This issue may require some restructing to search dependent external type libraries. Also issue member names using reserved words.
+
+
+*Implementing linking an interface to its implementations*
+- To implement associating an interface to its default implementation or implementations requires a list keyed by interface CLSID  and implementation CLSID ?
+- Require parent GUID of the type library?
+- [how-to-get-type-library-from-progid-or-clsid-without-loading-the-com-object](https://stackoverflow.com/questions/12975329/how-to-get-type-library-from-progid-or-clsid-without-loading-the-com-object)
+- I.e. An interface may have many implementations.
+- Where an interface or implementation may be located in an external type library.
+- Therefore require a list of references/dependencies where a type library required to be located by GUID/CLSID?
 
 i.e. For the DotNetLib.tlb example IFormatProvider is referenced from \Windows\Microsoft.NET\Framework64\v4.0.30319\mscorlib.tlb type library.
 In this example is the interface is required as there are multiple implementations. 
