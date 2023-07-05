@@ -10,7 +10,7 @@ From the type library info for the required class obtain the class template to e
 - Utilizing [Rubberduck ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection) COM TypeLib wrappers
 
 For testing using [DotNetLib.tlb](https://github.com/MarkJohnstoneGitHub/DotNetLib/blob/main/bin/Release/DotNetLib.tlb) for the Com object DateTime 
-Sample output [DateTime.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTime.cls)
+Sample output: [DateTime.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTime.cls) , [DateTimeWrapper.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTimeWrapper.cls)
 
 
 **Development:**
@@ -91,7 +91,7 @@ Any custom error handling required to be done manually and/or extending the VBA 
 - Issues
   - When wrapping the COM object in members where parameters are the object being wrapped.
   - Fixed
-  - 
+
 Expected Ouput
 
 ```
@@ -101,7 +101,7 @@ End Function
 ```
 
   - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
-       - Currently low priority to fix
+       - Currently low priority to fix, manually fix by renaming member to DateComponent
        - EG. ``` Public Property Get Date() As DateTime ```
   - Parameters for object being wrapped displayed as interface of the object. Eg. ITimeSpan
      - Issue addressed, require to preferrable use qualified name
@@ -113,19 +113,18 @@ End Function
        - ```Public Function GetDateTimeFormats() As String ```
        - Expected output ```Public Function GetDateTimeFormats() As String() ```
   - Parameter is an array.
-       - Requires further investigation, possible issue with DotNetLib type library for ParseExact3 function.  
+       - Requires further investigation, possible issue with DotNetLib type library for ParseExact3 member.  
        - ``` Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime ```
        - ``` IDateTime ParseExact3([in] BSTR s,	[in] SAFEARRAY(BSTR) formats,[in] IFormatProvider provider,[in] DateTimeStyles style);```
 - [ComTypeName](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComTypeName.cs)
      - Possible requires refactoring with a GUID property and TYPEKIND replacing GUID property for each TYPEKIND?
      - See [ComParameter](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComParameter.cs)
   
-Overall preforming resonable well with some outstanding issues regarding parameters and return types converted an interface to the object required.
-This issue may require some restructing to search dependent external type libraries. Also issue member names using reserved words.
+Overall preforming resonable well with an outstanding isssue of member names using reserved words.
 
 
 *Implementing linking an interface to its implementations*
-- To implement associating an interface to its default implementation or implementations requires a list keyed by interface CLSID  and implementation CLSID ?
+- To implement associating an interface to its default implementation or implementations requires a list keyed by interface GUID  and implementation GUID?
 - Require parent GUID of the type library?
 - [how-to-get-type-library-from-progid-or-clsid-without-loading-the-com-object](https://stackoverflow.com/questions/12975329/how-to-get-type-library-from-progid-or-clsid-without-loading-the-com-object)
 - I.e. An interface may have many implementations.
@@ -142,8 +141,7 @@ Public Function ToString4(ByVal format As String, ByRef provider As IFormatProvi
 If there is only one implementation found then use that implementation. 
 EG  ```Public Property Get TimeOfDay() As ITimeSpan ```
 Expect output  ```Public Property Get TimeOfDay() As DotNetLib.TimeSpan ```
-Require to search known types may require searching dependent external type libraries? Currently an outstanding issue, quick fix perform manualy.
-
+Require to search known types may require searching dependent external type libraries?.
 
 
 
