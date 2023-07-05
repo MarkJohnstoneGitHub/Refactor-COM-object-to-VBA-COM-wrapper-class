@@ -130,6 +130,8 @@ Expect output  ```Public Property Get TimeOfDay() As DotNetLib.TimeSpan ```
 Require to search known types may require searching dependent external type libraries? Currently an outstanding issue, quick fix perform manualy.
 
 
+
+
 **Utilize [RubberDuck Com Management](https://github.com/rubberduck-vba/Rubberduck](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.VBEEditor/ComManagement))**
 Items of interest
 
