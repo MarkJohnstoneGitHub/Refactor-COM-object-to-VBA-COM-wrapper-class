@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="ComRefactor\ComReflection\ComLibraryInfo.cs" />
     <Compile Include="ComRefactor\ComReflection\ComProjectLibrary.cs" />
-    <Compile Include="ComRefactor\Notes\MyNotes.cs" />
     <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleOptionExplicit.cs" />
     <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleHeader.cs" />
     <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleParameter.cs" />

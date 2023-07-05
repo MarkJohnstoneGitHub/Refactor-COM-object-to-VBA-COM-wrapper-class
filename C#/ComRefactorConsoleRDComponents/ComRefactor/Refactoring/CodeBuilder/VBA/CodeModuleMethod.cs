@@ -122,12 +122,9 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 method.AppendLine(AttributeEnumerator());
             }
 
-            //TODO: reference to Com object  being wrapped
             if (this._comObjectVariable != null) 
             {
                 method.Append(ComObjectVariableDeclaration());
-                // TODO : AppendLine reference to COM object being wrapped, also indent
-                //method.AppendLine();
             }
 
             method.AppendLine(DeclarationEnd());
@@ -220,38 +217,38 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         {
             foreach (var parameter in this.MethodInfo.Parameters)
             {
-                _parametersCode.Add(new CodeModuleParameter(parameter,this)); 
+                _parametersCode.Add(new CodeModuleParameter(this, parameter)); 
             }
         }
 
-
-        // TODO : Issue with return types being interface, how to handle for other interfaces returned that are in the current type library or external type libraries?
-        // TODO : Posssible pass in the Com library object to check and replace with qualified name eg. DotNetLib.TimeSpan? or keep as ITimeSpan?
         public String ReturnType()
         {
             if (this.MethodInfo.Type == DeclarationType.Function || this.MethodInfo.Type == DeclarationType.PropertyGet)
             {
                 string returnType = this.MethodInfo.AsTypeName.TypeName;
 
-                if (this.MethodInfo.AsTypeName.TypeName == this.MethodInfo.Parent.Name)
+                if (this.MethodInfo.AsTypeName.Type.IsDispatch)
                 {
-                    returnType = this.ModuleName;  //If new class name selected use instead of default moduleName
-                }
-                else if(this.MethodInfo.AsTypeName.Type.IsDispatch)
-                {
-                    //Find implemented object for interface
-                    IEnumerable<ComCoClass> implementedInterface = this.MethodInfo.AsTypeName.Type.Project.FindImplementedInterface(this.MethodInfo.AsTypeName.Type.DispatchGuid);
-                    if (implementedInterface != null)
+                    //If function/PropertyGet return type GUID equals COM object GUID then return type is new module name
+                    if (this.MethodInfo.AsTypeName.Type.DispatchGuid == this.MethodInfo.Parent.Guid)
                     {
-                        if(implementedInterface.Count() == 1)
+                        returnType = this.ModuleName;
+                    }
+                    else
+                    {
+                        IEnumerable<ComCoClass> implementedInterface = this.MethodInfo.Project.FindImplementedInterface(this.MethodInfo.AsTypeName.Type.DispatchGuid);
+                        if (implementedInterface != null)
                         {
-                            //TODO : Issue using qualified name and variable name
-                            //returnType = $"{this.MethodInfo.AsTypeName.Type.Project.Name}.{implementedInterface.First().Name}"; //qualified name of IDispatch object
-                            returnType = $"{implementedInterface.First().Name}";
-                        } 
-                        else
-                        {
-                            returnType = this.MethodInfo.AsTypeName.TypeName;
+                            if (implementedInterface.Count() == 1)
+                            {
+                                //TODO : Issue using qualified name and variable name
+                                //returnType = $"{this.MethodInfo.AsTypeName.Type.Project.Name}.{implementedInterface.First().Name}"; //qualified name of IDispatch object
+                                returnType = $"{implementedInterface.First().Name}";
+                            }
+                            else
+                            {
+                                returnType = this.MethodInfo.AsTypeName.TypeName;
+                            }
                         }
                     }
                 }
@@ -261,36 +258,17 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 }
 
                 if (this.MethodInfo.AsTypeName.IsArray)
-                { 
-                    returnType = returnType + "()"; 
+                {
+                    returnType = returnType + "()";
                 }
-                    
                 return returnType;
             }
             return null;
         }
 
-
-        //Eg. For a function
-        // Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As IDateTime
-        //     With New DateTime
-        //          Set .CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
-        //     End With
-        // End Function
-        // Eg. returns  Set CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
-        // Require "Set" if return type is an object
-        // Require the list of parameter names
-        // return declaration type,
-
-        // Dim pvtDateTime as DateTime
-        // pvtDateTime = New DateTime
-        // Set CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
-
-        //eg output this.DotNetLibDateTime.CreateFromTicks(ticks, kind)
         private String ComObjectWrapperReference()
         {
             List<String> parameterNames = new List<String>();
-
 
             foreach (var parameter in this._parameters)
             {
@@ -305,42 +283,8 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 }
             }
             String joinParameters = "(" + String.Join(", ", parameterNames) + ")";
-            
             return $"{this._comObjectVariable}.{this.MethodInfo.Name}{joinParameters}"; 
-
         }
-
-        // TODO: eg returns Set CreateFromTicks = mDateTime.CreateFromTicks(ticks, kind)
-
-        // Issue :
-
-        //Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As DateTime
-        //Attribute CreateFromTicks.VB_Description = "Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time."
-        //       With New DateTime
-        //          Set .CreateFromTicks = this.DotNetLibDateTime.CreateFromTicks(ticks, kind)
-        //       End With
-        //End Function
-
-        // Expected output for return types of current object wrapping
-        // Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As DateTime
-        //     With New DateTime
-        //         Set .ComObject = this.DotNetLibDateTime.CreateFromTicks(ticks, kind)
-        //         Set CreateFromTicks = .Self
-        //     End With
-        // End Function
-
-        // Note for 
-        //Public Property Get TimeOfDay() As ITimeSpan
-        //Attribute TimeOfDay.VB_Description = "Gets the time of day for this instance."
-        //   With New ITimeSpan
-        //      Set .TimeOfDay = this.DotNetLibDateTime.TimeOfDay()
-        //   End With
-        //End Property
-
-        //Expected output
-        //Dim pvtTimeSpan as DotNetLib.TimeSpan        
-        //Set pvtTimeSpan = this.DotNetLibDateTime.TimeOfDay()
-        //Set TimeOfDay =  pvtTimeSpan
 
         private String ComObjectVariableDeclaration() 
         {
@@ -350,9 +294,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 {
                     StringBuilder sb = new StringBuilder();
 
-                    //TODO : Issue with return types being an interface
-                    //get return object name make sure not default interface
-
+                    //TODO : improve condition check using GUID of return type and this.MethodInfo.Parent.Guid
                     if (ReturnType() == this.ModuleName)
                     {
                         sb.AppendLine($"{Indent}With New {ReturnType()}");
@@ -362,7 +304,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                     }
                     else
                     {
-                        //TODO: require qualified name? 
+                        //TODO: require qualified name? Simplify VBA Code
                         sb.AppendLine($"{Indent}Dim pvt{ReturnType()} As {ReturnType()}");
                         sb.AppendLine($"{Indent}Set pvt{ReturnType()} = {ComObjectWrapperReference()}");
                         sb.AppendLine($"{Indent}Set {this._memberName}  = pvt{ReturnType()}");

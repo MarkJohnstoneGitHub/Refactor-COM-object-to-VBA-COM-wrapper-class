@@ -4,41 +4,65 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 {
     public class CodeModuleParameter
     {
-        ComParameter _comParameter;
-        CodeModuleMethod _codeMethod;  //parent of parameter
+        CodeModuleMethod _parentMember;
+        ComParameter _parameter;
 
-        //paramater name
         public string Name
         {
             get
             {
                 //if parameter name equals coClassName rename to module name, module maybe the coClass.Name or a new module name
-                if (_comParameter.TypeName == _codeMethod.MethodInfo.Parent.Name)
+                if (_parameter.Type.IsDispatch)
                 {
-                    return _codeMethod.ModuleName;
+                    if (_parameter.Type.DispatchGuid == _parentMember.MethodInfo.Parent.Guid)
+                    {
+                        return _parentMember.ModuleName;
+                    }
+                    else
+                    {
+                        //TODO: Eg. convert ITimeSpan to TimeSpan
+                        return _parameter.TypeName;
+                    }
+
                 }
                 else
-                // TODO If (this._comParameter.IsByRef) //replace with quantative name of object i.e. is the default interface
                 {
-                    //TODO : may require to rename for interface returned when only one implementation i.e. the default interface.  If cant find it's ComCoClass or has multiple implementations then use interface?
-                    return _comParameter.TypeName;
+                    return  _parameter.TypeName;
                 }
+                
+
+                //if (this.MethodInfo.AsTypeName.Type.DispatchGuid == this.MethodInfo.Parent.Guid)
+                //{
+
+                //}
+
+                //if (_parameter.TypeName == _parentMember.MethodInfo.Parent.Name)
+                //{
+                //    return _parentMember.ModuleName;
+                //}
+                //else
+                //// TODO If (this._parameter.IsByRef) //replace with quantative name of object i.e. is the default interface
+                //{
+                //    //TODO : may require to rename for interface returned when only one implementation i.e. the default interface.  If cant find it's ComCoClass or has multiple implementations then use interface?
+                //    return _parameter.TypeName;
+                //}
             }
         }
 
 
         //require parent method info for a parameter
-        public CodeModuleParameter(ComParameter comParameter, CodeModuleMethod parentCodeModuleMethod)
+        public CodeModuleParameter(CodeModuleMethod parentMember,ComParameter parameter)
         {
-            _comParameter = comParameter;
-            _codeMethod = parentCodeModuleMethod;
+            _parentMember = parentMember;
+            _parameter = parameter;
+
         }
 
         //From ComParameter DeclarationName required to add public property Type to ComParameter to access required properties.
-        //Test for if _comParameter.IsArrray
+        //Test for if _parameter.IsArrray
         public override string ToString()
         {
-            return  $"{(_comParameter.IsOptional ? "Optional " : string.Empty)}{(_comParameter.IsByRef ? "ByRef" : "ByVal")} {_comParameter.Name} As {this.Name}{(_comParameter.IsOptional && _comParameter.DefaultValue != null ? " = " : string.Empty)}{(_comParameter.IsOptional && _comParameter.DefaultValue != null ? _comParameter.Type.IsEnumMember ? _comParameter.DefaultAsEnum : _comParameter.DefaultValue : string.Empty)}";
+            return  $"{(_parameter.IsOptional ? "Optional " : string.Empty)}{(_parameter.IsByRef ? "ByRef" : "ByVal")} {_parameter.Name} As {this.Name}{(_parameter.IsOptional && _parameter.DefaultValue != null ? " = " : string.Empty)}{(_parameter.IsOptional && _parameter.DefaultValue != null ? _parameter.Type.IsEnumMember ? _parameter.DefaultAsEnum : _parameter.DefaultValue : string.Empty)}";
         }
 
     }

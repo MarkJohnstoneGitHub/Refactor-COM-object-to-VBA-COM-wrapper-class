@@ -9,7 +9,7 @@ namespace Rubberduck.VBEditor.SafeComWrappers.Abstract
 
         //TODO : RD Commented out
         //IVBE VBE { get; }
-        //IVBProject _codeMethod { get; }
+        //IVBProject _parentMember { get; }
 
         IReference AddFromGuid(string guid, int major, int minor);
         IReference AddFromFile(string path);
