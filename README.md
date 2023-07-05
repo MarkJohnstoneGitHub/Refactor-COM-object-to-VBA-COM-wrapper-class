@@ -89,6 +89,22 @@ Any custom error handling required to be done manually and/or extending the VBA 
      - Inherited interfaces i.e. require Implements section and generate private VBA members including references to the COM object being wrapped.
  
 - Issues
+  - When wrapping the COM object in members.
+    
+```
+Public Function Compare(ByRef t1 As DateTime, ByRef t2 As DateTime) As Long
+   Compare = this.DotNetLibDateTime.Compare(t1, t2)
+End Function
+```
+
+Expected Ouput
+
+```
+Public Function Compare(ByRef t1 As DateTime, ByRef t2 As DateTime) As Long
+   Compare = this.DotNetLibDateTime.Compare(t1.ComObject, t2.ComObject)
+End Function
+```
+
   - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
        - Currently low priority to fix
        - EG. ``` Public Property Get Date() As DateTime ```
