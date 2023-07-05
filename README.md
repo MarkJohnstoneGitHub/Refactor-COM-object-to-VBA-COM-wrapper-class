@@ -10,6 +10,7 @@ From the type library info for the required class obtain the class template to e
 - Utilizing [Rubberduck ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection) COM TypeLib wrappers
 
 For testing using [DotNetLib.tlb](https://github.com/MarkJohnstoneGitHub/DotNetLib/blob/main/bin/Release/DotNetLib.tlb) for the Com object DateTime 
+
 Sample output: [DateTime.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTime.cls) , [DateTimeWrapper.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTimeWrapper.cls)
 
 
