@@ -104,7 +104,10 @@ Any custom error handling required to be done manually and/or extending the VBA 
        - Requires further investigation, possible issue with DotNetLib type library for ParseExact3 function.  
        - ``` Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime ```
        - ``` IDateTime ParseExact3([in] BSTR s,	[in] SAFEARRAY(BSTR) formats,[in] IFormatProvider provider,[in] DateTimeStyles style);```
-       - 
+- [ComTypeName](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComTypeName.cs)
+     - Possible requires refacorting with a GUID property and TYPEKIND replacing GUID property for each TYPEKIND?
+     - See [ComParameter](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComParameter.cs)
+  
 Overall preforming resonable well with some outstanding issues regarding parameters and return types required to convert the interface to the object required.
 This issue may require some restructing to search dependent external type libraries. Also issue member names using reserved words.
 
