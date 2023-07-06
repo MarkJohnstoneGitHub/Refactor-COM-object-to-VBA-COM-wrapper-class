@@ -115,6 +115,9 @@ End Function
   - Return type is an array (Fixed)
        - ```Public Function GetDateTimeFormats() As String ```
        - Expected output ```Public Function GetDateTimeFormats() As String() ```
+  - Potiential issuse with member TryParse and TryParse2
+       - ``` bool TryParse(string s, out DateTime result); ```
+       - require to pass out by reference DateTime result require to check correctly implemented.
   - Parameter is an array.
        - Requires further investigation, possible issue with DotNetLib type library for ParseExact3 member.  
        - ``` Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime ```
