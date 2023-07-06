@@ -119,8 +119,8 @@ End Function
        - ``` bool TryParse(string s, out DateTime result); ```
        - require to pass out by reference DateTime result require to check correctly implemented.
   - Parameter is an array.
-       - Fixed DotNetLib.DateTime.ParseExact3 member for marshalling array
-       - Issue with VBA parameter not converted.
+       - Fixed type library DotNetLib.DateTime.ParseExact3 member for marshalling array
+       - Issue with VBA parameter not converted to an array.
        - ``` Public Function ParseExact3(ByVal s As String, ByRef formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime ```
        - Expected output ``` Public Function ParseExact3(ByVal s As String, ByRef formats() As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTime ```
 - [ComTypeName](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComTypeName.cs)
