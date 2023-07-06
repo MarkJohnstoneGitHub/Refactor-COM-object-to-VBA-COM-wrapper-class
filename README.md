@@ -129,7 +129,6 @@ End Function
   
 Overall preforming resonable well with outstanding isssues: 
 -   Member names using reserved words. Eg. ``` Public Property Get Date() As DateTimeWrapper ```
--   Reference types for parameters and return types require qualified name (i.e. Interfaces, IDispatch, Enum) note if in external type library currently will not be found. Eg. DotNetLib.TimeSpan, DotNetLib.DateTimeKind
 -   To implement, Implements section for interfaces implemented.
 
 
