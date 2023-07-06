@@ -4,7 +4,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 {
     public class CodeModuleParameter
     {
-        CodeModuleMethod _parentMember;
+        CodeModuleMember _parentMember;
         ComParameter _parameter;
 
         public string Name
@@ -14,13 +14,13 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 //if parameter name equals coClassName rename to module name, module maybe the coClass.Name or a new module name
                 if (_parameter.Type.IsDispatch)
                 {
-                    if (_parameter.Type.DispatchGuid == _parentMember.MethodInfo.Parent.Guid)
+                    if (_parameter.Type.DispatchGuid == _parentMember.Member.Parent.Guid)
                     {
                         return _parentMember.ModuleName;
                     }
                     else
                     {
-                        //TODO: Eg. convert ITimeSpan to TimeSpan
+                        //TODO: Eg. convert ITimeSpan to TimeSpan?
                         return _parameter.TypeName;
                     }
 
@@ -29,29 +29,12 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 {
                     return  _parameter.TypeName;
                 }
-                
-
-                //if (this.MethodInfo.AsTypeName.Type.DispatchGuid == this.MethodInfo.Parent.Guid)
-                //{
-
-                //}
-
-                //if (_parameter.TypeName == _parentMember.MethodInfo.Parent.Name)
-                //{
-                //    return _parentMember.ModuleName;
-                //}
-                //else
-                //// TODO If (this._parameter.IsByRef) //replace with quantative name of object i.e. is the default interface
-                //{
-                //    //TODO : may require to rename for interface returned when only one implementation i.e. the default interface.  If cant find it's ComCoClass or has multiple implementations then use interface?
-                //    return _parameter.TypeName;
-                //}
             }
         }
 
 
         //require parent method info for a parameter
-        public CodeModuleParameter(CodeModuleMethod parentMember,ComParameter parameter)
+        public CodeModuleParameter(CodeModuleMember parentMember,ComParameter parameter)
         {
             _parentMember = parentMember;
             _parameter = parameter;

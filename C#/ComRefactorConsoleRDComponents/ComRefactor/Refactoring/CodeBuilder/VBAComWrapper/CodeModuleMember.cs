@@ -43,7 +43,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
     // https://www.engram9.info/access-2007-vba/reserved-word-list.html
 
-    public class CodeModuleMethod
+    public class CodeModuleMember
     {
         private const string Quote = "\"";
         const string Indent = "   ";
@@ -53,24 +53,24 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
 
         public ComProject Project { get; private set; }
-        public ComMember MethodInfo;
+        public ComMember Member;
 
         public String ModuleName; 
 
-        List<CodeModuleParameter> _parametersCode = new List<CodeModuleParameter>(); // TODO :
+        List<CodeModuleParameter> _parametersCode = new List<CodeModuleParameter>();
 
         public string ParametersDeclaration => "(" + String.Join(", ", _parametersCode) + ")";
 
         public IEnumerable<CodeModuleParameter> ParametersCode => this._parametersCode;
 
-        private IEnumerable<ComParameter> _parameters => this.MethodInfo.Parameters;
+        private IEnumerable<ComParameter> _parameters => this.Member.Parameters;
 
 
-        public CodeModuleMethod(ComProject parentProject, ComMember methodInfo, String moduleName, String comObjectVariable)
+        public CodeModuleMember(ComProject project, ComMember member, String moduleName, String comObjectVariable)
         {
-            this.Project = parentProject;
-            this.MethodInfo = methodInfo;
-            this._memberName = FirstLetterToUpper(this.MethodInfo.Name);
+            this.Project = project;
+            this.Member = member;
+            this._memberName = FirstLetterToUpper(this.Member.Name);
             this.ModuleName = moduleName;
             this._comObjectVariable = comObjectVariable;
             CodeParamaters();
@@ -90,17 +90,17 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         {
             StringBuilder method = new StringBuilder();
 
-            if (this.MethodInfo.IsDefault)
+            if (this.Member.IsDefault)
             {
                 method.AppendLine(AnnotationDefaultMember());
             }
 
-            if (this.MethodInfo.IsEnumerator)
+            if (this.Member.IsEnumerator)
             {
                 method.AppendLine(AnnotationEnumerator());
             }
 
-            if (this.MethodInfo.Documentation.DocString != null)
+            if (this.Member.Documentation.DocString != null)
             {
                 method.AppendLine(AnnotationMemberDescription());
             }
@@ -108,16 +108,16 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             method.AppendLine(Signature());
 
             // Member attributes
-            if (this.MethodInfo.Documentation.DocString != null)
+            if (this.Member.Documentation.DocString != null)
             {
                 method.AppendLine(AttributeDescription()); 
             }
-            if (this.MethodInfo.IsDefault)
+            if (this.Member.IsDefault)
             {
                 method.AppendLine(AttributeDefaultMember());
             }
 
-            if (this.MethodInfo.IsEnumerator)
+            if (this.Member.IsEnumerator)
             {
                 method.AppendLine(AttributeEnumerator());
             }
@@ -135,7 +135,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         public String Declaration()
         {
             var type = string.Empty;
-            switch (this.MethodInfo.Type)
+            switch (this.Member.Type)
             {
                 case DeclarationType.Function:
                     type = "Function";
@@ -156,13 +156,13 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                     type = "Event";
                     break;
             }
-            return $"{(this.MethodInfo.IsHidden || this.MethodInfo.IsRestricted ? "Private" : "Public")} {type} {this.Name}";
+            return $"{(this.Member.IsHidden || this.Member.IsRestricted ? "Private" : "Public")} {type} {this.Name}";
         }
 
         public String DeclarationEnd()
         {
             var type = string.Empty;
-            switch (this.MethodInfo.Type)
+            switch (this.Member.Type)
             {
                 case DeclarationType.Function:
                     type = "End Function";
@@ -188,7 +188,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         public String AttributeDefaultMember()
         {
-            if (this.MethodInfo.IsDefault)
+            if (this.Member.IsDefault)
             {
                 return $"Attribute {Name}.VB_UserMemId = 0";
             }
@@ -197,16 +197,16 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         public String AttributeDescription()
         {
-            if (this.MethodInfo.Documentation.DocString != null)
+            if (this.Member.Documentation.DocString != null)
             {
-                return $"Attribute {Name}.VB_Description = {Quote}{this.MethodInfo.Documentation.DocString}{Quote}";
+                return $"Attribute {Name}.VB_Description = {Quote}{this.Member.Documentation.DocString}{Quote}";
             }
             return String.Empty;
         }
 
         public String AttributeEnumerator()
         {
-            if (this.MethodInfo.IsEnumerator)
+            if (this.Member.IsEnumerator)
             {
                 return $"Attribute {Name}.VB_UserMemId = -4";
             }
@@ -215,7 +215,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         private void CodeParamaters()
         {
-            foreach (var parameter in this.MethodInfo.Parameters)
+            foreach (var parameter in this.Member.Parameters)
             {
                 _parametersCode.Add(new CodeModuleParameter(this, parameter)); 
             }
@@ -223,41 +223,41 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         public String ReturnType()
         {
-            if (this.MethodInfo.Type == DeclarationType.Function || this.MethodInfo.Type == DeclarationType.PropertyGet)
+            if (this.Member.Type == DeclarationType.Function || this.Member.Type == DeclarationType.PropertyGet)
             {
-                string returnType = this.MethodInfo.AsTypeName.TypeName;
+                string returnType = this.Member.AsTypeName.TypeName;
 
-                if (this.MethodInfo.AsTypeName.Type.IsDispatch)
+                if (this.Member.AsTypeName.Type.IsDispatch)
                 {
                     //If function/PropertyGet return type GUID equals COM object GUID then return type is new module name
-                    if (this.MethodInfo.AsTypeName.Type.DispatchGuid == this.MethodInfo.Parent.Guid)
+                    if (this.Member.AsTypeName.Type.DispatchGuid == this.Member.Parent.Guid)
                     {
                         returnType = this.ModuleName;
                     }
                     else
                     {
-                        IEnumerable<ComCoClass> implementedInterface = this.MethodInfo.Project.FindImplementedInterface(this.MethodInfo.AsTypeName.Type.DispatchGuid);
+                        IEnumerable<ComCoClass> implementedInterface = this.Member.Project.FindImplementedInterface(this.Member.AsTypeName.Type.DispatchGuid);
                         if (implementedInterface != null)
                         {
                             if (implementedInterface.Count() == 1)
                             {
                                 //TODO : Issue using qualified name and variable name
-                                //returnType = $"{this.MethodInfo.AsTypeName.Type.Project.Name}.{implementedInterface.First().Name}"; //qualified name of IDispatch object
+                                //returnType = $"{this.Member.AsTypeName.Type.Project.Name}.{implementedInterface.First().Name}"; //qualified name of IDispatch object
                                 returnType = $"{implementedInterface.First().Name}";
                             }
                             else
                             {
-                                returnType = this.MethodInfo.AsTypeName.TypeName;
+                                returnType = this.Member.AsTypeName.TypeName;
                             }
                         }
                     }
                 }
                 else
                 {
-                    returnType = this.MethodInfo.AsTypeName.TypeName;
+                    returnType = this.Member.AsTypeName.TypeName;
                 }
 
-                if (this.MethodInfo.AsTypeName.IsArray)
+                if (this.Member.AsTypeName.IsArray)
                 {
                     returnType = returnType + "()";
                 }
@@ -273,7 +273,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             foreach (var parameter in this._parameters)
             {
                 //i.e. if parameter type is Com object being wrapped
-                if (parameter.Type.DispatchGuid ==  this.MethodInfo.Parent.Guid)
+                if (parameter.Type.DispatchGuid ==  this.Member.Parent.Guid)
                 {
                     parameterNames.Add($"{parameter.Name}.ComObject");
                 }
@@ -283,18 +283,18 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 }
             }
             String joinParameters = "(" + String.Join(", ", parameterNames) + ")";
-            return $"{this._comObjectVariable}.{this.MethodInfo.Name}{joinParameters}"; 
+            return $"{this._comObjectVariable}.{this.Member.Name}{joinParameters}"; 
         }
 
         private String ComObjectVariableDeclaration() 
         {
-            if (this.MethodInfo.Type == DeclarationType.Function || this.MethodInfo.Type == DeclarationType.PropertyGet)
+            if (this.Member.Type == DeclarationType.Function || this.Member.Type == DeclarationType.PropertyGet)
             {
-                if (this.MethodInfo.AsTypeName.IsByRef)
+                if (this.Member.AsTypeName.IsByRef)
                 {
                     StringBuilder sb = new StringBuilder();
                     // if member return type is same as COM object being wrapped.
-                    if (this.MethodInfo.AsTypeName.Type.DispatchGuid == this.MethodInfo.Parent.Guid)
+                    if (this.Member.AsTypeName.Type.DispatchGuid == this.Member.Parent.Guid)
                     {
                         sb.AppendLine($"{Indent}With New {ReturnType()}");
                         sb.AppendLine($"{Indent}{Indent}Set .ComObject = {ComObjectWrapperReference()}");
@@ -318,12 +318,12 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         //https://github.com/rubberduck-vba/Rubberduck/wiki/VB_Attribute-Annotations#member-annotations
         public string AnnotationMemberDescription()
         {
-            return "'@Description(\"" + this.MethodInfo.Documentation.DocString + "\")";
+            return "'@Description(\"" + this.Member.Documentation.DocString + "\")";
         }
 
         public string AnnotationDefaultMember()
         {
-            if (this.MethodInfo.IsDefault)
+            if (this.Member.IsDefault)
             {
                 return "'@DefaultMember";
             }
@@ -334,7 +334,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         // https://rubberduckvba.blog/2019/12/14/rubberduck-annotations/
         public string AnnotationEnumerator()
         {
-            if (this.MethodInfo.IsEnumerator)
+            if (this.Member.IsEnumerator)
             {
                 return "'@Enumerator";
             }

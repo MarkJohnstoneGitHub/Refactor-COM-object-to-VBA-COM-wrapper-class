@@ -38,7 +38,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         public VBAComWrapper(ComProject comProject, String comCoClassName, String moduleName, bool isPredeclaredId = false)
         {
-            //ComCoClass comCoClass = comProject.FindComCoClass(comCoClassName);
             ComCoClass comCoClass = FindComCoClass(comProject, comCoClassName);
 
             if (comCoClass != null)
@@ -63,11 +62,10 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             }
             catch (System.InvalidOperationException)
             {
-                Console.WriteLine(@"ComCoClass not found");
+                Console.WriteLine(@"ComCoClass not found");  //TODO Throw Error for COM object not found.
             }
             return null;
         }
-
 
         public String CodeModule()
         {
@@ -110,9 +108,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             {
                 if (!methodInfo.IsRestricted)
                 {
-                    //CodeModuleMethod method = new CodeModuleMethod(methodInfo, this.ModuleName,this.ComObjectIdentifier );
-
-                    CodeModuleMethod method = new CodeModuleMethod(Project, methodInfo, this.ModuleName, this.ComObjectIdentifier);
+                    CodeModuleMember method = new CodeModuleMember(Project, methodInfo, this.ModuleName, this.ComObjectIdentifier);
                     _codeBuilder.AppendLine(method.CodeModule());
                 }
             }
@@ -193,7 +189,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             sb.AppendLine("End Property");
             return sb.ToString();
         }
-
         private string InternalPropertySelf()
         {
             StringBuilder sb = new StringBuilder();

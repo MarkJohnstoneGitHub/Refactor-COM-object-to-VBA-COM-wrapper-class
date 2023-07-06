@@ -62,7 +62,7 @@ namespace Rubberduck.Parsing.ComReflection
         private ComTypeName _typeName;
         public string TypeName => _typeName.Name;
 
-        public ComTypeName Type => _typeName;  //TODO : RD Added
+        public ComTypeName Type => _typeName;  //TODO : RD Added ?? maybe should be using ComType for parameter type See GetParameterType(TYPEDESC desc, ITypeInfo info)
 
         [DataMember(IsRequired = true)]
         ComMember Parent { get; set; }

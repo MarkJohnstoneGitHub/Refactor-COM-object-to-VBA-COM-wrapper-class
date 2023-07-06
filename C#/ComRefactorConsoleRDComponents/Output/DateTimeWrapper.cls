@@ -540,53 +540,81 @@ Attribute ToString4.VB_Description = "Converts the value of the current DateTime
    ToString4 = this.DotNetLibDateTime.ToString4(format, provider)
 End Function
 
+'@Description("Converts the value of the current DateTime object to Coordinated Universal Time (UTC).")
 Public Function ToUniversalTime() As DateTimeWrapper
+Attribute ToUniversalTime.VB_Description = "Converts the value of the current DateTime object to Coordinated Universal Time (UTC)."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.ToUniversalTime()
       Set ToUniversalTime = .Self
    End With
 End Function
 
+'@Description("Converts the specified string representation of a date and time to its DateTime equivalent and returns a value that indicates whether the conversion succeeded.")
 Public Function TryParse(ByVal s As String, ByRef result As DateTimeWrapper) As Boolean
+Attribute TryParse.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent and returns a value that indicates whether the conversion succeeded."
    TryParse = this.DotNetLibDateTime.TryParse(s, result.ComObject)
 End Function
 
+'@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified culture-specific format information and formatting style, and returns a value that indicates whether the conversion succeeded.")
+Public Function TryParse2(ByVal s As String, ByRef provider As IFormatProvider, ByVal styles As DateTimeStyles, ByRef result As DateTimeWrapper) As Boolean
+Attribute TryParse2.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified culture-specific format information and formatting style, and returns a value that indicates whether the conversion succeeded."
+   TryParse2 = this.DotNetLibDateTime.TryParse2(s, provider, styles, result.ComObject)
+End Function
+
+'@Description("Adds a specified time interval to a specified date and time, yielding a new date and time.")
 Public Function Addition(ByRef d As DateTimeWrapper, ByRef t As TimeSpan) As DateTimeWrapper
+Attribute Addition.VB_Description = "Adds a specified time interval to a specified date and time, yielding a new date and time."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Addition(d.ComObject, t)
       Set Addition = .Self
    End With
 End Function
 
+'@Description("Determines whether two specified instances of DateTime are equal.")
 Public Function Equality(ByRef d1 As DateTimeWrapper, ByRef d2 As DateTimeWrapper) As Boolean
+Attribute Equality.VB_Description = "Determines whether two specified instances of DateTime are equal."
    Equality = this.DotNetLibDateTime.Equality(d1.ComObject, d2.ComObject)
 End Function
 
+'@Description("Determines whether one specified DateTime is later than another specified DateTime.")
 Public Function GreaterThan(ByRef t1 As DateTimeWrapper, ByRef t2 As DateTimeWrapper) As Boolean
+Attribute GreaterThan.VB_Description = "Determines whether one specified DateTime is later than another specified DateTime."
    GreaterThan = this.DotNetLibDateTime.GreaterThan(t1.ComObject, t2.ComObject)
 End Function
 
+'@Description("Determines whether one specified DateTime represents a date and time that is the same as or later than another specified DateTime.")
 Public Function GreaterThanOrEqual(ByRef t1 As DateTimeWrapper, ByRef t2 As DateTimeWrapper) As Boolean
+Attribute GreaterThanOrEqual.VB_Description = "Determines whether one specified DateTime represents a date and time that is the same as or later than another specified DateTime."
    GreaterThanOrEqual = this.DotNetLibDateTime.GreaterThanOrEqual(t1.ComObject, t2.ComObject)
 End Function
 
+'@Description("Determines whether two specified instances of DateTime are not equal.")
 Public Function Inequality(ByRef t1 As DateTimeWrapper, ByRef t2 As DateTimeWrapper) As Boolean
+Attribute Inequality.VB_Description = "Determines whether two specified instances of DateTime are not equal."
    Inequality = this.DotNetLibDateTime.Inequality(t1.ComObject, t2.ComObject)
 End Function
 
+'@Description("Determines whether one specified DateTime is earlier than another specified DateTime.")
 Public Function LessThan(ByRef t1 As DateTimeWrapper, ByRef t2 As DateTimeWrapper) As Boolean
+Attribute LessThan.VB_Description = "Determines whether one specified DateTime is earlier than another specified DateTime."
    LessThan = this.DotNetLibDateTime.LessThan(t1.ComObject, t2.ComObject)
 End Function
 
+'@Description("Determines whether one specified DateTime represents a date and time that is the same as or earlier than another specified DateTime.")
 Public Function LessThanOrEqual(ByRef t1 As DateTimeWrapper, ByRef t2 As DateTimeWrapper) As Boolean
+Attribute LessThanOrEqual.VB_Description = "Determines whether one specified DateTime represents a date and time that is the same as or earlier than another specified DateTime."
    LessThanOrEqual = this.DotNetLibDateTime.LessThanOrEqual(t1.ComObject, t2.ComObject)
 End Function
 
+'@Description("Subtracts a specified date and time from another specified date and time and returns a time interval.")
 Public Function Subtraction(ByRef d1 As DateTimeWrapper, ByRef d2 As DateTimeWrapper) As TimeSpan
+Attribute Subtraction.VB_Description = "Subtracts a specified date and time from another specified date and time and returns a time interval."
    Set Subtraction  = this.DotNetLibDateTime.Subtraction(d1.ComObject, d2.ComObject)
 End Function
 
+'@Description("Subtracts a specified time interval from a specified date and time and returns a new date and time.")
 Public Function Subtraction2(ByRef d As DateTimeWrapper, ByRef t As TimeSpan) As DateTimeWrapper
+Attribute Subtraction2.VB_Description = "Subtracts a specified time interval from a specified date and time and returns a new date and time."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Subtraction2(d.ComObject, t)
       Set Subtraction2 = .Self

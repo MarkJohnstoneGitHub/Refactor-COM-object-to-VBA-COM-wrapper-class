@@ -48,12 +48,12 @@
   <ItemGroup>
     <Compile Include="ComRefactor\ComReflection\ComLibraryInfo.cs" />
     <Compile Include="ComRefactor\ComReflection\ComProjectLibrary.cs" />
-    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleOptionExplicit.cs" />
-    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleHeader.cs" />
-    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleParameter.cs" />
-    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\VBAComWrapper.cs" />
-    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleHeaderAttributes.cs" />
-    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBA\CodeModuleMethod.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBAComWrapper\CodeModuleOptionExplicit.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBAComWrapper\CodeModuleHeader.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBAComWrapper\CodeModuleParameter.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBAComWrapper\VBAComWrapper.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBAComWrapper\CodeModuleHeaderAttributes.cs" />
+    <Compile Include="ComRefactor\Refactoring\CodeBuilder\VBAComWrapper\CodeModuleMember.cs" />
     <Compile Include="Rubberduck\Parsing\ComReflection\ComLibraryProvider.cs" />
     <Compile Include="Rubberduck\Parsing\ComReflection\ComAlias.cs" />
     <Compile Include="Rubberduck\Parsing\ComReflection\ComBase.cs" />
