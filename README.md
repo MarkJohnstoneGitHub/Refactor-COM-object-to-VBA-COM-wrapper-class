@@ -105,7 +105,7 @@ Public Function Compare(ByRef t1 As DateTime, ByRef t2 As DateTime) As Long
    Compare = this.DotNetLibDateTime.Compare(t1.ComObject, t2.ComObject)
 End Function
 ```
-
+  - For parameters and return types for references require qualified name.  eg DotNetLib.TimeSpan 
   - Parameters for object being wrapped displayed as interface of the object. Eg. ITimeSpan
      - Issue addressed, require to preferrable use qualified name
   - Return type not converted from interface to object
@@ -127,7 +127,10 @@ End Function
      - Possible requires refactoring with a GUID property and TYPEKIND replacing GUID property for each TYPEKIND?
      - See [ComParameter](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComParameter.cs)
   
-Overall preforming resonable well with an outstanding isssue of member names using reserved words.
+Overall preforming resonable well with outstanding isssues: 
+-   Member names using reserved words. Eg. ``` Public Property Get Date() As DateTimeWrapper ```
+-   Reference types for parameters and return types require qualified name (i.e. Interfaces, IDispatch, Enum) note if in external type library currently will not be found. Eg. DotNetLib.TimeSpan, DotNetLib.DateTimeKind
+-   To implement, Implements section for interfaces implemented.
 
 
 *Implementing linking an interface to its implementations*
