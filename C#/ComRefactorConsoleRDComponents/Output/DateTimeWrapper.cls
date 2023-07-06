@@ -425,7 +425,7 @@ Attribute ParseExact2.VB_Description = "Converts the specified string representa
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified array of formats, culture-specific format information, and style. The format of the string representation must match at least one of the specified formats exactly or an exception is thrown.")
-Public Function ParseExact3(ByVal s As String, ByVal formats As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTimeWrapper
+Public Function ParseExact3(ByVal s As String, ByRef formats As String(), ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTimeWrapper
 Attribute ParseExact3.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified array of formats, culture-specific format information, and style. The format of the string representation must match at least one of the specified formats exactly or an exception is thrown."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.ParseExact3(s, formats, provider, style)

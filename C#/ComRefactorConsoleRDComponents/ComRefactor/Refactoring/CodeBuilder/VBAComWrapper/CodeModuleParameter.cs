@@ -16,18 +16,17 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 {
                     if (_parameter.Type.DispatchGuid == _parentMember.Member.Parent.Guid)
                     {
-                        return _parentMember.ModuleName;
+                        return $"{_parentMember.ModuleName}{(_parameter.IsArray ? "()" : string.Empty)}";
                     }
                     else
                     {
                         //TODO: Eg. convert ITimeSpan to TimeSpan?
-                        return _parameter.TypeName;
+                        return $"{_parameter.TypeName}{(_parameter.IsArray ? "()" : string.Empty)}";
                     }
-
                 }
                 else
                 {
-                    return  _parameter.TypeName;
+                    return $"{_parameter.TypeName}{(_parameter.IsArray ? "()" : string.Empty)}";
                 }
             }
         }
