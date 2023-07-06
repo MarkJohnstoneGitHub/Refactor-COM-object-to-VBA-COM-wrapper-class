@@ -1,4 +1,6 @@
 ﻿using Rubberduck.Parsing.ComReflection;
+using System;
+using System.Reflection;
 
 namespace ComRefactor.Refactoring.CodeBuilder.VBA
 {
@@ -21,12 +23,28 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                     }
                     else
                     {
-                       return $"{_parameter.Project.Name}.{_parameter.TypeName}";
+                        //Search KnowTypes using GUID if exists in type library
+                        if (ComProject.KnownTypes.TryGetValue(_parameter.Type.DispatchGuid, out var type))
+                        {
+                            return (String.IsNullOrEmpty(type.Project.Name) ? _parameter.TypeName : $"{_parameter.Project.Name}.{_parameter.TypeName}");
+                        }
+                        else
+                        {
+                            return _parameter.TypeName;
+                        }
                     }
                 }
                 else if (this._parameter.Type.IsEnumMember)
                 {
-                    return $"{_parameter.Project.Name}.{_parameter.TypeName}";
+                    //Search KnowTypes using GUID if exists in type library
+                    if (ComProject.KnownTypes.TryGetValue(_parameter.Type.EnumGuid, out var type))
+                    {
+                        return (String.IsNullOrEmpty(type.Project.Name) ? _parameter.TypeName : $"{_parameter.Project.Name}.{_parameter.TypeName}");
+                    }
+                    else 
+                    { 
+                        return _parameter.TypeName; 
+                    }
                 }
                 else
                 {

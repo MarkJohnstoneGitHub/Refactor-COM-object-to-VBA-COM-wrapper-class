@@ -389,7 +389,7 @@ Attribute Parse.VB_Description = "Converts the string representation of a date a
 End Function
 
 '@Description("Converts the string representation of a date and time to its DateTime equivalent by using the conventions of the current culture.")
-Public Function Parse2(ByVal s As String, ByRef provider As DotNetLib.IFormatProvider) As DateTimeWrapper
+Public Function Parse2(ByVal s As String, ByRef provider As IFormatProvider) As DateTimeWrapper
 Attribute Parse2.VB_Description = "Converts the string representation of a date and time to its DateTime equivalent by using the conventions of the current culture."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Parse2(s, provider)
@@ -398,7 +398,7 @@ Attribute Parse2.VB_Description = "Converts the string representation of a date 
 End Function
 
 '@Description("Defines the formatting options that customize string parsing for some date and time parsing methods.  This enumeration supports a bitwise combination of its member values.")
-Public Function Parse3(ByVal s As String, ByRef provider As DotNetLib.IFormatProvider, ByVal styles As DotNetLib.DateTimeStyles) As DateTimeWrapper
+Public Function Parse3(ByVal s As String, ByRef provider As IFormatProvider, ByVal styles As DateTimeStyles) As DateTimeWrapper
 Attribute Parse3.VB_Description = "Defines the formatting options that customize string parsing for some date and time parsing methods.  This enumeration supports a bitwise combination of its member values."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Parse3(s, provider, styles)
@@ -407,7 +407,7 @@ Attribute Parse3.VB_Description = "Defines the formatting options that customize
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified format and culture-specific format information. The format of the string representation must match the specified format exactly.")
-Public Function ParseExact(ByVal s As String, ByVal format As String, ByRef provider As DotNetLib.IFormatProvider) As DateTimeWrapper
+Public Function ParseExact(ByVal s As String, ByVal format As String, ByRef provider As IFormatProvider) As DateTimeWrapper
 Attribute ParseExact.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified format and culture-specific format information. The format of the string representation must match the specified format exactly."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.ParseExact(s, format, provider)
@@ -416,7 +416,7 @@ Attribute ParseExact.VB_Description = "Converts the specified string representat
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified format, culture-specific format information, and style. The format of the string representation must match the specified format exactly or an exception is thrown.")
-Public Function ParseExact2(ByVal s As String, ByVal format As String, ByRef provider As DotNetLib.IFormatProvider, ByVal style As DotNetLib.DateTimeStyles) As DateTimeWrapper
+Public Function ParseExact2(ByVal s As String, ByVal format As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTimeWrapper
 Attribute ParseExact2.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified format, culture-specific format information, and style. The format of the string representation must match the specified format exactly or an exception is thrown."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.ParseExact2(s, format, provider, style)
@@ -425,7 +425,7 @@ Attribute ParseExact2.VB_Description = "Converts the specified string representa
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified array of formats, culture-specific format information, and style. The format of the string representation must match at least one of the specified formats exactly or an exception is thrown.")
-Public Function ParseExact3(ByVal s As String, ByRef formats() As String, ByRef provider As DotNetLib.IFormatProvider, ByVal style As DotNetLib.DateTimeStyles) As DateTimeWrapper
+Public Function ParseExact3(ByVal s As String, ByRef formats() As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTimeWrapper
 Attribute ParseExact3.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified array of formats, culture-specific format information, and style. The format of the string representation must match at least one of the specified formats exactly or an exception is thrown."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.ParseExact3(s, formats, provider, style)
@@ -529,13 +529,13 @@ Attribute ToString2.VB_Description = "Converts the value of the current DateTime
 End Function
 
 '@Description("Converts the value of the current DateTime object to its equivalent string representation using the specified culture-specific format information.")
-Public Function ToString3(ByRef provider As DotNetLib.IFormatProvider) As String
+Public Function ToString3(ByRef provider As IFormatProvider) As String
 Attribute ToString3.VB_Description = "Converts the value of the current DateTime object to its equivalent string representation using the specified culture-specific format information."
    ToString3 = this.DotNetLibDateTime.ToString3(provider)
 End Function
 
 '@Description("Converts the value of the current DateTime object to its equivalent string representation using the specified format and culture-specific format information.")
-Public Function ToString4(ByVal format As String, ByRef provider As DotNetLib.IFormatProvider) As String
+Public Function ToString4(ByVal format As String, ByRef provider As IFormatProvider) As String
 Attribute ToString4.VB_Description = "Converts the value of the current DateTime object to its equivalent string representation using the specified format and culture-specific format information."
    ToString4 = this.DotNetLibDateTime.ToString4(format, provider)
 End Function
@@ -556,7 +556,7 @@ Attribute TryParse.VB_Description = "Converts the specified string representatio
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified culture-specific format information and formatting style, and returns a value that indicates whether the conversion succeeded.")
-Public Function TryParse2(ByVal s As String, ByRef provider As DotNetLib.IFormatProvider, ByVal styles As DotNetLib.DateTimeStyles, ByRef result As DateTimeWrapper) As Boolean
+Public Function TryParse2(ByVal s As String, ByRef provider As IFormatProvider, ByVal styles As DateTimeStyles, ByRef result As DateTimeWrapper) As Boolean
 Attribute TryParse2.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified culture-specific format information and formatting style, and returns a value that indicates whether the conversion succeeded."
    TryParse2 = this.DotNetLibDateTime.TryParse2(s, provider, styles, result.ComObject)
 End Function
