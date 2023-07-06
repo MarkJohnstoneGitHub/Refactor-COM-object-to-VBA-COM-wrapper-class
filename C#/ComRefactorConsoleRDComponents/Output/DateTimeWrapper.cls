@@ -41,7 +41,7 @@ Friend Property Get Self() As DateTimeWrapper
 End Property
 
 '@Description("Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time.")
-Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DateTimeKind = DateTimeKind_Unspecified) As DateTimeWrapper
+Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DotNetLib.DateTimeKind = DateTimeKind_Unspecified) As DateTimeWrapper
 Attribute CreateFromTicks.VB_Description = "Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.CreateFromTicks(ticks, kind)
@@ -68,7 +68,7 @@ Attribute CreateFromDateTime.VB_Description = "Initializes a new instance of the
 End Function
 
 '@Description("Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, millisecond, and Coordinated Universal Time (UTC) or local time.")
-Public Function CreateFromDateTimeKind(ByVal year As Long, ByVal month As Long, ByVal day As Long, ByVal hour As Long, ByVal minute As Long, ByVal second As Long, ByVal millisecond As Long, ByVal kind As DateTimeKind) As DateTimeWrapper
+Public Function CreateFromDateTimeKind(ByVal year As Long, ByVal month As Long, ByVal day As Long, ByVal hour As Long, ByVal minute As Long, ByVal second As Long, ByVal millisecond As Long, ByVal kind As DotNetLib.DateTimeKind) As DateTimeWrapper
 Attribute CreateFromDateTimeKind.VB_Description = "Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, millisecond, and Coordinated Universal Time (UTC) or local time."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.CreateFromDateTimeKind(year, month, day, hour, minute, second, millisecond, kind)
@@ -203,7 +203,7 @@ Attribute Year.VB_Description = "Gets the year component of the date represented
 End Property
 
 '@Description("Returns a new DateTime that adds the value of the specified TimeSpan to the value of this instance.")
-Public Function Add(ByRef value As TimeSpan) As DateTimeWrapper
+Public Function Add(ByRef value As DotNetLib.TimeSpan) As DateTimeWrapper
 Attribute Add.VB_Description = "Returns a new DateTime that adds the value of the specified TimeSpan to the value of this instance."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Add(value)
@@ -389,7 +389,7 @@ Attribute Parse.VB_Description = "Converts the string representation of a date a
 End Function
 
 '@Description("Converts the string representation of a date and time to its DateTime equivalent by using the conventions of the current culture.")
-Public Function Parse2(ByVal s As String, ByRef provider As IFormatProvider) As DateTimeWrapper
+Public Function Parse2(ByVal s As String, ByRef provider As DotNetLib.IFormatProvider) As DateTimeWrapper
 Attribute Parse2.VB_Description = "Converts the string representation of a date and time to its DateTime equivalent by using the conventions of the current culture."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Parse2(s, provider)
@@ -398,7 +398,7 @@ Attribute Parse2.VB_Description = "Converts the string representation of a date 
 End Function
 
 '@Description("Defines the formatting options that customize string parsing for some date and time parsing methods.  This enumeration supports a bitwise combination of its member values.")
-Public Function Parse3(ByVal s As String, ByRef provider As IFormatProvider, ByVal styles As DateTimeStyles) As DateTimeWrapper
+Public Function Parse3(ByVal s As String, ByRef provider As DotNetLib.IFormatProvider, ByVal styles As DotNetLib.DateTimeStyles) As DateTimeWrapper
 Attribute Parse3.VB_Description = "Defines the formatting options that customize string parsing for some date and time parsing methods.  This enumeration supports a bitwise combination of its member values."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Parse3(s, provider, styles)
@@ -407,7 +407,7 @@ Attribute Parse3.VB_Description = "Defines the formatting options that customize
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified format and culture-specific format information. The format of the string representation must match the specified format exactly.")
-Public Function ParseExact(ByVal s As String, ByVal format As String, ByRef provider As IFormatProvider) As DateTimeWrapper
+Public Function ParseExact(ByVal s As String, ByVal format As String, ByRef provider As DotNetLib.IFormatProvider) As DateTimeWrapper
 Attribute ParseExact.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified format and culture-specific format information. The format of the string representation must match the specified format exactly."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.ParseExact(s, format, provider)
@@ -416,7 +416,7 @@ Attribute ParseExact.VB_Description = "Converts the specified string representat
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified format, culture-specific format information, and style. The format of the string representation must match the specified format exactly or an exception is thrown.")
-Public Function ParseExact2(ByVal s As String, ByVal format As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTimeWrapper
+Public Function ParseExact2(ByVal s As String, ByVal format As String, ByRef provider As DotNetLib.IFormatProvider, ByVal style As DotNetLib.DateTimeStyles) As DateTimeWrapper
 Attribute ParseExact2.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified format, culture-specific format information, and style. The format of the string representation must match the specified format exactly or an exception is thrown."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.ParseExact2(s, format, provider, style)
@@ -425,7 +425,7 @@ Attribute ParseExact2.VB_Description = "Converts the specified string representa
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified array of formats, culture-specific format information, and style. The format of the string representation must match at least one of the specified formats exactly or an exception is thrown.")
-Public Function ParseExact3(ByVal s As String, ByRef formats() As String, ByRef provider As IFormatProvider, ByVal style As DateTimeStyles) As DateTimeWrapper
+Public Function ParseExact3(ByVal s As String, ByRef formats() As String, ByRef provider As DotNetLib.IFormatProvider, ByVal style As DotNetLib.DateTimeStyles) As DateTimeWrapper
 Attribute ParseExact3.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified array of formats, culture-specific format information, and style. The format of the string representation must match at least one of the specified formats exactly or an exception is thrown."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.ParseExact3(s, formats, provider, style)
@@ -434,7 +434,7 @@ Attribute ParseExact3.VB_Description = "Converts the specified string representa
 End Function
 
 '@Description("Creates a new DateTime object that has the same number of ticks as the specified DateTime, but is designated as either local time, Coordinated Universal Time (UTC), or neither, as indicated by the specified DateTimeKind value.")
-Public Function SpecifyKind(ByRef value As DateTimeWrapper, ByVal kind As DateTimeKind) As DateTimeWrapper
+Public Function SpecifyKind(ByRef value As DateTimeWrapper, ByVal kind As DotNetLib.DateTimeKind) As DateTimeWrapper
 Attribute SpecifyKind.VB_Description = "Creates a new DateTime object that has the same number of ticks as the specified DateTime, but is designated as either local time, Coordinated Universal Time (UTC), or neither, as indicated by the specified DateTimeKind value."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.SpecifyKind(value.ComObject, kind)
@@ -443,7 +443,7 @@ Attribute SpecifyKind.VB_Description = "Creates a new DateTime object that has t
 End Function
 
 '@Description("Returns a new DateTime that subtracts the specified duration from the value of this instance.")
-Public Function Subtract(ByRef value As TimeSpan) As DateTimeWrapper
+Public Function Subtract(ByRef value As DotNetLib.TimeSpan) As DateTimeWrapper
 Attribute Subtract.VB_Description = "Returns a new DateTime that subtracts the specified duration from the value of this instance."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Subtract(value)
@@ -529,13 +529,13 @@ Attribute ToString2.VB_Description = "Converts the value of the current DateTime
 End Function
 
 '@Description("Converts the value of the current DateTime object to its equivalent string representation using the specified culture-specific format information.")
-Public Function ToString3(ByRef provider As IFormatProvider) As String
+Public Function ToString3(ByRef provider As DotNetLib.IFormatProvider) As String
 Attribute ToString3.VB_Description = "Converts the value of the current DateTime object to its equivalent string representation using the specified culture-specific format information."
    ToString3 = this.DotNetLibDateTime.ToString3(provider)
 End Function
 
 '@Description("Converts the value of the current DateTime object to its equivalent string representation using the specified format and culture-specific format information.")
-Public Function ToString4(ByVal format As String, ByRef provider As IFormatProvider) As String
+Public Function ToString4(ByVal format As String, ByRef provider As DotNetLib.IFormatProvider) As String
 Attribute ToString4.VB_Description = "Converts the value of the current DateTime object to its equivalent string representation using the specified format and culture-specific format information."
    ToString4 = this.DotNetLibDateTime.ToString4(format, provider)
 End Function
@@ -556,13 +556,13 @@ Attribute TryParse.VB_Description = "Converts the specified string representatio
 End Function
 
 '@Description("Converts the specified string representation of a date and time to its DateTime equivalent using the specified culture-specific format information and formatting style, and returns a value that indicates whether the conversion succeeded.")
-Public Function TryParse2(ByVal s As String, ByRef provider As IFormatProvider, ByVal styles As DateTimeStyles, ByRef result As DateTimeWrapper) As Boolean
+Public Function TryParse2(ByVal s As String, ByRef provider As DotNetLib.IFormatProvider, ByVal styles As DotNetLib.DateTimeStyles, ByRef result As DateTimeWrapper) As Boolean
 Attribute TryParse2.VB_Description = "Converts the specified string representation of a date and time to its DateTime equivalent using the specified culture-specific format information and formatting style, and returns a value that indicates whether the conversion succeeded."
    TryParse2 = this.DotNetLibDateTime.TryParse2(s, provider, styles, result.ComObject)
 End Function
 
 '@Description("Adds a specified time interval to a specified date and time, yielding a new date and time.")
-Public Function Addition(ByRef d As DateTimeWrapper, ByRef t As TimeSpan) As DateTimeWrapper
+Public Function Addition(ByRef d As DateTimeWrapper, ByRef t As DotNetLib.TimeSpan) As DateTimeWrapper
 Attribute Addition.VB_Description = "Adds a specified time interval to a specified date and time, yielding a new date and time."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Addition(d.ComObject, t)
@@ -613,7 +613,7 @@ Attribute Subtraction.VB_Description = "Subtracts a specified date and time from
 End Function
 
 '@Description("Subtracts a specified time interval from a specified date and time and returns a new date and time.")
-Public Function Subtraction2(ByRef d As DateTimeWrapper, ByRef t As TimeSpan) As DateTimeWrapper
+Public Function Subtraction2(ByRef d As DateTimeWrapper, ByRef t As DotNetLib.TimeSpan) As DateTimeWrapper
 Attribute Subtraction2.VB_Description = "Subtracts a specified time interval from a specified date and time and returns a new date and time."
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Subtraction2(d.ComObject, t)

@@ -254,7 +254,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 }
                 else if (this.Member.AsTypeName.Type.IsEnumMember)
                 {
-
+                    //TODO: What if enum member is in an external type library?
                     returnType = $"{this.Member.AsTypeName.Type.Project.Name}.{this.Member.AsTypeName.TypeName}";
                 }
                 else

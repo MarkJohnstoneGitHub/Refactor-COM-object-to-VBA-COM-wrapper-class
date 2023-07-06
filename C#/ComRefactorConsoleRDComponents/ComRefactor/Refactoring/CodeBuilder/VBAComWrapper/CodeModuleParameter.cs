@@ -21,8 +21,12 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                     }
                     else
                     {
-                        return _parameter.TypeName;
+                       return $"{_parameter.Project.Name}.{_parameter.TypeName}";
                     }
+                }
+                else if (this._parameter.Type.IsEnumMember)
+                {
+                    return $"{_parameter.Project.Name}.{_parameter.TypeName}";
                 }
                 else
                 {
