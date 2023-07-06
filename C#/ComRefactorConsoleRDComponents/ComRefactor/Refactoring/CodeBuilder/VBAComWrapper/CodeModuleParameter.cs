@@ -16,17 +16,16 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 {
                     if (_parameter.Type.DispatchGuid == _parentMember.Member.Parent.Guid)
                     {
-                        return $"{_parentMember.ModuleName}{(_parameter.IsArray ? "()" : string.Empty)}";
+                        return _parentMember.ModuleName;
                     }
                     else
                     {
-                        //TODO: Eg. convert ITimeSpan to TimeSpan?
-                        return $"{_parameter.TypeName}{(_parameter.IsArray ? "()" : string.Empty)}";
+                        return _parameter.TypeName;
                     }
                 }
                 else
                 {
-                    return $"{_parameter.TypeName}{(_parameter.IsArray ? "()" : string.Empty)}";
+                    return _parameter.TypeName;
                 }
             }
         }
@@ -44,7 +43,7 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         //Test for if _parameter.IsArrray
         public override string ToString()
         {
-            return  $"{(_parameter.IsOptional ? "Optional " : string.Empty)}{(_parameter.IsByRef ? "ByRef" : "ByVal")} {_parameter.Name} As {this.Name}{(_parameter.IsOptional && _parameter.DefaultValue != null ? " = " : string.Empty)}{(_parameter.IsOptional && _parameter.DefaultValue != null ? _parameter.Type.IsEnumMember ? _parameter.DefaultAsEnum : _parameter.DefaultValue : string.Empty)}";
+            return  $"{(_parameter.IsOptional ? "Optional " : string.Empty)}{(_parameter.IsByRef ? "ByRef" : "ByVal")} {_parameter.Name}{(_parameter.IsArray ? "()" : string.Empty)} As {this.Name}{(_parameter.IsOptional && _parameter.DefaultValue != null ? " = " : string.Empty)}{(_parameter.IsOptional && _parameter.DefaultValue != null ? _parameter.Type.IsEnumMember ? _parameter.DefaultAsEnum : _parameter.DefaultValue : string.Empty)}";
         }
 
     }
