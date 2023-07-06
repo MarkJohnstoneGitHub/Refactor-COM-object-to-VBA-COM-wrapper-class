@@ -242,8 +242,8 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                             if (implementedInterface.Count() == 1)
                             {
                                 //TODO : Issue using qualified name and variable name
-                                //returnType = $"{this.Member.AsTypeName.Type.Project.Name}.{implementedInterface.First().Name}"; //qualified name of IDispatch object
-                                returnType = $"{implementedInterface.First().Name}";
+                                returnType = $"{this.Member.AsTypeName.Type.Project.Name}.{implementedInterface.First().Name}"; //qualified name of IDispatch object
+                                //returnType = $"{implementedInterface.First().Name}";
                             }
                             else
                             {
@@ -251,6 +251,11 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                             }
                         }
                     }
+                }
+                else if (this.Member.AsTypeName.Type.IsEnumMember)
+                {
+
+                    returnType = $"{this.Member.AsTypeName.Type.Project.Name}.{this.Member.AsTypeName.TypeName}";
                 }
                 else
                 {

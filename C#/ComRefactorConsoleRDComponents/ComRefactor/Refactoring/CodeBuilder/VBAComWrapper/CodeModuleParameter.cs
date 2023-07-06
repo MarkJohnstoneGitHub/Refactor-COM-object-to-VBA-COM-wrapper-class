@@ -11,9 +11,10 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         {
             get
             {
-                //if parameter name equals coClassName rename to module name, module maybe the coClass.Name or a new module name
+
                 if (_parameter.Type.IsDispatch)
                 {
+                    //if parameter name equals coClassName rename to module name, module maybe the coClass.Name or a new module name
                     if (_parameter.Type.DispatchGuid == _parentMember.Member.Parent.Guid)
                     {
                         return _parentMember.ModuleName;

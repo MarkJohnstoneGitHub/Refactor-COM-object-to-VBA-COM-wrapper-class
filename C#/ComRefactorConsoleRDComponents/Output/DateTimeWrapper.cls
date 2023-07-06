@@ -110,7 +110,7 @@ Attribute Day.VB_Description = "Gets the day of the month represented by this in
 End Property
 
 '@Description("Gets the day of the week represented by this instance.")
-Public Property Get DayOfWeek() As DayOfWeek
+Public Property Get DayOfWeek() As DotNetLib.DayOfWeek
 Attribute DayOfWeek.VB_Description = "Gets the day of the week represented by this instance."
    DayOfWeek = this.DotNetLibDateTime.DayOfWeek()
 End Property
@@ -128,7 +128,7 @@ Attribute Hour.VB_Description = "Gets the hour component of the date represented
 End Property
 
 '@Description("Gets a value that indicates whether the time represented by this instance is based on local time, Coordinated Universal Time (UTC), or neither.")
-Public Property Get Kind() As DateTimeKind
+Public Property Get Kind() As DotNetLib.DateTimeKind
 Attribute Kind.VB_Description = "Gets a value that indicates whether the time represented by this instance is based on local time, Coordinated Universal Time (UTC), or neither."
    Kind = this.DotNetLibDateTime.kind()
 End Property
@@ -173,7 +173,7 @@ Attribute Ticks.VB_Description = "Gets the number of ticks that represent the da
 End Property
 
 '@Description("Gets the time of day for this instance.")
-Public Property Get TimeOfDay() As TimeSpan
+Public Property Get TimeOfDay() As DotNetLib.TimeSpan
 Attribute TimeOfDay.VB_Description = "Gets the time of day for this instance."
    Set TimeOfDay  = this.DotNetLibDateTime.TimeOfDay()
 End Property
@@ -452,7 +452,7 @@ Attribute Subtract.VB_Description = "Returns a new DateTime that subtracts the s
 End Function
 
 '@Description("Returns a new TimeSpan that subtracts the specified date and time from the value of this instance.")
-Public Function Subtract2(ByRef value As DateTimeWrapper) As TimeSpan
+Public Function Subtract2(ByRef value As DateTimeWrapper) As DotNetLib.TimeSpan
 Attribute Subtract2.VB_Description = "Returns a new TimeSpan that subtracts the specified date and time from the value of this instance."
    Set Subtract2  = this.DotNetLibDateTime.Subtract2(value.ComObject)
 End Function
@@ -607,7 +607,7 @@ Attribute LessThanOrEqual.VB_Description = "Determines whether one specified Dat
 End Function
 
 '@Description("Subtracts a specified date and time from another specified date and time and returns a time interval.")
-Public Function Subtraction(ByRef d1 As DateTimeWrapper, ByRef d2 As DateTimeWrapper) As TimeSpan
+Public Function Subtraction(ByRef d1 As DateTimeWrapper, ByRef d2 As DateTimeWrapper) As DotNetLib.TimeSpan
 Attribute Subtraction.VB_Description = "Subtracts a specified date and time from another specified date and time and returns a time interval."
    Set Subtraction  = this.DotNetLibDateTime.Subtraction(d1.ComObject, d2.ComObject)
 End Function
