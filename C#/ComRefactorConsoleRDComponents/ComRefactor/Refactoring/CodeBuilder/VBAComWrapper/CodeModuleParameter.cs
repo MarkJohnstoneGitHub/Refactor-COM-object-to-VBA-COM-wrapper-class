@@ -30,8 +30,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
             }
         }
 
-
-        //require parent method info for a parameter
         public CodeModuleParameter(CodeModuleMember parentMember,ComParameter parameter)
         {
             _parentMember = parentMember;
@@ -39,8 +37,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 
         }
 
-        //From ComParameter DeclarationName required to add public property Type to ComParameter to access required properties.
-        //Test for if _parameter.IsArrray
         public override string ToString()
         {
             return  $"{(_parameter.IsOptional ? "Optional " : string.Empty)}{(_parameter.IsByRef ? "ByRef" : "ByVal")} {_parameter.Name}{(_parameter.IsArray ? "()" : string.Empty)} As {this.Name}{(_parameter.IsOptional && _parameter.DefaultValue != null ? " = " : string.Empty)}{(_parameter.IsOptional && _parameter.DefaultValue != null ? _parameter.Type.IsEnumMember ? _parameter.DefaultAsEnum : _parameter.DefaultValue : string.Empty)}";
