@@ -105,7 +105,7 @@ Public Function Compare(ByRef t1 As DateTime, ByRef t2 As DateTime) As Long
    Compare = this.DotNetLibDateTime.Compare(t1.ComObject, t2.ComObject)
 End Function
 ```
-
+  - For parameters and return types for references require qualified name.  eg DotNetLib.TimeSpan 
   - Parameters for object being wrapped displayed as interface of the object. Eg. ITimeSpan
      - Issue addressed, require to preferrable use qualified name
   - Return type not converted from interface to object
