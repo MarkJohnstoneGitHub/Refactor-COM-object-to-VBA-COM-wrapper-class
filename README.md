@@ -127,7 +127,7 @@ End Function
      - Possible requires refactoring with a GUID property and TYPEKIND replacing GUID property for each TYPEKIND?
      - See [ComParameter](https://github.com/rubberduck-vba/Rubberduck/blob/next/Rubberduck.Parsing/ComReflection/ComParameter.cs)
   
-Overall preforming resonable well with an outstanding isssues: 
+Overall preforming resonable well with outstanding isssues: 
 -   Member names using reserved words. Eg. ``` Public Property Get Date() As DateTimeWrapper ```
 -   Reference types for parameters and return types require qualified name (i.e. Interfaces, IDispatch, Enum) note if in external type library currently will not be found. Eg. DotNetLib.TimeSpan, DotNetLib.DateTimeKind 
 
