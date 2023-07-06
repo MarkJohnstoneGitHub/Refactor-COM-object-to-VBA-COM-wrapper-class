@@ -13,7 +13,6 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
         {
             get
             {
-
                 if (_parameter.Type.IsDispatch)
                 {
                     //if parameter name equals coClassName rename to module name, module maybe the coClass.Name or a new module name

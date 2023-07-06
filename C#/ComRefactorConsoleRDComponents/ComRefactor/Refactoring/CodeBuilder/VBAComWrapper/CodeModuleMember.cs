@@ -2,6 +2,7 @@
 using Rubberduck.Parsing.Symbols;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 
@@ -241,9 +242,15 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                         {
                             if (implementedInterface.Count() == 1)
                             {
-                                //TODO : Issue using qualified name and variable name
-                                returnType = $"{this.Member.AsTypeName.Type.Project.Name}.{implementedInterface.First().Name}"; //qualified name of IDispatch object
-                                //returnType = $"{implementedInterface.First().Name}";
+
+                                if (ComProject.KnownTypes.TryGetValue(this.Member.AsTypeName.Type.DispatchGuid, out var type))
+                                {
+                                    returnType = $"{this.Member.AsTypeName.Type.Project.Name}.{implementedInterface.First().Name}"; //qualified name of IDispatch object
+                                }
+                                else
+                                {
+                                    returnType = implementedInterface.First().Name;
+                                }
                             }
                             else
                             {
@@ -254,8 +261,14 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
                 }
                 else if (this.Member.AsTypeName.Type.IsEnumMember)
                 {
-                    //TODO: What if enum member is in an external type library?
-                    returnType = $"{this.Member.AsTypeName.Type.Project.Name}.{this.Member.AsTypeName.TypeName}";
+                    if (ComProject.KnownTypes.TryGetValue(this.Member.AsTypeName.Type.EnumGuid, out var type))
+                    {
+                        returnType = $"{this.Member.AsTypeName.Type.Project.Name}.{this.Member.AsTypeName.TypeName}";
+                    }
+                    else
+                    {
+                        returnType = this.Member.AsTypeName.TypeName;
+                    }
                 }
                 else
                 {
