@@ -3,14 +3,16 @@ BEGIN
   MultiUse = -1  'True
 END
 Attribute VB_Name = "DateTimeWrapper"
-Attribute VB_Description = "Represents an instant in time, typically expressed as a date and time of day."
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
-Attribute VB_Exposed  = False
-
+Attribute VB_Exposed = False
+Attribute VB_Description = "Represents an instant in time, typically expressed as a date and time of day."
+'@Folder("DotNet.System")
 '@PredeclaredId
 '@ModuleDescription("Represents an instant in time, typically expressed as a date and time of day.")
+
+'https://learn.microsoft.com/en-us/dotnet/api/system.datetime?view=netframework-4.8.1
 
 Option Explicit
 
@@ -41,46 +43,46 @@ Friend Property Get Self() As DateTimeWrapper
 End Property
 
 '@Description("Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time.")
-Public Function CreateFromTicks(ByVal ticks As LongLong, Optional ByVal kind As DotNetLib.DateTimeKind = DateTimeKind_Unspecified) As DateTimeWrapper
+Public Function CreateFromTicks(ByVal Ticks As LongLong, Optional ByVal kind As DotNetLib.DateTimeKind = DateTimeKind_Unspecified) As DateTimeWrapper
 Attribute CreateFromTicks.VB_Description = "Initializes a new instance of the DateTime structure to a specified number of ticks and to Coordinated Universal Time (UTC) or local time."
    With New DateTimeWrapper
-      Set .ComObject = this.DotNetLibDateTime.CreateFromTicks(ticks, kind)
+      Set .ComObject = this.DotNetLibDateTime.CreateFromTicks(Ticks, kind)
       Set CreateFromTicks = .Self
    End With
 End Function
 
 '@Description("Initializes a new instance of the DateTime structure to the specified year, month, and day.")
-Public Function CreateFromDate(ByVal year As Long, ByVal month As Long, ByVal day As Long) As DateTimeWrapper
+Public Function CreateFromDate(ByVal year As Long, ByVal month As Long, ByVal Day As Long) As DateTimeWrapper
 Attribute CreateFromDate.VB_Description = "Initializes a new instance of the DateTime structure to the specified year, month, and day."
    With New DateTimeWrapper
-      Set .ComObject = this.DotNetLibDateTime.CreateFromDate(year, month, day)
+      Set .ComObject = this.DotNetLibDateTime.CreateFromDate(year, month, Day)
       Set CreateFromDate = .Self
    End With
 End Function
 
 '@Description("Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, and millisecond.")
-Public Function CreateFromDateTime(ByVal year As Long, ByVal month As Long, ByVal day As Long, ByVal hour As Long, ByVal minute As Long, ByVal second As Long, Optional ByVal millisecond As Long = 0) As DateTimeWrapper
+Public Function CreateFromDateTime(ByVal year As Long, ByVal month As Long, ByVal Day As Long, ByVal Hour As Long, ByVal Minute As Long, ByVal Second As Long, Optional ByVal Millisecond As Long = 0) As DateTimeWrapper
 Attribute CreateFromDateTime.VB_Description = "Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, and millisecond."
    With New DateTimeWrapper
-      Set .ComObject = this.DotNetLibDateTime.CreateFromDateTime(year, month, day, hour, minute, second, millisecond)
+      Set .ComObject = this.DotNetLibDateTime.CreateFromDateTime(year, month, Day, Hour, Minute, Second, Millisecond)
       Set CreateFromDateTime = .Self
    End With
 End Function
 
 '@Description("Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, and Coordinated Universal Time (UTC) or local time.")
-Public Function CreateFromDateTimeKind(ByVal year As Long, ByVal month As Long, ByVal day As Long, ByVal hour As Long, ByVal minute As Long, ByVal second As Long, ByVal kind As DotNetLib.DateTimeKind) As DateTimeWrapper
+Public Function CreateFromDateTimeKind(ByVal year As Long, ByVal month As Long, ByVal Day As Long, ByVal Hour As Long, ByVal Minute As Long, ByVal Second As Long, ByVal kind As DotNetLib.DateTimeKind) As DateTimeWrapper
 Attribute CreateFromDateTimeKind.VB_Description = "Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, and Coordinated Universal Time (UTC) or local time."
    With New DateTimeWrapper
-      Set .ComObject = this.DotNetLibDateTime.CreateFromDateTimeKind(year, month, day, hour, minute, second, kind)
+      Set .ComObject = this.DotNetLibDateTime.CreateFromDateTimeKind(year, month, Day, Hour, Minute, Second, kind)
       Set CreateFromDateTimeKind = .Self
    End With
 End Function
 
 '@Description("Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, millisecond, and Coordinated Universal Time (UTC) or local time.")
-Public Function CreateFromDateTimeKind2(ByVal year As Long, ByVal month As Long, ByVal day As Long, ByVal hour As Long, ByVal minute As Long, ByVal second As Long, ByVal millisecond As Long, ByVal kind As DotNetLib.DateTimeKind) As DateTimeWrapper
+Public Function CreateFromDateTimeKind2(ByVal year As Long, ByVal month As Long, ByVal Day As Long, ByVal Hour As Long, ByVal Minute As Long, ByVal Second As Long, ByVal Millisecond As Long, ByVal kind As DotNetLib.DateTimeKind) As DateTimeWrapper
 Attribute CreateFromDateTimeKind2.VB_Description = "Initializes a new instance of the DateTime structure to the specified year, month, day, hour, minute, second, millisecond, and Coordinated Universal Time (UTC) or local time."
    With New DateTimeWrapper
-      Set .ComObject = this.DotNetLibDateTime.CreateFromDateTimeKind2(year, month, day, hour, minute, second, millisecond, kind)
+      Set .ComObject = this.DotNetLibDateTime.CreateFromDateTimeKind2(year, month, Day, Hour, Minute, Second, Millisecond, kind)
       Set CreateFromDateTimeKind2 = .Self
    End With
 End Function
@@ -88,34 +90,27 @@ End Function
 '@Description("Represents the largest possible value of DateTime. This field is read-only.")
 Public Property Get MaxValue() As DateTimeWrapper
 Attribute MaxValue.VB_Description = "Represents the largest possible value of DateTime. This field is read-only."
-   With New DateTimeWrapper
-      Set .ComObject = this.DotNetLibDateTime.MaxValue()
-      Set MaxValue = .Self
-   End With
+    Set MaxValue = DateTimeStatic.MaxValue
 End Property
 
 '@Description("Represents the smallest possible value of DateTime. This field is read-only.")
 Public Property Get MinValue() As DateTimeWrapper
 Attribute MinValue.VB_Description = "Represents the smallest possible value of DateTime. This field is read-only."
-   With New DateTimeWrapper
-      Set .ComObject = this.DotNetLibDateTime.MinValue()
-      Set MinValue = .Self
-   End With
+    Set MinValue = DateTimeStatic.MinValue
 End Property
 
 '@Description("Gets the date component of this instance.")
-Public Property Get Date() As DateTimeWrapper
-Attribute Date.VB_Description = "Gets the date component of this instance."
+Public Property Get DateComponent() As DateTimeWrapper
    With New DateTimeWrapper
       Set .ComObject = this.DotNetLibDateTime.Date()
-      Set Date = .Self
+      Set DateComponent = .Self
    End With
 End Property
 
 '@Description("Gets the day of the month represented by this instance.")
 Public Property Get Day() As Long
 Attribute Day.VB_Description = "Gets the day of the month represented by this instance."
-   Day = this.DotNetLibDateTime.day()
+   Day = this.DotNetLibDateTime.Day()
 End Property
 
 '@Description("Gets the day of the week represented by this instance.")
@@ -133,31 +128,31 @@ End Property
 '@Description("Gets the hour component of the date represented by this instance.")
 Public Property Get Hour() As Long
 Attribute Hour.VB_Description = "Gets the hour component of the date represented by this instance."
-   Hour = this.DotNetLibDateTime.hour()
+   Hour = this.DotNetLibDateTime.Hour()
 End Property
 
 '@Description("Gets a value that indicates whether the time represented by this instance is based on local time, Coordinated Universal Time (UTC), or neither.")
-Public Property Get Kind() As DotNetLib.DateTimeKind
-Attribute Kind.VB_Description = "Gets a value that indicates whether the time represented by this instance is based on local time, Coordinated Universal Time (UTC), or neither."
-   Kind = this.DotNetLibDateTime.kind()
+Public Property Get kind() As DotNetLib.DateTimeKind
+Attribute kind.VB_Description = "Gets a value that indicates whether the time represented by this instance is based on local time, Coordinated Universal Time (UTC), or neither."
+   kind = this.DotNetLibDateTime.kind()
 End Property
 
 '@Description("Gets the milliseconds component of the date represented by this instance.")
 Public Property Get Millisecond() As Long
 Attribute Millisecond.VB_Description = "Gets the milliseconds component of the date represented by this instance."
-   Millisecond = this.DotNetLibDateTime.millisecond()
+   Millisecond = this.DotNetLibDateTime.Millisecond()
 End Property
 
 '@Description("Gets the minute component of the date represented by this instance.")
 Public Property Get Minute() As Long
 Attribute Minute.VB_Description = "Gets the minute component of the date represented by this instance."
-   Minute = this.DotNetLibDateTime.minute()
+   Minute = this.DotNetLibDateTime.Minute()
 End Property
 
 '@Description("Gets the month component of the date represented by this instance.")
-Public Property Get Month() As Long
-Attribute Month.VB_Description = "Gets the month component of the date represented by this instance."
-   Month = this.DotNetLibDateTime.month()
+Public Property Get month() As Long
+Attribute month.VB_Description = "Gets the month component of the date represented by this instance."
+   month = this.DotNetLibDateTime.month()
 End Property
 
 '@Description("Gets a DateTime object that is set to the current date and time on this computer, expressed as the local time.")
@@ -172,19 +167,19 @@ End Property
 '@Description("Gets the seconds component of the date represented by this instance.")
 Public Property Get Second() As Long
 Attribute Second.VB_Description = "Gets the seconds component of the date represented by this instance."
-   Second = this.DotNetLibDateTime.second()
+   Second = this.DotNetLibDateTime.Second()
 End Property
 
 '@Description("Gets the number of ticks that represent the date and time of this instance.")
 Public Property Get Ticks() As LongLong
 Attribute Ticks.VB_Description = "Gets the number of ticks that represent the date and time of this instance."
-   Ticks = this.DotNetLibDateTime.ticks()
+   Ticks = this.DotNetLibDateTime.Ticks()
 End Property
 
 '@Description("Gets the time of day for this instance.")
 Public Property Get TimeOfDay() As DotNetLib.TimeSpan
 Attribute TimeOfDay.VB_Description = "Gets the time of day for this instance."
-   Set TimeOfDay  = this.DotNetLibDateTime.TimeOfDay()
+   Set TimeOfDay = this.DotNetLibDateTime.TimeOfDay()
 End Property
 
 '@Description("Gets the current date.")
@@ -206,9 +201,9 @@ Attribute UtcNow.VB_Description = "Gets a DateTime object that is set to the cur
 End Property
 
 '@Description("Gets the year component of the date represented by this instance.")
-Public Property Get Year() As Long
-Attribute Year.VB_Description = "Gets the year component of the date represented by this instance."
-   Year = this.DotNetLibDateTime.year()
+Public Property Get year() As Long
+Attribute year.VB_Description = "Gets the year component of the date represented by this instance."
+   year = this.DotNetLibDateTime.year()
 End Property
 
 '@Description("Returns a new DateTime that adds the value of the specified TimeSpan to the value of this instance.")
@@ -463,7 +458,7 @@ End Function
 '@Description("Returns a new TimeSpan that subtracts the specified date and time from the value of this instance.")
 Public Function Subtract2(ByRef value As DateTimeWrapper) As DotNetLib.TimeSpan
 Attribute Subtract2.VB_Description = "Returns a new TimeSpan that subtracts the specified date and time from the value of this instance."
-   Set Subtract2  = this.DotNetLibDateTime.Subtract2(value.ComObject)
+   Set Subtract2 = this.DotNetLibDateTime.Subtract2(value.ComObject)
 End Function
 
 '@Description("Serializes the current DateTime object to a 64-bit binary value that subsequently can be used to recreate the DateTime object.")
@@ -618,7 +613,7 @@ End Function
 '@Description("Subtracts a specified date and time from another specified date and time and returns a time interval.")
 Public Function Subtraction(ByRef d1 As DateTimeWrapper, ByRef d2 As DateTimeWrapper) As DotNetLib.TimeSpan
 Attribute Subtraction.VB_Description = "Subtracts a specified date and time from another specified date and time and returns a time interval."
-   Set Subtraction  = this.DotNetLibDateTime.Subtraction(d1.ComObject, d2.ComObject)
+   Set Subtraction = this.DotNetLibDateTime.Subtraction(d1.ComObject, d2.ComObject)
 End Function
 
 '@Description("Subtracts a specified time interval from a specified date and time and returns a new date and time.")
