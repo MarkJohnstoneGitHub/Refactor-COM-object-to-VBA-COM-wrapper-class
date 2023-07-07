@@ -13,26 +13,25 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Type TDateTimeStatic
-    MaxValue As DateTimeWrapper
-    MinValue As DateTimeWrapper
+    MaxValue As DateTime
+    MinValue As DateTime
 End Type
 
 Private this As TDateTimeStatic
 
 Private Sub Class_Initialize()
-    Set this.MaxValue = New DateTimeWrapper
-    Set this.MaxValue.ComObject = DateTimeWrapper.ComObject.MaxValue
+    Set this.MaxValue = New DateTime
+    Set this.MaxValue.ComObject = DateTime.ComObject.MaxValue
     
-    Set this.MinValue = New DateTimeWrapper
-    Set this.MinValue.ComObject = DateTimeWrapper.ComObject.MinValue
+    Set this.MinValue = New DateTime
+    Set this.MinValue.ComObject = DateTime.ComObject.MinValue
 End Sub
 
-Public Property Get MaxValue() As DateTimeWrapper
+Public Property Get MaxValue() As DateTime
     Set MaxValue = this.MaxValue
 End Property
 
-Public Property Get MinValue() As DateTimeWrapper
+Public Property Get MinValue() As DateTime
     Set MinValue = this.MinValue
 End Property
-
 

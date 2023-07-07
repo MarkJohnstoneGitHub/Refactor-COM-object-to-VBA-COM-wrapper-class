@@ -20,7 +20,6 @@ Attribute VB_Exposed = False
 ' containing translations or method convert to another language?
 ' Would require Class_Initialize() to populate a language array for DateTimeKind from a resource file?
 
-
 Option Explicit
 
 '@DefaultMember
