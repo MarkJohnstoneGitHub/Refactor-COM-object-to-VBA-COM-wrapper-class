@@ -2,7 +2,6 @@
 using Rubberduck.Parsing.Symbols;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Text;
 
@@ -10,39 +9,11 @@ namespace ComRefactor.Refactoring.CodeBuilder.VBA
 {
 
     // TODO : Issue with method names using VBA reserved words
+    // https://www.engram9.info/access-2007-vba/reserved-word-list.html
     // TODO : Issue with Com method names in Lowercase quickfix done
-    // TODO : Issue for interface being used when referring to the current Com Object being implemented
-    //  To replace interface with implementing object for the Com object being wrapped check against its default interface
-    //  For other objects would require to find implementing object in the Com Libary and/or external libraries?
-    //  require a list of ComClass Names, default interface and if interface is implemented by multiple objects?
-    //  If interface has multiple implementations??? Use interface or if implementation not found.
-    //  Eg. IFormatProvider used  in DotNetLib.ToString3(ByRef provider As IFormatProvider) As String
-    //  IFormatProvider to stay as is as has multiple implementations contained in mscorlib
-    //  eg  CultureInfo : ICloneable, IFormatProvider implements IFormatProvider
-    // https://learn.microsoft.com/en-us/dotnet/api/system.iformatprovider.getformat?view=netframework-4.8.1
-    // Maybe check if not in list of default implementation use interface reference?
-    // Easiest way to fully implementedInterface wrapping a Com Object would require access to any external type libraries referenced?
-    // Usually would be in the same type libary?
-    // Maybe could be VBA
-    // Or for DotNetLib \Windows\Microsoft.NET\Framework64\v4.0.30319\mscorlib.tlb
-    // ComBase has parent property. 
-    // See ComCoClass might be enumerable lists that might help or ComProject ??
-    //    TypeLibTypeFlags
-    //    Indicates that the interface derives from IDispatch, either directly or indirectly.
-    //    FDispatchable = 0x1000,
-
-    // If TKIND_INTERFACE then inface and get implementation object name and or qualifier name?
-
     // https://stackoverflow.com/questions/45063037/find-dependent-type-libraries-in-typelib-file-through-code
     // ITypeInfo::GetContainingTypeLib
     // https://stackoverflow.com/a/45090861 
-
-
-    // TODO : Check for parameters and return type equal to ComCoClass default interface
-    // eg. 
-    // TODO : Issue missing Function As clause
-
-    // https://www.engram9.info/access-2007-vba/reserved-word-list.html
 
     public class CodeModuleMember
     {
