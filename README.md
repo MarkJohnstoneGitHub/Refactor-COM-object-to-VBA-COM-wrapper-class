@@ -95,7 +95,10 @@ Any custom error handling required to be done manually and/or extending the VBA 
 - Issues
   - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
        - Currently low priority to fix, manually fix by renaming member to DateComponent
-       - EG. ``` Public Property Get Date() As DateTime ```  
+       - EG. ``` Public Property Get Date() As DateTime ```
+  - Parameter names using VBA reserved words.
+       -  DotNetLib.TimeSpan parameter input is a reserved word
+       -  ```Public Function Parse2(ByVal input As String, ByRef formatProvider As IFormatProvider) As TimeSpan  ```
   - When wrapping the COM object in members where parameters are the object being wrapped. (Fixed)
 
 Expected Ouput
