@@ -9,7 +9,7 @@ From a type library obtain the COM object required to implement a VBA COM wrappe
 
 - Utilizing [Rubberduck ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection) COM TypeLib wrappers
 
-For testing using [DotNetLib.tlb](https://github.com/MarkJohnstoneGitHub/DotNetLib/blob/main/bin/Release/DotNetLib.tlb) for the COM object selected DateTime 
+For testing using [DotNetLib.tlb](DotNetLib.tlb type library](https://github.com/MarkJohnstoneGitHub/VBA-DotNetLib/tree/main/COMDotNetLib/bin/Release) for the COM object selected DateTime 
 
 Sample output: [DateTimeWrapper.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTimeWrapper.cls)
 
