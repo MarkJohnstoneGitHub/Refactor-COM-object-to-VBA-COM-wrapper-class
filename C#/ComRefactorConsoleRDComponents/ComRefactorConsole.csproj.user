@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>"H:\Users\Me\source\repos\DotNetLib\bin\release\DotNetLib.tlb" "DateTime" "H:\Users\Me\source\repos\Refactor-COM-object\Refactor-COM-object-to-VBA-COM-wrapper-class\C#\ComRefactorConsoleRDComponents\Output\DateTimeWrapper.cls" "DateTimeWrapper" True</StartArguments>
+    <StartArguments>"H:\Users\Me\source\repos\DotNetLib\COMDotNetLib\bin\Release\DotNetLib.tlb" "DateTime" "H:\Users\Me\source\repos\Refactor-COM-object\Refactor-COM-object-to-VBA-COM-wrapper-class\C#\ComRefactorConsoleRDComponents\Output\DateTime.cls" "DateTime" True</StartArguments>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
 </Project>
