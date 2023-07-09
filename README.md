@@ -9,7 +9,7 @@ From a type library obtain the COM object required to implement a VBA COM wrappe
 
 - Utilizing [Rubberduck ComReflection](https://github.com/rubberduck-vba/Rubberduck/tree/next/Rubberduck.Parsing/ComReflection) COM TypeLib wrappers
 
-For testing using [DotNetLib.tlb](https://github.com/MarkJohnstoneGitHub/DotNetLib/blob/main/bin/Release/DotNetLib.tlb) for the COM object selected DateTime 
+For testing using [DotNetLib.tlb](https://github.com/MarkJohnstoneGitHub/VBA-DotNetLib/tree/main/COMDotNetLib/bin/Release) for the COM object selected DateTime 
 
 Sample output: [DateTimeWrapper.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTimeWrapper.cls)
 
@@ -95,7 +95,10 @@ Any custom error handling required to be done manually and/or extending the VBA 
 - Issues
   - Member names using reserved VBA words. Eg. Date see: DotNetLib.DateTime.Date method
        - Currently low priority to fix, manually fix by renaming member to DateComponent
-       - EG. ``` Public Property Get Date() As DateTime ```  
+       - EG. ``` Public Property Get Date() As DateTime ```
+  - Parameter names using VBA reserved words.
+       -  DotNetLib.TimeSpan parameter input is a reserved word
+       -  ```Public Function Parse2(ByVal input As String, ByRef formatProvider As IFormatProvider) As TimeSpan  ```
   - When wrapping the COM object in members where parameters are the object being wrapped. (Fixed)
 
 Expected Ouput
