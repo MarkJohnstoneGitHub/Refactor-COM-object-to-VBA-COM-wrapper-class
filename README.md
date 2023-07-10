@@ -99,6 +99,7 @@ Any custom error handling required to be done manually and/or extending the VBA 
   - Parameter names using VBA reserved words.
        -  DotNetLib.TimeSpan parameter input is a reserved word
        -  ```Public Function Parse2(ByVal input As String, ByRef formatProvider As IFormatProvider) As TimeSpan  ```
+  - Returning array of objects error using set which isn't required.
   - When wrapping the COM object in members where parameters are the object being wrapped. (Fixed)
 
 Expected Ouput
