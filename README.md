@@ -11,7 +11,7 @@ From a type library obtain the COM object required to implement a VBA COM wrappe
 
 For testing using [DotNetLib.tlb](https://github.com/MarkJohnstoneGitHub/VBA-DotNetLib/tree/main/COMDotNetLib/bin/Release) for the COM object selected DateTime 
 
-Sample output: [DateTimeWrapper.cls](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/blob/main/C%23/ComRefactorConsoleRDComponents/Output/DateTimeWrapper.cls)
+Sample [Output](https://github.com/MarkJohnstoneGitHub/Refactor-COM-object-to-VBA-COM-wrapper-class/tree/main/C%23/ComRefactorConsoleRDComponents/Output)
 
 
 **Development:**
