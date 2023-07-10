@@ -100,6 +100,7 @@ Any custom error handling required to be done manually and/or extending the VBA 
        -  DotNetLib.TimeSpan parameter input is a reserved word
        -  ```Public Function Parse2(ByVal input As String, ByRef formatProvider As IFormatProvider) As TimeSpan  ```
   - Returning array of objects error using set which isn't required.
+       - Eg. TimeZoneInfo.GetAmbiguousTimeOffsets ```Set GetAmbiguousTimeOffsets = this.DotNetLibTimeZoneInfo.GetAmbiguousTimeOffsets(DateTime)```
   - When wrapping the COM object in members where parameters are the object being wrapped. (Fixed)
 
 Expected Ouput
