@@ -102,6 +102,7 @@ Any custom error handling required to be done manually and/or extending the VBA 
   - Returning array of objects error using set which isn't required.
        - Eg. TimeZoneInfo.GetAmbiguousTimeOffsets ```Set GetAmbiguousTimeOffsets = this.DotNetLibTimeZoneInfo.GetAmbiguousTimeOffsets(DateTime)```
   - When wrapping the COM object in members where parameters are the object being wrapped. (Fixed)
+  - Parameters for objects are ByRef when should be ByVal unless it's an out parameter. Requires further investigation.
 
 Expected Ouput
 
